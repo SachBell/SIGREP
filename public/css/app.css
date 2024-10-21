@@ -1,0 +1,11 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.5em;
+}
+
+footer {
+    height: 250px;
+}
