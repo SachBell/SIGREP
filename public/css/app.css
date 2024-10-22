@@ -3,7 +3,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2.5em;
+}
+
+main {
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
 }
 
 footer {
