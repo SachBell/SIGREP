@@ -5,7 +5,7 @@ require '../../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
     
-$file = '../../DataBase/estidiantes.xlsx';
+$file = '../../DataBase/db_practias_estudiantes.xlsx';
 $entitySelected = $_POST['entity_input'];
 $names_input = $_POST['names_input'];
 $lastnames_input = $_POST['lastnames_input'];
@@ -39,14 +39,24 @@ $sheet = $spreadsheet->getActiveSheet();
 
 // Verificar si la entidad ya fue Seleccionada
 $lastRow = $sheet->getHighestRow();
+$count = 0;
 for ($row = 2; $row <= $lastRow; $row++) { 
     $entity = $sheet->getCell("I$row")->getValue();
+
+    // Contar cuántas veces la entidad ha sido seleccionada
+
     if ($entity === $entitySelected) {
-        // Redirigir de nuevo al formulario con un mensaje de éxito en la URL
-        $mensaje = "La entidad ya ha sido sleccionada.";
-        header("Location: /?mensaje=" . urlencode($mensaje));
-        exit;
+        // Contador de entidad
+        $count++;
     }
+}
+
+// Verificamos si la entidad ya ha alcanzado el límite de 5 personas
+if ($count >= 5) {
+    // Redirigir de nuevo al formulario con un mensaje de éxito en la URL
+    $mensaje = "La entidad ya ha sido sleccionada.";
+    header("Location: /?mensaje=" . urlencode($mensaje));
+    exit;
 }
 
 // Añadir los datos del estudiante a una nueva fila
