@@ -14,7 +14,6 @@ $ci_input = $_POST['ci_input'];
 $email_input = $_POST['email_input'];
 $celNumber_input = $_POST['celNumber_input'];
 $addressCity_input = $_POST['addressCity_input'];
-$quadrant_input = $_POST['quadrant_input'];
 $neighborhood_input = $_POST['neighborhood_input'];
 $semester_input = $_POST['semester_input'];
 $grade_input = $_POST['grade_input'];
@@ -33,13 +32,12 @@ if (file_exists($file)) {
     $sheet->setCellValue('C1', 'Cédula de Identificación');
     $sheet->setCellValue('D1', 'Número Celular');
     $sheet->setCellValue('E1', 'Dirección de Domicilio');
-    $sheet->setCellValue('F1', 'Sector (Norte, Sur, Valle, etc)');
-    $sheet->setCellValue('G1', 'Barrio');
-    $sheet->setCellValue('H1', 'Semestre Que Va a Cursar 2024 I');
-    $sheet->setCellValue('I1', 'Paralelo (A, B, C, D)');
-    $sheet->setCellValue('J1', 'Jornada (Vespertina, Nocturna)');
-    $sheet->setCellValue('K1', 'Institución');
-    $sheet->setCellValue('L1', 'Dirección');
+    $sheet->setCellValue('F1', 'Barrio');
+    $sheet->setCellValue('G1', 'Semestre Que Va a Cursar 2024 I');
+    $sheet->setCellValue('H1', 'Paralelo (A, B, C, D)');
+    $sheet->setCellValue('I1', 'Jornada (Vespertina, Nocturna)');
+    $sheet->setCellValue('J1', 'Institución');
+    $sheet->setCellValue('K1', 'Dirección');
 }
 
 
@@ -49,7 +47,7 @@ $sheet = $spreadsheet->getActiveSheet();
 $lastRow = $sheet->getHighestRow();
 $count = 0;
 for ($row = 2; $row <= $lastRow; $row++) { 
-    $entity = $sheet->getCell("I$row")->getValue();
+    $entity = $sheet->getCell("J$row")->getValue();
 
     // Contar cuántas veces la entidad ha sido seleccionada
 
@@ -77,13 +75,12 @@ $sheet->setCellValue("B$newRow", $email_input);
 $sheet->setCellValue("C$newRow", $ci_input);
 $sheet->setCellValue("D$newRow", $celNumber_input);
 $sheet->setCellValue("E$newRow", $addressCity_input);
-$sheet->setCellValue("F$newRow", $quadrant_input);
-$sheet->setCellValue("G$newRow", $neighborhood_input);
-$sheet->setCellValue("H$newRow", $semester_input);
-$sheet->setCellValue("I$newRow", $grade_input);
-$sheet->setCellValue("J$newRow", $dayTrip_input);
-$sheet->setCellValue("K$newRow", $nombreEntidad);
-$sheet->setCellValue("L$newRow", $direccionEntidad);
+$sheet->setCellValue("F$newRow", $neighborhood_input);
+$sheet->setCellValue("G$newRow", $semester_input);
+$sheet->setCellValue("H$newRow", $grade_input);
+$sheet->setCellValue("I$newRow", $dayTrip_input);
+$sheet->setCellValue("J$newRow", $nombreEntidad);
+$sheet->setCellValue("K$newRow", $direccionEntidad);
 
 $writer = new Xlsx($spreadsheet);
 $writer->save($file);
