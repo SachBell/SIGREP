@@ -4,8 +4,9 @@ require '../../../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-    
+
 $file = '../../DataBase/db_practias_estudiantes.xlsx';
+
 $entitySelected = $_POST['entity_input'];
 $names_input = $_POST['names_input'];
 $lastnames_input = $_POST['lastnames_input'];
@@ -16,6 +17,10 @@ $addressCity_input = $_POST['addressCity_input'];
 $quadrant_input = $_POST['quadrant_input'];
 $neighborhood_input = $_POST['neighborhood_input'];
 $semester_input = $_POST['semester_input'];
+$grade_input = $_POST['grade_input'];
+$dayTrip_input = $_POST['dayTrip_input'];
+
+list($nombreEntidad, $direccionEntidad) = explode('|', $entitySelected);
 
 if (file_exists($file)) {
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
@@ -31,12 +36,15 @@ if (file_exists($file)) {
     $sheet->setCellValue('F1', 'Sector (Norte, Sur, Valle, etc)');
     $sheet->setCellValue('G1', 'Barrio');
     $sheet->setCellValue('H1', 'Semestre Que Va a Cursar 2024 I');
-    $sheet->setCellValue('I1', 'Entidad');
+    $sheet->setCellValue('I1', 'Paralelo (A, B, C, D)');
+    $sheet->setCellValue('J1', 'Jornada (Vespertina, Nocturna)');
+    $sheet->setCellValue('K1', 'Institución');
+    $sheet->setCellValue('L1', 'Dirección');
 }
+
 
 // Obtener la hoja Activa
 $sheet = $spreadsheet->getActiveSheet();
-
 // Verificar si la entidad ya fue Seleccionada
 $lastRow = $sheet->getHighestRow();
 $count = 0;
@@ -45,7 +53,7 @@ for ($row = 2; $row <= $lastRow; $row++) {
 
     // Contar cuántas veces la entidad ha sido seleccionada
 
-    if ($entity === $entitySelected) {
+    if ($entity === $nombreEntidad) {
         // Contador de entidad
         $count++;
     }
@@ -72,7 +80,10 @@ $sheet->setCellValue("E$newRow", $addressCity_input);
 $sheet->setCellValue("F$newRow", $quadrant_input);
 $sheet->setCellValue("G$newRow", $neighborhood_input);
 $sheet->setCellValue("H$newRow", $semester_input);
-$sheet->setCellValue("I$newRow", $entitySelected);
+$sheet->setCellValue("I$newRow", $grade_input);
+$sheet->setCellValue("J$newRow", $dayTrip_input);
+$sheet->setCellValue("K$newRow", $nombreEntidad);
+$sheet->setCellValue("L$newRow", $direccionEntidad);
 
 $writer = new Xlsx($spreadsheet);
 $writer->save($file);
