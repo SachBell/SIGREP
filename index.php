@@ -126,31 +126,25 @@
                                                 <input class="form-control" type="email" name="email_input"
                                                     placeholder="Correo" required>
                                             </div>
+                                        </div>
+                                        <div class="col-6">
                                             <!-- Dirección de Domicilio -->
-                                            <div class="container mt-2">
+                                            <div class="container mt-4">
                                                 <label class="form-label fs-5" for="addressCity_input">Domicilio</label>
                                                 <input class="form-control" type="text" name="addressCity_input"
                                                     placeholder="Dirección Domiciliaria" required>
                                             </div>
-                                        </div>
-                                        <div class="col-6">
                                             <!-- Barrio -->
-                                            <div class="container mt-4">
+                                            <div class="container mt-2">
                                                 <label class="form-label fs-5" for="neighborhood_input">Barrio</label>
                                                 <input class="form-control" type="text" name="neighborhood_input"
                                                     placeholder="Barrio" required>
-                                            </div>
-                                            <!-- Sector -->
-                                            <div class="container mt-2">
-                                                <label class="form-label fs-5" for="quadrant_input">Sector</label>
-                                                <input class="form-control" type="text" name="quadrant_input"
-                                                    placeholder="Sector" required>
                                             </div>
                                             <div class="container mt-2">
                                                 <!-- Semestre -->
                                                 <div class="mt-2">
                                                     <label class="form-label fs-5" for="semester_input">Semestre</label>
-                                                    <select class="form-select" name="semester_input" id="semester">
+                                                    <select class="form-select" name="semester_input" id="semester" required>
                                                         <option selected disabled>Elige tu Semestre</option>
                                                         <option value="Segundo">Segundo</option>
                                                         <option value="Tercero">Tercero</option>
@@ -161,7 +155,7 @@
                                                 <!-- Paralelo -->
                                                 <div class="pt-2">
                                                     <label class="form-label fs-5" for="grade_input">Paralelo</label>
-                                                    <select class="form-select" name="grade_input" id="grade">
+                                                    <select class="form-select" name="grade_input" id="grade" required>
                                                         <option selected disabled>Elige tu Semestre</option>
                                                         <option value="A">A</option>
                                                         <option value="B">B</option>
@@ -172,7 +166,7 @@
                                                 <!-- Jornada -->
                                                 <div class="pt-2">
                                                     <label class="form-label fs-5" for="dayTrip_input">Jornada</label>
-                                                    <select class="form-select" name="dayTrip_input" id="dayTrip">
+                                                    <select class="form-select" name="dayTrip_input" id="dayTrip" required>
                                                         <option selected disable>Elige tu Semestre</option>
                                                         <option value="Vespertina">Vespertina</option>
                                                         <option value="Nocturna">Nocturna</option>
@@ -191,11 +185,11 @@
                                     <!-- Entidad -->
                                     <div class="container">
                                         <label class="form-label fs-5" for="entity_input">Institución</label>
-                                        <select class="form-select" name="entity_input" id="entity">
+                                        <select class="form-select" name="entity_input" id="entity" required>
                                             <option selected disabled>Selecciona la Institución</option>
                                             <?php if(!empty($instituciones)): ?>
                                                 <?php foreach($instituciones as $institucion):?>
-                                                    <option value="<?php echo $institucion['name'] . '|' . $institucion['direccion']; ?>">
+                                                    <option value="<?php echo htmlspecialchars($institucion['name'] . '|' . $institucion['direccion']); ?>">
                                                         <?php echo $institucion['entityInfo']; ?>
                                                     </option>>
                                                 <?php endforeach;?>
