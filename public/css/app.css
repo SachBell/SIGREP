@@ -75,7 +75,6 @@ main form {
 }
 
 .description {
-    padding: 0 1.3em !important;
     text-align: justify !important;
 }
 
@@ -117,8 +116,7 @@ footer a:hover {
     }
 
     .description {
-        padding: 0 !important;
-        font-size: 1em !important;
+        font-size: 1.2em !important;
     }
 
     #loginForm {
@@ -133,7 +131,7 @@ footer a:hover {
     }
 
     .description {
-        font-size: 1.5em !important;
+        font-size: 1.2em !important;
     }
 }
 

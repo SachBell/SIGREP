@@ -21,11 +21,10 @@
             <div class="collapse navbar-collapse" id="navbaContetent">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item fs-5">
-                        <a class="nav-link active" href="/" aria-current="page">Inicio
-                            <span class="visually-hidden">(current)</span></a>
+                        <a class="nav-link" href="/" aria-current="page">Inicio</a>
                     </li>
                     <li class="nav-item fs-5">
-                        <a class="nav-link" href="/login">Log In</a>
+                        <a class="nav-link active" href="/" aria-current="page">Log In<span class="visually-hidden">(current)</span></a>
                     </li>
                 </ul>
             </div>
