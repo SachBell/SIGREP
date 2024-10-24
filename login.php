@@ -45,7 +45,9 @@
                 </legend>
             </fieldset>
             <div class="container-fluid d-flex justify-content-center">
-                <button class="btn-primary pe-4 ps-4 p-2 fs-5 rounded" type="submit">Log In</button>
+                <button class="btn-primary pe-4 ps-4 p-2 fs-5 rounded" type="submit">Log In
+                    
+                </button>
             </div>
             <p id="error" style="color: red;"></p>
         </form>
