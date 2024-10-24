@@ -52,24 +52,25 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/be6056a694.js" crossOrigin="anonymous"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="/">ISUS SPP</a>
+            <a class="navbar-brand fs-2 fw-bold" href="/">ISUS SPP</a>
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                data-bs-target="#navbaContetent" aria-controls="navbaContetent" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <i class="navbar-toggler-icon fa-solid fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <div class="collapse navbar-collapse" id="navbaContetent">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item fs-5">
                         <a class="nav-link active" href="/" aria-current="page">Inicio
                             <span class="visually-hidden">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item fs-5">
                         <a class="nav-link" href="/login">Log In</a>
                     </li>
                 </ul>
@@ -79,25 +80,25 @@
 
     <main class="container-fluid mt-5">
         <!-- Formulario de Estudiantes -->
-        <form action="src/config/App/proccess_form.php" method="POST">
+        <form class="pt-5 pb-5" action="src/config/App/proccess_form.php" method="POST">
             <?php if (isset($message)): ?>
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         Swal.fire({
                             icon: '<?php echo $type; ?>', // 'success' o 'error'
-                            title: 'Mensaje',
+                            title: 'Formulario Enviado',
                             text: '<?php echo $message; ?>',
                         });
                     });
                 </script>
             <?php endif; ?>
             <div class="input-container container d-flex flex-column gap-5">
-                <div class="container-fluid ">
+                <div class="container-fluid">
                     <div class="container-fluid d-flex justify-content-center">
-                        <h2 class="fs-1 text-uppercase fw-bold">Marco de Formación 2024 II CDII</h2>
+                        <h2 class="fs-1 text-uppercase fw-bold text-center">Marco de Formación 2024 II CDII</h2>
                     </div>
                     <div class="container mt-4">
-                        <p class="fs-5" style="text-align: justify;">
+                        <p class="description fs-5">
                             ¡Bienvenido al sistema de gestión de prácticas! Este formulario ha sido diseñado para facilitar la coordinación entre los estudiantes y las instituciones que ofrecen oportunidades de prácticas preprofesionales. A través de este formulario, podrás registrar tus datos personales, seleccionar la institución que mejor se adapte a tu ubicación y postularte para las prácticas. <b>Ten en cuenta que cada institución cuenta con un límite de 5 plazas disponibles.</b>
                         </p>
                         <span class="fs-5"><b>Los campos marcados con </b><b style="color: red;">* </b><b>son de carácter obligatorio.</b></span>
@@ -111,32 +112,32 @@
                                     <legend class="fw-bolder">Datos Personales</legend>
                                 </div>
                                 <div class="container-fluid d-flex flex-column gap-4">
-                                    <div class="row">
-                                        <div class="col-6">
+                                    <div class="row d-flex flex-wrap">
+                                        <div class="col-lg-6">
                                             <!-- C.I -->
                                             <div class="container mt-4">
-                                                <label class="form-label fs-5" for="ci_input">Cédula</label>
+                                                <label class="form-label fs-5" for="ci_input"><b class="fw-bold" style="color: red;">*</b> Cédula</label>
                                                 <input class="form-control" type="text" name="ci_input"
                                                     placeholder="Cédula de Identidad"
                                                     value="<?php echo $oldData['ci_input'] ?? ''; ?>" required>
                                             </div>
                                             <!-- Nombres del Estudiante -->
                                             <div class="container mt-2">
-                                                <label for="names_input" class="form-label fs-5">Nombres</label>
+                                                <label for="names_input" class="form-label fs-5"><b class="fw-bold" style="color: red;">*</b> Nombres</label>
                                                 <input class="form-control" type="text" name="names_input"
                                                     placeholder="Nombres"
                                                     value="<?php echo $oldData['names_input'] ?? ''; ?>" required>
                                             </div>
                                             <!-- Apellidos del Estudiante -->
                                             <div class="container mt-2">
-                                                <label class="form-label fs-5" for="lastnames_input">Apellidos</label>
+                                                <label class="form-label fs-5" for="lastnames_input"><b class="fw-bold" style="color: red;">*</b> Apellidos</label>
                                                 <input class="form-control" type="text" name="lastnames_input"
                                                     placeholder="Apellidos"
                                                     value="<?php echo $oldData['lastnames_input'] ?? ''; ?>" required>
                                             </div>
                                             <!-- Número de Teléfono -->
                                             <div class="container mt-2">
-                                                <label class="form-label fs-5" for="celNumber_input">Número
+                                                <label class="form-label fs-5" for="celNumber_input"><b class="fw-bold" style="color: red;">*</b> Número
                                                     Celular</label>
                                                 <input class="form-control" type="text" name="celNumber_input"
                                                     placeholder="Celular"
@@ -144,23 +145,23 @@
                                             </div>
                                             <!-- Correo Electrónico -->
                                             <div class="container mt-2">
-                                                <label class="form-label fs-5" for="email_input">Correo</label>
+                                                <label class="form-label fs-5" for="email_input"><b class="fw-bold" style="color: red;">*</b> Correo</label>
                                                 <input class="form-control" type="email" name="email_input"
                                                     placeholder="Correo"
                                                     value="<?php echo $oldData['email_input'] ?? ''; ?>" required>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-lg-6">
                                             <!-- Dirección de Domicilio -->
-                                            <div class="container mt-4">
-                                                <label class="form-label fs-5" for="addressCity_input">Domicilio</label>
+                                            <div class="container mt-lg-4 mt-2">
+                                                <label class="form-label fs-5" for="addressCity_input"><b class="fw-bold" style="color: red;">*</b> Domicilio</label>
                                                 <input class="form-control" type="text" name="addressCity_input"
                                                     placeholder="Dirección Domiciliaria"
                                                     value="<?php echo $oldData['addressCity_input'] ?? ''; ?>" required>
                                             </div>
                                             <!-- Barrio -->
                                             <div class="container mt-2">
-                                                <label class="form-label fs-5" for="neighborhood_input">Barrio</label>
+                                                <label class="form-label fs-5" for="neighborhood_input"><b class="fw-bold" style="color: red;">*</b> Barrio</label>
                                                 <input class="form-control" type="text" name="neighborhood_input"
                                                     placeholder="Barrio"
                                                     value="<?php echo $oldData['neighborhood_input'] ?? ''; ?>"
@@ -169,7 +170,7 @@
                                             <div class="container mt-2">
                                                 <!-- Semestre -->
                                                 <div class="mt-2">
-                                                    <label class="form-label fs-5" for="semester_input">Semestre</label>
+                                                    <label class="form-label fs-5" for="semester_input"><b class="fw-bold" style="color: red;">*</b> Semestre</label>
                                                     <select class="form-select" name="semester_input" id="semester"
                                                         required>
                                                         <option selected disabled>Elige tu Semestre</option>
@@ -185,7 +186,7 @@
                                                 </div>
                                                 <!-- Paralelo -->
                                                 <div class="pt-2">
-                                                    <label class="form-label fs-5" for="grade_input">Paralelo</label>
+                                                    <label class="form-label fs-5" for="grade_input"><b class="fw-bold" style="color: red;">*</b> Paralelo</label>
                                                     <select class="form-select" name="grade_input" id="grade" required>
                                                         <option selected disabled>Elige tu Semestre</option>
                                                         <option value="A" <?php echo ($oldData['grade_input'] ?? ''
@@ -200,7 +201,7 @@
                                                 </div>
                                                 <!-- Jornada -->
                                                 <div class="pt-2">
-                                                    <label class="form-label fs-5" for="dayTrip_input">Jornada</label>
+                                                    <label class="form-label fs-5" for="dayTrip_input"><b class="fw-bold" style="color: red;">*</b> Jornada</label>
                                                     <select class="form-select" name="dayTrip_input" id="dayTrip"
                                                         required>
                                                         <option selected disable>Elige tu Semestre</option>
@@ -226,7 +227,7 @@
                                 <div class="container d-flex ps-4 pe-4">
                                     <!-- Entidad -->
                                     <div class="container mt-4">
-                                        <label class="form-label fs-5" for="entity_input">Institución</label>
+                                        <label class="form-label fs-5" for="entity_input"><b class="fw-bold" style="color: red;">*</b> Institución</label>
                                         <select class="form-select" name="entity_input" id="entity" required>
                                             <option selected disabled>Selecciona la Institución</option>
                                             <?php if(!empty($instituciones)): ?>
@@ -259,5 +260,4 @@
         <span class="fs-5">Power By <a class="text-decoration-none" href="#">YggdrasilCode</a></span>
     </footer>
 </body>
-
 </html>
