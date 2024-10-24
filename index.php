@@ -78,9 +78,9 @@
         </div>
     </nav>
 
-    <main class="container-fluid mt-5">
+    <main class="container-fluid d-flex justify-content-center mt-5">
         <!-- Formulario de Estudiantes -->
-        <form class="pt-5 pb-5" action="src/config/App/proccess_form.php" method="POST">
+        <form id="ppForm" class="pt-5 pb-5" action="src/config/App/proccess_form.php" method="POST">
             <?php if (isset($message)): ?>
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
