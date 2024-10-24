@@ -30,7 +30,7 @@
             </div>
         </div>
     </nav>
-    <main class="container-fluid mt-5">
+    <main class="container d-flex align-items-center mt-5">
         <form id="loginForm" class="container d-flex flex-column gap-4">
             <fieldset>
                 <legend class="text-center mt-4 fs-1 fw-bold">Log In</legend>
@@ -55,7 +55,7 @@
     </main>
 
     <footer class="container-fluid d-flex align-items-center justify-content-center">
-        <span class="fs-5">Power By <a class="text-decoration-none" href="https://alfahost.es">AlfaHost</a></span>
+        <span class="fs-5">Power By <a class="text-decoration-none" href="#">YggdrasilCode</a></span>
     </footer>
 </body>
 </html>
