@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require '../../../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -59,9 +61,17 @@ for ($row = 2; $row <= $lastRow; $row++) {
 
 // Verificamos si la entidad ya ha alcanzado el límite de 5 personas
 if ($count >= 5) {
+
+    // Guardar los datos del formulario en la sesión
+    $_SESSION['old_data'] = $_POST;
+
+    $_SESSION['flash_message'] = [
+        'message' => 'Las plazasas para esta entidad ya fueron llenadas',
+        'type' => 'error'
+    ];
+
     // Redirigir de nuevo al formulario con un mensaje de éxito en la URL
-    $mensaje = "La entidad ya ha sido sleccionada.";
-    header("Location: /?mensaje=" . urlencode($mensaje));
+    header("Location: /");
     exit;
 }
 
@@ -85,9 +95,14 @@ $sheet->setCellValue("K$newRow", $direccionEntidad);
 $writer = new Xlsx($spreadsheet);
 $writer->save($file);
 
-// Redirigir de nuevo al formulario con un mensaje de éxito en la URL
-$mensaje = "Datos guardados correctamente";
-header("Location: /?mensaje=" . urlencode($mensaje));
+// Generamos el mensaje de success
+$_SESSION['flash_message'] = [
+    'message' => 'Datos guardados correctamente',
+    'type' => 'success'
+];
+
+// Luego rediriges a la página
+header("Location: /");
 exit;
 
 ?>
