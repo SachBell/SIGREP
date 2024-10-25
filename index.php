@@ -27,10 +27,10 @@
     $instituciones = [];
     $lastRowInstituciones = $sheetInstituciones->getHighestRow();
 
-    for ($row=2; $row <= $lastRowInstituciones; $row++) {
+    for ($row=2; $row <= $lastRowInstituciones - 1; $row++) {
 
         $institucion = $sheetInstituciones->getCell("A$row")->getValue();
-        $direccion = $sheetInstituciones->getCell("B$row")->getValue();
+        $direccion = $sheetInstituciones->getCell("C$row")->getValue();
         $fullEntity = $institucion . ' - ' . $direccion;
         $instituciones[] = ['name' => $institucion, 'direccion' => $direccion, 'entityInfo' => $fullEntity];
     }
@@ -99,9 +99,12 @@
                     </div>
                     <div class="container mt-4">
                         <p class="description fs-5">
-                            ¡Bienvenido al sistema de gestión de prácticas! Este formulario ha sido diseñado para facilitar la coordinación entre los estudiantes y las instituciones que ofrecen oportunidades de prácticas preprofesionales. A través de este formulario, podrás registrar tus datos personales, seleccionar la institución que mejor se adapte a tu ubicación y postularte para las prácticas. <b>Ten en cuenta que cada institución cuenta con un límite de 5 plazas disponibles.</b>
+                            ¡Bienvenido al sistema de gestión de prácticas! Este formulario ha sido diseñado para facilitar la coordinación entre los estudiantes y las instituciones que ofrecen oportunidades de prácticas preprofesionales.
                         </p>
-                        <span class="fs-5"><b>Los campos marcados con </b><b style="color: red;">* </b><b>son de carácter obligatorio.</b></span>
+                        <p class="description fs-5">
+                            A través de este formulario, podrás registrar tus datos personales, seleccionar la institución que mejor se adapte a tu ubicación y postularte para las prácticas. <b>Ten en cuenta que cada institución cuenta con un límite de plazas disponibles.</b>
+                        </p>
+                        <span class="fs-5"><b>Los campos marcados con (<b style="color: red;">*</b>) son de carácter obligatorio.</b></span>
                     </div>
                 </div>
                 <div class="container">
