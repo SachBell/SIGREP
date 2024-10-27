@@ -31,7 +31,7 @@
         </div>
     </nav>
     <main class="container d-flex align-items-center mt-5">
-        <form id="loginForm" class="container d-flex flex-column gap-4">
+        <form id="loginForm" class="container d-flex flex-column gap-4 pb-5">
             <fieldset>
                 <legend class="text-center mt-4 fs-1 fw-bold">Log In</legend>
                 <legend class="container mt-2">
@@ -43,12 +43,10 @@
                     <input class="form-control" type="password" id="password" name="password" required>                
                 </legend>
             </fieldset>
+            <p id="error" class="message mb-0" style="color: red;"></p>
             <div class="container-fluid d-flex justify-content-center">
-                <button class="btn-primary pe-4 ps-4 p-2 fs-5 rounded" type="submit">Log In
-                    
-                </button>
+                <button class="btn-primary pe-4 ps-4 p-2 fs-5 rounded" type="submit">Log In</button>
             </div>
-            <p id="error" style="color: red;"></p>
         </form>
 
         <script src="/public/js/app.js"></script>

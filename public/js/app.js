@@ -16,6 +16,10 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
                 // Redirigir al dashboard
                 window.location.href = 'dashboard';
             } else {
+                let messages = document.getElementsByClassName('message');
+                for (let i = 0; i < messages.length; i++) {
+                    messages[i].classList.toggle('active');
+                }
                 document.getElementById('error').textContent = 'Credenciales incorrectas';
             }
         })

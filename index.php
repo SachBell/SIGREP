@@ -222,7 +222,7 @@
                         <div class="container">
                             <fieldset>
                                 <div class="container">
-                                    <legend class="fw-bolder">Sitio de Prácticas</legend>
+                                    <legend class="fw-bolder">Seleccione el lugar de Prácticas</legend>
                                 </div>
                                 <div class="container d-flex ps-4 pe-4">
                                     <!-- Entidad -->
