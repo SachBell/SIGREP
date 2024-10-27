@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 $file = '../../DataBase/db_practias_estudiantes.xlsx';
+$fileEntity = '../../DataBase/db_istituciones.xlsx';
 
 $entitySelected = $_POST['entity_input'];
 $names_input = $_POST['names_input'];
@@ -43,24 +44,38 @@ if (file_exists($file)) {
 }
 
 
-// Obtener la hoja Activa
-$sheet = $spreadsheet->getActiveSheet();
+$spreadsheetEntity = \PhpOffice\PhpSpreadsheet\IOFactory::load($fileEntity);
+$sheetEntity = $spreadsheetEntity->getActiveSheet();
 // Verificar si la entidad ya fue Seleccionada
-$lastRow = $sheet->getHighestRow();
-$count = 0;
-for ($row = 2; $row <= $lastRow; $row++) { 
-    $entity = $sheet->getCell("J$row")->getValue();
+$lastRowInstituciones = $sheetEntity->getHighestRow();
+$limitePlazas = null;
+for ($row = 2; $row <= $lastRowInstituciones; $row++) { 
+    
+    $institucion = $sheetEntity->getCell("A$row")->getValue();
+    $plazasDisponibles = $sheetEntity->getCell("B$row")->getValue();
 
     // Contar cuántas veces la entidad ha sido seleccionada
 
+    if ($institucion === $nombreEntidad) {
+        $limitePlazas = (int) $plazasDisponibles;
+        break;
+    }
+}
+
+$sheet = $spreadsheet->getActiveSheet();
+$lastRow = $sheet->getHighestRow();
+$count = 0;
+
+for ($row = 2; $row <= $lastRow ; $row++) { 
+    $entity = $sheet->getCell("J$row")->getValue();
+
     if ($entity === $nombreEntidad) {
-        // Contador de entidad
         $count++;
     }
 }
 
 // Verificamos si la entidad ya ha alcanzado el límite de 5 personas
-if ($count >= 5) {
+if ($count >= $limitePlazas) {
 
     // Guardar los datos del formulario en la sesión
     $_SESSION['old_data'] = $_POST;
@@ -91,6 +106,7 @@ $sheet->setCellValue("H$newRow", $grade_input);
 $sheet->setCellValue("I$newRow", $dayTrip_input);
 $sheet->setCellValue("J$newRow", $nombreEntidad);
 $sheet->setCellValue("K$newRow", $direccionEntidad);
+
 
 $writer = new Xlsx($spreadsheet);
 $writer->save($file);
