@@ -82,6 +82,7 @@ if ($count >= $limitePlazas) {
 
     $_SESSION['flash_message'] = [
         'message' => 'Las plazasas para esta entidad ya fueron llenadas',
+        'title' => 'Error',
         'type' => 'error'
     ];
 
@@ -114,6 +115,7 @@ $writer->save($file);
 // Generamos el mensaje de success
 $_SESSION['flash_message'] = [
     'message' => 'Datos guardados correctamente',
+    'title' => 'Formulario Enviado',
     'type' => 'success'
 ];
 

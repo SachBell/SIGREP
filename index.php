@@ -13,6 +13,7 @@
 
     if (isset($_SESSION['flash_message'])) {
         $message = $_SESSION['flash_message']['message'];
+        $title = $_SESSION['flash_message']['title'];
         $type = $_SESSION['flash_message']['type'];
         unset($_SESSION['flash_message']); // Eliminar mensaje después de mostrarlo
     }
@@ -27,7 +28,7 @@
     $instituciones = [];
     $lastRowInstituciones = $sheetInstituciones->getHighestRow();
 
-    for ($row=2; $row <= $lastRowInstituciones - 1; $row++) {
+    for ($row=2; $row <= $lastRowInstituciones - 4; $row++) {
 
         $institucion = $sheetInstituciones->getCell("A$row")->getValue();
         $direccion = $sheetInstituciones->getCell("C$row")->getValue();
@@ -86,7 +87,7 @@
                     document.addEventListener('DOMContentLoaded', function () {
                         Swal.fire({
                             icon: '<?php echo $type; ?>', // 'success' o 'error'
-                            title: 'Formulario Enviado',
+                            title: '<?php echo $title; ?>',
                             text: '<?php echo $message; ?>',
                         });
                     });
