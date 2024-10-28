@@ -75,7 +75,7 @@ main form {
 }
 
 main #ppForm {
-    width: calc(100% - 40%) !important;
+    width: calc(100% - 25%) !important;
 }
 
 .description {
@@ -96,6 +96,14 @@ main #ppForm {
 #loginForm {
     width: calc(100% - 50%);
     height: fit-content !important;
+}
+
+.message {
+    display: none;
+}
+
+.message.active {
+    display: block;
 }
 
 footer {
