@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+date_default_timezone_set('America/Guayaquil');
 
 require '../../../vendor/autoload.php';
 
@@ -41,6 +42,7 @@ if (file_exists($file)) {
     $sheet->setCellValue('I1', 'Jornada (Vespertina, Nocturna)');
     $sheet->setCellValue('J1', 'Institución');
     $sheet->setCellValue('K1', 'Dirección');
+    $sheet->setCellValue('L1', 'Tiempo de Registro');
 }
 
 
@@ -95,6 +97,7 @@ if ($count >= $limitePlazas) {
 
 $full_name = $names_input . ' ' . $lastnames_input;
 $newRow = $lastRow + 1;
+$timestamp = date('Y-m-d H:i:s');
 
 $sheet->setCellValue("A$newRow", $full_name);
 $sheet->setCellValue("B$newRow", $email_input);
@@ -107,6 +110,7 @@ $sheet->setCellValue("H$newRow", $grade_input);
 $sheet->setCellValue("I$newRow", $dayTrip_input);
 $sheet->setCellValue("J$newRow", $nombreEntidad);
 $sheet->setCellValue("K$newRow", $direccionEntidad);
+$sheet->setCellValue("L$newRow", $timestamp);
 
 
 $writer = new Xlsx($spreadsheet);
