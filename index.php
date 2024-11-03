@@ -89,6 +89,8 @@
                             icon: '<?php echo $type; ?>', // 'success' o 'error'
                             title: '<?php echo $title; ?>',
                             text: '<?php echo $message; ?>',
+                            allowOutsideClick: false,
+                            confirmButtonText: 'OK'
                         });
                     });
                 </script>

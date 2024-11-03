@@ -45,7 +45,6 @@ if (file_exists($file)) {
     $sheet->setCellValue('L1', 'Tiempo de Registro');
 }
 
-
 $spreadsheetEntity = \PhpOffice\PhpSpreadsheet\IOFactory::load($fileEntity);
 $sheetEntity = $spreadsheetEntity->getActiveSheet();
 // Verificar si la entidad ya fue Seleccionada
@@ -93,6 +92,31 @@ if ($count >= $limitePlazas) {
     exit;
 }
 
+// Verificar si el estudiante ya está registrado
+$alreadyRegistered = false;
+for ($row = 2; $row <= $lastRow; $row++) { 
+    $ciValue = $sheet->getCell("C$row")->getValue();
+    if ($ciValue == $ci_input) {
+        $alreadyRegistered = true;
+        break;
+    }
+}
+
+if ($alreadyRegistered) {
+    // Guardar los datos del formulario en la sesión
+    $_SESSION['old_data'] = $_POST;
+
+    $_SESSION['flash_message'] = [
+        'message' => 'Ya te has registrado',
+        'title' => 'Usuario Registrado',
+        'type' => 'error'
+    ];
+
+    // Redirigir de nuevo al formulario
+    header("Location: /");
+    exit;
+}
+
 // Añadir los datos del estudiante a una nueva fila
 
 $full_name = $names_input . ' ' . $lastnames_input;
@@ -111,7 +135,6 @@ $sheet->setCellValue("I$newRow", $dayTrip_input);
 $sheet->setCellValue("J$newRow", $nombreEntidad);
 $sheet->setCellValue("K$newRow", $direccionEntidad);
 $sheet->setCellValue("L$newRow", $timestamp);
-
 
 $writer = new Xlsx($spreadsheet);
 $writer->save($file);
