@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', [FormController::class, 'create'])->name('form.create');
+Route::post('/', [FormController::class, 'store'])->name('form.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
