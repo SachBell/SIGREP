@@ -22,8 +22,7 @@
             <span class="fs-2">Log In</span>
         </div>
 
-        <div
-            class="mt-5 px-5 py-4 rounded bg-white">
+        <div class="mt-5 px-5 py-4 rounded bg-white">
             {{ $slot }}
         </div>
     </div>

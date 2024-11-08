@@ -13,6 +13,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/be6056a694.js" crossOrigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -21,6 +22,7 @@
         @include('partials.navigation')
     </header>
     <main class="container-fluid d-flex justify-content-center mt-5">
+        @include('partials.swa')
         @yield('content')
     </main>
     <footer>
