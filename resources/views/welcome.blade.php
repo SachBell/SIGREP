@@ -2,7 +2,8 @@
 @section('title', 'Inicio')
 @section('content')
     <!-- Formulario de Estudiantes -->
-    <form id="ppForm" class="pt-5 pb-5" action="src/config/App/proccess_form.php" method="POST">
+    <form id="spp-form" class="pt-5 pb-5" action="{{ route('form.store') }}" method="POST">
+        @csrf
         <div class="input-container container d-flex flex-column gap-5">
             <div class="container-fluid">
                 <div class="container-fluid d-flex justify-content-center">
@@ -37,90 +38,141 @@
                                         <div class="container mt-4">
                                             <label class="form-label fs-5" for="ci_input"><b class="fw-bold"
                                                     style="color: red;">*</b> Cédula</label>
-                                            <input class="form-control" type="text" name="ci_input"
-                                                placeholder="Cédula de Identidad" value="" required>
+                                            <input class="form-control @error('cei') is-invalid @enderror" type="text" id="cei" pattern="[0-9]*" inputmode="numeric" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="cei" placeholder="Cédula de Identidad"
+                                                value="{{ old('cei') }}">
+                                            @error('cei')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- Nombres del Estudiante -->
                                         <div class="container mt-2">
                                             <label for="names_input" class="form-label fs-5"><b class="fw-bold"
                                                     style="color: red;">*</b> Nombres</label>
-                                            <input class="form-control" type="text" name="names_input"
-                                                placeholder="Nombres" value="" required>
+                                            <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                                name="name" placeholder="Nombres" value="{{ old('name') }}">
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- Apellidos del Estudiante -->
                                         <div class="container mt-2">
                                             <label class="form-label fs-5" for="lastnames_input"><b class="fw-bold"
                                                     style="color: red;">*</b> Apellidos</label>
-                                            <input class="form-control" type="text" name="lastnames_input"
-                                                placeholder="Apellidos" value="" required>
+                                            <input class="form-control @error('lastname') is-invalid @enderror"
+                                                type="text" name="lastname" placeholder="Apellidos"
+                                                value="{{ old('lastname') }}">
+                                            @error('lastname')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- Número de Teléfono -->
                                         <div class="container mt-2">
-                                            <label class="form-label fs-5" for="celNumber_input"><b class="fw-bold"
+                                            <label class="form-label fs-5" for="phone_number"><b class="fw-bold"
                                                     style="color: red;">*</b> Número
                                                 Celular</label>
-                                            <input class="form-control" type="text" name="celNumber_input"
-                                                placeholder="Celular" value="" required>
+                                            <input class="form-control @error('phone_number') is-invalid @enderror"
+                                                type="text" name="phone_number" placeholder="Celular"
+                                                value="{{ old('phone_number') }}">
+                                            @error('phone_number')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- Correo Electrónico -->
                                         <div class="container mt-2">
-                                            <label class="form-label fs-5" for="email_input"><b class="fw-bold"
+                                            <label class="form-label fs-5" for="email"><b class="fw-bold"
                                                     style="color: red;">*</b> Correo</label>
-                                            <input class="form-control" type="email" name="email_input"
-                                                placeholder="Correo" value="" required>
+                                            <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                                name="email" placeholder="Correo" value="{{ old('phone_number') }}">
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <!-- Dirección de Domicilio -->
                                         <div class="container mt-lg-4 mt-2">
-                                            <label class="form-label fs-5" for="addressCity_input"><b class="fw-bold"
+                                            <label class="form-label fs-5" for="address"><b class="fw-bold"
                                                     style="color: red;">*</b> Domicilio</label>
-                                            <input class="form-control" type="text" name="addressCity_input"
-                                                placeholder="Dirección Domiciliaria" value="" required>
+                                            <input class="form-control @error('address') is-invalid @enderror"
+                                                type="text" name="address" placeholder="Dirección Domiciliaria"
+                                                value="{{ old('address') }}">
+                                            @error('address')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- Barrio -->
                                         <div class="container mt-2">
-                                            <label class="form-label fs-5" for="neighborhood_input"><b class="fw-bold"
+                                            <label class="form-label fs-5" for="neighborhood"><b class="fw-bold"
                                                     style="color: red;">*</b> Barrio</label>
-                                            <input class="form-control" type="text" name="neighborhood_input"
-                                                placeholder="Barrio" value="" required>
+                                            <input class="form-control @error('neighborhood') is-invalid @enderror"
+                                                type="text" name="neighborhood" placeholder="Barrio"
+                                                value="{{ old('neighborhood') }}">
+                                            @error('neighborhood')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="container mt-2">
                                             <!-- Semestre -->
                                             <div class="mt-2">
-                                                <label class="form-label fs-5" for="semester_input"><b class="fw-bold"
+                                                <label class="form-label fs-5" for="semester"><b class="fw-bold"
                                                         style="color: red;">*</b> Semestre</label>
-                                                <select class="form-select" name="semester_input" id="semester" required>
+                                                <select class="form-select @error('semester') is-invalid @enderror"
+                                                    name="semester" id="semester">
                                                     <option selected disabled>Elige tu Semestre</option>
-                                                    <option value="Segundo">Segundo</option>
-                                                    <option value="Tercero">Tercero</option>
-                                                    <option value="Cuarto">Cuarto</option>
-                                                    <option value="Quinto">Quinto</option>
+                                                    <option value="Segundo"
+                                                        {{ old('semester') == 'Segundo' ? 'selected' : '' }}>
+                                                        Segundo</option>
+                                                    <option value="Tercero"
+                                                        {{ old('semester') == 'Tercero' ? 'selected' : '' }}>
+                                                        Tercero</option>
+                                                    <option value="Cuarto"
+                                                        {{ old('semester') == 'Cuarto' ? 'selected' : '' }}>
+                                                        Cuarto</option>
+                                                    <option value="Quinto"
+                                                        {{ old('semester') == 'Quinto' ? 'selected' : '' }}>
+                                                        Quinto</option>
                                                 </select>
+                                                @error('semester')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <!-- Paralelo -->
                                             <div class="pt-2">
-                                                <label class="form-label fs-5" for="grade_input"><b class="fw-bold"
+                                                <label class="form-label fs-5" for="grade"><b class="fw-bold"
                                                         style="color: red;">*</b> Paralelo</label>
-                                                <select class="form-select" name="grade_input" id="grade" required>
+                                                <select class="form-select @error('grade') is-invalid @enderror"
+                                                    name="grade" id="grade">
                                                     <option selected disabled>Elige tu Semestre</option>
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                    <option value="D">D</option>
+                                                    <option value="A" {{ old('grade') == 'A' ? 'selected' : '' }}>A
+                                                    </option>
+                                                    <option value="B" {{ old('grade') == 'B' ? 'selected' : '' }}>B
+                                                    </option>
+                                                    <option value="C" {{ old('grade') == 'C' ? 'selected' : '' }}>C
+                                                    </option>
+                                                    <option value="D" {{ old('grade') == 'D' ? 'selected' : '' }}>D
+                                                    </option>
                                                 </select>
+                                                @error('grade')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <!-- Jornada -->
                                             <div class="pt-2">
-                                                <label class="form-label fs-5" for="dayTrip_input"><b class="fw-bold"
+                                                <label class="form-label fs-5" for="daytrip"><b class="fw-bold"
                                                         style="color: red;">*</b> Jornada</label>
-                                                <select class="form-select" name="dayTrip_input" id="dayTrip" required>
-                                                    <option selected disable>Elige tu Semestre</option>
-                                                    <option value="Vespertina">Vespertina
+                                                <select class="form-select @error('daytrip') is-invalid @enderror"
+                                                    name="daytrip" id="daytrip">
+                                                    <option selected disabled>Elige tu Semestre</option>
+                                                    <option value="Vespertina"
+                                                        {{ old('daytrip') == 'Vespertina' ? 'selected' : '' }}>Vespertina
                                                     </option>
-                                                    <option value="Nocturna">Nocturna
+                                                    <option value="Nocturna"
+                                                        {{ old('daytrip') == 'Nocturna' ? 'selected' : '' }}>Nocturna
                                                     </option>
                                                 </select>
+                                                @error('daytrip')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -136,11 +188,21 @@
                             <div class="container d-flex ps-4 pe-4">
                                 <!-- Entidad -->
                                 <div class="container mt-4">
-                                    <label class="form-label fs-5" for="entity_input"><b class="fw-bold"
+                                    <label class="form-label fs-5" for="id_institucion"><b class="fw-bold"
                                             style="color: red;">*</b> Institución</label>
-                                    <select class="form-select" name="entity_input" id="entity" required>
+                                    <select class="form-select @error('id_institucion') is-invalid @enderror"
+                                        name="id_institucion" id="entity">
                                         <option selected disabled>Selecciona la Institución</option>
+                                        @foreach ($entidades as $entidad)
+                                            <option value="{{ $entidad->id }}"
+                                                {{ old('id_institucion') == $entidad->id ? 'selected' : '' }}>
+                                                {{ $entidad->name }} -
+                                                {{ $entidad->address }}</option>
+                                        @endforeach
                                     </select>
+                                    @error('id_institucion')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </fieldset>
