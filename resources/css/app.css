@@ -90,6 +90,18 @@ main #spp-form {
     background: var(--secondary-black-color) !important;
 }
 
+#log-title {
+    color: var(--font-color) !important;
+}
+
+#forgot-link{
+    color: var(--form-black-color) !important;
+}
+
+#forgot-link:hover {
+    color: var(--secondary-black-color) !important;
+}
+
 footer {
     height: 100px;
     color: var(--font-color) !important;

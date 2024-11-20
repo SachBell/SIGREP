@@ -19,7 +19,7 @@
 <body class="d-flex flex-column justify-content-center">
     <div class="h-100 d-flex flex-column justify-content-center align-items-center pt-6">
         <div>
-            <span class="fs-2">Log In</span>
+            <span id="log-title" class="fs-2 fw-bold">Log In</span>
         </div>
 
         <div class="mt-5 px-5 py-4 rounded bg-white">

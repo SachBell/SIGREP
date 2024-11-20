@@ -1,18 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand fs-2 fw-bold" href="/">ISUS SPP</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbaContetent"
-            aria-controls="navbaContetent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a href="/" class="nav-link fs-2 fw-bold">SPP ISUS</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-expanded="false" aria-label="Toggle Navbar" aria-controls="navbarContent">
             <i class="navbar-toggler-icon fa-solid fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbaContetent">
-            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                <li class="nav-item fs-5">
-                    <a class="nav-link active" href="/" aria-current="page">Inicio
-                        <span class="visually-hidden">(current)</span></a>
+        <div class="collapse navbar-collapse" id="navbarContent" style="flex-grow: .1 !important">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active fs-5" aria-current="page">Inicio</a>
                 </li>
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="login">Log In</a>
+                <li class="nav-item">
+                    <a href="/login" class="nav-link fs-5" aria-current="page">Log In</a>
                 </li>
             </ul>
         </div>
