@@ -7,7 +7,8 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        './resources/views/partials/*.blade.php'
+        './resources/views/partials/*.blade.php',
+        './node_modules/bootstrap/dist/js/**/*.js', // Asegura que Bootstrap se escanee
     ],
 
     theme: {
