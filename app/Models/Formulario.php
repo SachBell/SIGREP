@@ -11,7 +11,7 @@ class Formulario extends Model
 {
     use HasFactory;
 
-    protected $table = 'formulario';
+    protected $table = 'formularios';
 
     protected $fillable = [
         'cei',
