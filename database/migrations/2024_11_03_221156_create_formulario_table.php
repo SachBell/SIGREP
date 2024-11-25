@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formulario', function (Blueprint $table) {
+        Schema::create('formularios', function (Blueprint $table) {
             $table->id();
             $table->string('cei');
             $table->string('name');
+            $table->string('lastname');
             $table->string('phone_number');
             $table->string('email');
             $table->string('address');
             $table->string('neighborhood');
             $table->string('semester');
             $table->string('grade');
-            $table->string('daylitrip');
+            $table->string('daytrip');
             $table->foreignId('id_institucion')
                 ->nullable()
                 ->constrained('instituciones')
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formulario');
+        Schema::dropIfExists('formularios');
     }
 };
