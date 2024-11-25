@@ -1,6 +1,6 @@
 <nav class="h-100 d-flex flex-column justify-content-between position-fixed top-0 pt-3 bg-dark">
     <div class="container-fluid justify-content-center">
-        <span class="fs-2">Panel SPP</span>
+        <span class="fs-2">SIREP ISUS</span>
     </div>
     <div class="h-100 d-flex flex-column justify-content-between contianer-fluid mt-4 px-1">
         <div class="container-fluid ms-3">
@@ -9,7 +9,7 @@
                     <a href="{{ route('dashboard') }}" class="nav-link fs-5 active" aria-current="page">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/form_registers" class="nav-link fs-5">Registros de Formulario</a>
+                    <a href="{{ route('registros.index') }}" class="nav-link fs-5">Registros de Formulario</a>
                 </li>
                 <li class="nav-item">
                     <a href="" class="nav-link fs-5"></a>

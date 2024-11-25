@@ -18,6 +18,26 @@
         });
     </script>
 @endif
+@if (session('info'))
+    <script>
+        Swal.fire({
+            icon: 'info',
+            title: '¡Alerta!',
+            text: '{{ session('info') }}',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+@endif
+@if (session('warning'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: '¡Alerta!',
+            text: '{{ session('warning') }}',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+@endif
 @if ($errors->any())
     <script>
         Swal.fire({

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a href="/" class="nav-link fs-2 fw-bold">SPP ISUS</a>
+        <a href="/" class="nav-link fs-2 fw-bold">SIREP ISUS</a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"
             aria-expanded="false" aria-label="Toggle Navbar" aria-controls="navbarContent">
             <i class="navbar-toggler-icon fa-solid fa-bars"></i>
@@ -11,7 +11,7 @@
                     <a href="/" class="nav-link active fs-5" aria-current="page">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/login" class="nav-link fs-5" aria-current="page">Log In</a>
+                    <a href="{{route('login')}}" class="nav-link fs-5" aria-current="page">Log In</a>
                 </li>
             </ul>
         </div>
