@@ -13,22 +13,14 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/be6056a694.js" crossOrigin="anonymous"></script>
-    @vite(['resources/css/dashboard.css'])
+    @vite(['resources/css/crud.css'])
 </head>
 
 <body>
-    <header>
-        @include('partials.slidebar')
-    </header>
-    <div class="d-flex flex-column justify-content-between pt-3 mx-4">
-        <main>
-            @include('partials.swa')
-            @yield('content')
-        </main>
-        <footer>
-            @include('partials.footer')
-        </footer>
-    </div>
+    @include('partials.swa')
+    <main>
+        @yield('content')
+    </main>
 </body>
 
 </html>

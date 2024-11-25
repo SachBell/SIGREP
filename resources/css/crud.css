@@ -1,0 +1,81 @@
+:root {
+    --primary-color: #1770B5;
+    --secondary-color: #258bd2;
+    --accent-color: #4ca6e4;
+    --primary-black-color: #145890;
+    --secondary-black-color: #144b78;
+    --accent-black-color: #163f64;
+    --font-color: #f2f8fd;
+    --font-black-color: #474747;
+    --font-hover-color: #c1dff6;
+    --form-color: #f2f8fd;
+    --form-black-color: #0f2942;
+    --background-light: #daecfa;
+    --background-dark: #0f2942;
+    --background-dark-opacity: #4747478f;
+    --primary-button: #268dd1;
+    --primary-button-hover: #176fb2;
+}
+
+::selection {
+    background: var(--accent-color);
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-light);
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background: var(--background-dark-opacity);
+}
+
+body {
+    background: radial-gradient(circle at center, #303f4c 0%, var(--background-dark) 100%);
+    color: var(--font-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-button);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-button-hover);
+}
+
+#form-container {
+    width: calc(100% - 25%);
+}
+
+#edit-form {
+    border-radius: 15px;
+    color: var(--font-color);
+    background: var(--background-dark);
+    box-shadow: 20px 50px 70px rgba(0, 0, 0, .5);
+}
+
+input,
+select {
+    border: none !important;
+    color: var(--font-color) !important;
+    font-size: 1.2em !important;
+    background: var(--background-dark-opacity) !important;
+}
+
+select {
+    appearance: unset;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right .75rem center !important;
+    background-size: 16px 12px !important;
+}
+
+option {
+    background: #303f4c;
+}
