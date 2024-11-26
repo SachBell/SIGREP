@@ -1,6 +1,5 @@
 <x-crud-layout>
     @section('title', 'Editar Registro')
-
     @section('content')
         <div class="container-fluid d-flex flex-column align-items-center">
             <div class="container-fluid py-4 pb-1 text-center">

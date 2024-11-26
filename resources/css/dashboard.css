@@ -88,3 +88,51 @@ header {
 .btn-primary:hover {
     background-color: var(--primary-button-hover);
 }
+
+/* Estilo para la slidebar en móvil */
+@media (max-width: 768px) {
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        display: flex;
+        background: var(--background-dark);
+    }
+
+    #main {
+        height: 100%;
+    }
+
+    .slidebar {
+        transform: translateX(-100%) !important;
+        transition: transform .5s ease;
+    }
+
+    .slidebar.toggle {
+        transform: translateX(0) !important;
+    }
+
+    #toggle-btn {
+        display: block;
+    }
+
+    .title-reg {
+        font-size: 1.4rem !important;
+    }
+}
+
+/* Estilo para la slidebar en pantallas grandes (desktop) */
+@media (min-width: 769px) {
+    .slidebar {
+        transform: translateX(0) !important;
+        transition: transform .5s ease;
+    }
+
+    #toggle-btn {
+        display: none;
+        /* Ocultar el botón en pantallas grandes */
+    }
+}

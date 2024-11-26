@@ -1,4 +1,4 @@
-<nav class="h-100 d-flex flex-column justify-content-between position-fixed top-0 pt-3 bg-dark">
+<nav id="sidebar" class="slidebar h-100 d-flex flex-column justify-content-between position-fixed top-0 pt-3 bg-dark">
     <div class="container-fluid justify-content-center">
         <span class="fs-2">SIREP ISUS</span>
     </div>
