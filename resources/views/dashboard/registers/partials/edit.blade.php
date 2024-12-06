@@ -6,7 +6,8 @@
                 <h1 class="text-uppercase">Editar Registro</h1>
             </div>
             <div id="form-container" class="contianer-fluid py-4">
-                <form id="edit-form" class="py-5 px-5" action="{{ route('registros.update', $registro->id) }}" method="POST">
+                <form id="edit-form" class="py-5 px-5" action="{{ route('dashboard.registros.update', $registro->id) }}"
+                    method="POST">
                     @csrf
                     @method('PUT')
 
@@ -63,37 +64,25 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="semester" class="form-label fs-5 ">Semestre</label>
-                                        <select name="semester" id="semester" class="form-select">
-                                            <option value="Segundo"
-                                                {{ old('semester', $registro->semester) == 'Segundo' ? 'selected' : '' }}>
-                                                Segundo</option>
-                                            <option value="Tercero"
-                                                {{ old('semester', $registro->semester) == 'Tercero' ? 'selected' : '' }}>
-                                                Tercero</option>
-                                            <option value="Cuarto"
-                                                {{ old('semester', $registro->semester) == 'Cuarto' ? 'selected' : '' }}>
-                                                Cuarto</option>
-                                            <option value="Quinto"
-                                                {{ old('semester', $registro->semester) == 'Quinto' ? 'selected' : '' }}>
-                                                Quinto</option>
+                                        <select name="id_semester" id="semester" class="form-select">
+                                            @foreach ($semesters as $semester)
+                                                <option value="{{ $semester->id }}"
+                                                    {{ old('id_semester', $registro->id_semester) == $semester->id ? 'selected' : '' }}>
+                                                    {{ $semester->semester }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="grade" class="form-label fs-5 ">Paralelo</label>
-                                        <select name="grade" id="grade" class="form-select">
-                                            <option value="A"
-                                                {{ old('grade', $registro->grade) == 'A' ? 'selected' : '' }}>A
-                                            </option>
-                                            <option value="B"
-                                                {{ old('grade', $registro->grade) == 'B' ? 'selected' : '' }}>B
-                                            </option>
-                                            <option value="C"
-                                                {{ old('grade', $registro->grade) == 'C' ? 'selected' : '' }}>C
-                                            </option>
-                                            <option value="D"
-                                                {{ old('grade', $registro->grade) == 'D' ? 'selected' : '' }}>D
-                                            </option>
+                                        <select name="id_grade" id="grade" class="form-select">
+                                            @foreach ($grades as $grade)
+                                                <option value="{{ $grade->id }}"
+                                                    {{ old('id_grade', $registro->id_grade) == $grade->id ? 'selected' : '' }}>
+                                                    {{ $grade->grade }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -124,11 +113,11 @@
                         <div class="container">
                             <div class="mb-3">
                                 <label for="id_institucion" class="form-label fs-5 ">Institución</label>
-                                <select name="id_institucion" id="id_institucion" class="form-select">
-                                    @foreach ($instituciones as $institucion)
-                                        <option value="{{ $institucion->id }}"
-                                            {{ $institucion->id == $registro->id_institucion ? 'selected' : '' }}>
-                                            {{ $institucion->name }} - {{ $institucion->address }}
+                                <select name="id_institute" id="entity" class="form-select">
+                                    @foreach ($entidades as $entidad)
+                                        <option value="{{ $entidad->id }}"
+                                            {{ old('id_institute', $registro->id_institute ?? '') == $entidad->id ? 'selected' : '' }}>
+                                            {{ $entidad->name }} - {{ $entidad->address }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -138,7 +127,7 @@
 
                     <div class="container-fluid d-flex justify-content-center gap-2">
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        <a href="{{ route('registros.index') }}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{{ route('dashboard.registros.index') }}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </div>

@@ -9,7 +9,7 @@
                     <a href="{{ route('dashboard') }}" class="nav-link fs-5 active" aria-current="page">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('registros.index') }}" class="nav-link fs-5">Registros de Formulario</a>
+                    <a href="{{ route('dashboard.registros.index') }}" class="nav-link fs-5">Registros de Formulario</a>
                 </li>
                 <li class="nav-item">
                     <a href="" class="nav-link fs-5"></a>

@@ -38,8 +38,10 @@
                                         <div class="container mt-4">
                                             <label class="form-label fs-5" for="ci_input"><b class="fw-bold"
                                                     style="color: red;">*</b> Cédula</label>
-                                            <input class="form-control @error('cei') is-invalid @enderror" type="text" id="cei" pattern="[0-9]*" inputmode="numeric" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="cei" placeholder="Cédula de Identidad"
-                                                value="{{ old('cei') }}">
+                                            <input class="form-control @error('cei') is-invalid @enderror" type="text"
+                                                id="cei" pattern="[0-9]*" inputmode="numeric" maxlength="10"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="cei"
+                                                placeholder="Cédula de Identidad" value="{{ old('cei') }}">
                                             @error('cei')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -82,7 +84,7 @@
                                             <label class="form-label fs-5" for="email"><b class="fw-bold"
                                                     style="color: red;">*</b> Correo</label>
                                             <input class="form-control @error('email') is-invalid @enderror" type="email"
-                                                name="email" placeholder="Correo" value="{{ old('phone_number') }}">
+                                                name="email" placeholder="Correo" value="{{ old('email') }}">
                                             @error('email')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -117,20 +119,13 @@
                                                 <label class="form-label fs-5" for="semester"><b class="fw-bold"
                                                         style="color: red;">*</b> Semestre</label>
                                                 <select class="form-select @error('semester') is-invalid @enderror"
-                                                    name="semester" id="semester">
+                                                    name="id_semester" id="semester">
                                                     <option selected disabled>Elige tu Semestre</option>
-                                                    <option value="Segundo"
-                                                        {{ old('semester') == 'Segundo' ? 'selected' : '' }}>
-                                                        Segundo</option>
-                                                    <option value="Tercero"
-                                                        {{ old('semester') == 'Tercero' ? 'selected' : '' }}>
-                                                        Tercero</option>
-                                                    <option value="Cuarto"
-                                                        {{ old('semester') == 'Cuarto' ? 'selected' : '' }}>
-                                                        Cuarto</option>
-                                                    <option value="Quinto"
-                                                        {{ old('semester') == 'Quinto' ? 'selected' : '' }}>
-                                                        Quinto</option>
+                                                    @foreach ($semesters as $semester)
+                                                        <option value="{{ $semester->id }}" {{old('id_semester') == $semester->id ? 'selected' : ''}}>
+                                                            {{$semester->semester}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 @error('semester')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -141,16 +136,13 @@
                                                 <label class="form-label fs-5" for="grade"><b class="fw-bold"
                                                         style="color: red;">*</b> Paralelo</label>
                                                 <select class="form-select @error('grade') is-invalid @enderror"
-                                                    name="grade" id="grade">
-                                                    <option selected disabled>Elige tu Semestre</option>
-                                                    <option value="A" {{ old('grade') == 'A' ? 'selected' : '' }}>A
-                                                    </option>
-                                                    <option value="B" {{ old('grade') == 'B' ? 'selected' : '' }}>B
-                                                    </option>
-                                                    <option value="C" {{ old('grade') == 'C' ? 'selected' : '' }}>C
-                                                    </option>
-                                                    <option value="D" {{ old('grade') == 'D' ? 'selected' : '' }}>D
-                                                    </option>
+                                                    name="id_grade" id="grade">
+                                                    <option selected disabled>Elige tu Paralelo</option>
+                                                    @foreach ($grades as $grade)
+                                                        <option value="{{ $grade->id }}" {{old('id_grade') == $grade->id ? 'selected' : ''}}>
+                                                            {{$grade->grade}}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 @error('grade')
                                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -162,7 +154,7 @@
                                                         style="color: red;">*</b> Jornada</label>
                                                 <select class="form-select @error('daytrip') is-invalid @enderror"
                                                     name="daytrip" id="daytrip">
-                                                    <option selected disabled>Elige tu Semestre</option>
+                                                    <option selected disabled>Elige tu Jornada</option>
                                                     <option value="Vespertina"
                                                         {{ old('daytrip') == 'Vespertina' ? 'selected' : '' }}>Vespertina
                                                     </option>
@@ -190,17 +182,17 @@
                                 <div class="container mt-4">
                                     <label class="form-label fs-5" for="id_institucion"><b class="fw-bold"
                                             style="color: red;">*</b> Institución</label>
-                                    <select class="form-select @error('id_institucion') is-invalid @enderror"
-                                        name="id_institucion" id="entity">
+                                    <select class="form-select @error('id_institute') is-invalid @enderror"
+                                        name="id_institute" id="entity">
                                         <option selected disabled>Selecciona la Institución</option>
                                         @foreach ($entidades as $entidad)
                                             <option value="{{ $entidad->id }}"
-                                                {{ old('id_institucion') == $entidad->id ? 'selected' : '' }}>
+                                                {{ 'id_institute', $registro->id_institute ?? '' == $entidad->id ? 'selected' : '' }}>
                                                 {{ $entidad->name }} -
                                                 {{ $entidad->address }}</option>
                                         @endforeach
                                     </select>
-                                    @error('id_institucion')
+                                    @error('id_institute')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

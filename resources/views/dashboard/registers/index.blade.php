@@ -13,11 +13,11 @@
     </div>
     <div class="container-fluid d-flex flex-column gap-3">
         <div class="container-fluid">
-            <form action="{{ route('registros.index') }}" method="GET" class="d-flex gap-2 align-items-center">
+            <form action="{{ route('dashboard.registros.index') }}" method="GET" class="d-flex gap-2 align-items-center">
                 <input type="text" name="search" placeholder="Buscar..." class="form-control"
                     value="{{ request()->query('search') }}" required>
                 <button type="submit" class="btn btn-primary">Buscar</button>
-                <a href="{{ route('registros.index') }}" class="btn btn-secondary">Resetear</a>
+                <a href="{{ route('dashboard.registros.index') }}" class="btn btn-secondary">Resetear</a>
             </form>
         </div>
 
@@ -54,26 +54,27 @@
                                 <td class="border border-gray-300 align-middle">{{ $registro->email }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->address }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->neighborhood }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->semester }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->grade }}</td>
+                                <td class="border border-gray-300 align-middle">
+                                    {{ $registro->semesters->semester ?? 'Sin Asignar' }}</td>
+                                <td class="border border-gray-300 align-middle">
+                                    {{ $registro->grades->grade ?? 'Sin Asignar' }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->daytrip }}</td>
                                 <td class="border border-gray-300 align-middle">
-                                    {{ $registro->institucion->name ?? 'Sin Asignar' }}
+                                    {{ $registro->institutes->name ?? 'Sin Asignar' }}
                                 </td>
                                 <td class="border border-gray-300 align-middle">
-                                    {{ $registro->institucion->address ?? 'Sin Asignar' }}
-                                </td>
+                                    {{ $registro->institutes->address ?? 'Sin Asignar' }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->created_at }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->updated_at }}</td>
                                 <td class="border border-gray-300">
-                                    <form class="delete-form mb-2" action="{{ route('registros.destroy', $registro->id) }}"
-                                        method="POST">
+                                    <form class="delete-form mb-2"
+                                        action="{{ route('dashboard.registros.destroy', $registro->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">Eliminar</button>
                                     </form>
                                     @include('components.alert-confirm')
-                                    <a href="{{ route('registros.edit', $registro->id) }}"
+                                    <a href="{{ route('dashboard.registros.edit', $registro->id) }}"
                                         class="btn btn-primary btn-sm">Editar</a>
                                 </td>
                             </tr>
@@ -88,7 +89,7 @@
         </div>
     </div>
     <div class="container-fluid">
-        <a href="{{ route('registros.export') }}" class="btn btn-success">Descargar Registros</a>
+        <a href="{{ route('dashboard.registros.export') }}" class="btn btn-success">Descargar Registros</a>
 
     </div>
 @endsection
