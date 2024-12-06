@@ -64,8 +64,8 @@ class FormController extends Controller
             'email' => 'required',
             'address' => 'required',
             'neighborhood' => 'required',
-            'semester' => 'required',
-            'grade' => 'required',
+            'id_semester' => 'required',
+            'id_grade' => 'required',
             'daytrip' => 'required',
             'id_institute' => 'required',
         ]);
