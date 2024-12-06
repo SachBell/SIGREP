@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Formulario;
+use App\Models\UserData;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -15,7 +15,7 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
 {
 
     public function collection() {
-        return Formulario::with('institucion')->get()->map(function ($registro){
+        return UserData::with('institutes', 'grades', 'semesters')->get()->map(function ($registro){
             return [
                 'id' => $registro->id,
                 'cei' => $registro->cei,
@@ -25,11 +25,11 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
                 'correo' => $registro->email,
                 'direaccion' => $registro->address,
                 'barrio' => $registro->neighborhood,
-                'semestre' => $registro->semester,
-                'paralelo' => $registro->grade,
+                'semestre' => $registro->semesters->semester ?? 'Sin Asignar',
+                'paralelo' => $registro->grades->grade ?? 'Sin Asignar',
                 'jornada' => $registro->daytrip,
-                'institucion' => $registro->institucion->name ?? 'Sin Asignar.',
-                'dir_institucion' => $registro->institucion->address,
+                'institucion' => $registro->institutes->name ?? 'Sin Asignar.',
+                'dir_institucion' => $registro->institutes->address ?? 'Sin Asignar',
             ];
         });
     }
