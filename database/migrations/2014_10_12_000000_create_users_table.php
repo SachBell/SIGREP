@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->default('user');
             $table->foreignId('user_data_id')
-                ->constrained('user_data');
+                ->nullable()
+                ->constrained('user_data')
+                ->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

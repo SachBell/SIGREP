@@ -21,10 +21,19 @@ return new class extends Migration
             $table->string('address');
             $table->string('neighborhood');
             $table->foreignId('id_semester')
-                ->constrained('semesters');
+                ->nullable()
+                ->constrained('semesters')
+                ->nullOnDelete();
             $table->foreignId('id_grade')
-                ->constrained('grades');
+                ->nullable()
+                ->constrained('grades')
+                ->nullOnDelete();
+            $table->foreignId('id_institute')
+                ->nullable()
+                ->constrained('institutes')
+                ->nullOnDelete();
             $table->string('daytrip');
+            $table->timestamps();
         });
     }
 

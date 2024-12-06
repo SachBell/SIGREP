@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Institucion extends Model
+class Semester extends Model
 {
     use HasFactory;
 
-    protected $table = 'institutes';
+    protected $table = 'semesters';
 
     protected $fillable = [
-        'nombre',
-        'direccion',
+        'semester'
     ];
 
+    // Relación con UserData
     public function userData() {
-        return $this->belongsTo(UserData::class, 'id_institute');
+        return $this->hasMany(UserData::class, 'id_semester');
     }
 }
