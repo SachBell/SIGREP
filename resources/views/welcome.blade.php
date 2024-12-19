@@ -116,10 +116,10 @@
                                         <div class="container mt-2">
                                             <!-- Semestre -->
                                             <div class="mt-2">
-                                                <label class="form-label fs-5" for="semester"><b class="fw-bold"
+                                                <label class="form-label fs-5" for="id_semester"><b class="fw-bold"
                                                         style="color: red;">*</b> Semestre</label>
-                                                <select class="form-select @error('semester') is-invalid @enderror"
-                                                    name="id_semester" id="semester">
+                                                <select class="form-select @error('id_semester') is-invalid @enderror"
+                                                    name="id_semester" id="id_semester">
                                                     <option selected disabled>Elige tu Semestre</option>
                                                     @foreach ($semesters as $semester)
                                                         <option value="{{ $semester->id }}" {{old('id_semester') == $semester->id ? 'selected' : ''}}>
@@ -127,16 +127,16 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('semester')
+                                                @error('id_semester')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <!-- Paralelo -->
                                             <div class="pt-2">
-                                                <label class="form-label fs-5" for="grade"><b class="fw-bold"
+                                                <label class="form-label fs-5" for="id_grade"><b class="fw-bold"
                                                         style="color: red;">*</b> Paralelo</label>
-                                                <select class="form-select @error('grade') is-invalid @enderror"
-                                                    name="id_grade" id="grade">
+                                                <select class="form-select @error('id_grade') is-invalid @enderror"
+                                                    name="id_grade" id="id_grade">
                                                     <option selected disabled>Elige tu Paralelo</option>
                                                     @foreach ($grades as $grade)
                                                         <option value="{{ $grade->id }}" {{old('id_grade') == $grade->id ? 'selected' : ''}}>
@@ -144,7 +144,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('grade')
+                                                @error('id_grade')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

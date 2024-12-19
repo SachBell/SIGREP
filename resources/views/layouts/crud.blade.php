@@ -18,7 +18,7 @@
 
 <body>
     @include('partials.swa')
-    <main>
+    <main class="container d-flex justify-content-center align-items-center">
         @yield('content')
     </main>
 </body>

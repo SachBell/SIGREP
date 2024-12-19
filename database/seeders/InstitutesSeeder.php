@@ -14,10 +14,16 @@ class InstitutesSeeder extends Seeder
      */
     public function run()
     {
-        Institucion::create([
-            'name' => 'Institución Ficticia',
-            'address' => 'Address',
-            'user_limit' => '2',
-        ]);
+        $institutes = [
+            ['name' => 'Institución 1', 'address' => 'Address 1', 'user_limit' => '3'],
+            ['name' => 'Institución 2', 'address' => 'Address 2', 'user_limit' => '3'],
+            ['name' => 'Institución 3', 'address' => 'Address 3', 'user_limit' => '3'],
+            ['name' => 'Institución 4', 'address' => 'Address 4', 'user_limit' => '3'],
+            ['name' => 'Institución 5', 'address' => 'Address 5', 'user_limit' => '3']
+        ];
+
+        foreach($institutes as $data) {
+            Semester::create($data);
+        }
     }
 }

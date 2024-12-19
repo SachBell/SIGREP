@@ -125,9 +125,9 @@
                         </div>
                     </fieldset>
 
-                    <div class="container-fluid d-flex justify-content-center gap-2">
+                    <div class="mobile container-fluid d-flex justify-content-center gap-2">
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        <a href="{{ route('dashboard.registros.index') }}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{{ route('dashboard.registros.index') }}" class="mobile btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </div>

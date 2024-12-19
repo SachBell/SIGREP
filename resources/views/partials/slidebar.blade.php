@@ -12,7 +12,7 @@
                     <a href="{{ route('dashboard.registros.index') }}" class="nav-link fs-5">Registros de Formulario</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link fs-5"></a>
+                    <a href="{{route('dashboard.institutes.index')}}" class="nav-link fs-5">Institutos</a>
                 </li>
             </ul>
         </div>

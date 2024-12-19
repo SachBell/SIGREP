@@ -17,12 +17,12 @@
 </head>
 
 <body>
+    @include('partials.swa')
     <header>
         @include('partials.slidebar')
     </header>
     <div id="main" class="d-flex flex-column justify-content-between pt-3 mx-4">
         <main>
-            @include('partials.swa')
             @yield('content')
         </main>
         <footer>

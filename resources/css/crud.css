@@ -41,6 +41,10 @@ body {
     color: var(--font-color);
 }
 
+main {
+    height: 100vh !important;
+}
+
 .btn-primary {
     background-color: var(--primary-button);
 }
@@ -50,7 +54,7 @@ body {
 }
 
 #form-container {
-    width: calc(100% - 25%);
+    width: calc(100% - 35%);
 }
 
 #edit-form {
@@ -78,4 +82,34 @@ select {
 
 option {
     background: #303f4c;
+}
+
+@media (max-width: 576px) {
+
+    .mobile {
+        flex-direction: column;
+    }
+
+    #create-container {
+        margin-top: 0 !important;
+    }
+
+    #form-container {
+        width: calc(100% - 10%);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .mobile {
+        flex-direction: column;
+    }
+
+    #create-container {
+        margin-top: 0 !important;
+    }
+
+    #form-container {
+        width: calc(100% - 10%);
+    }
 }

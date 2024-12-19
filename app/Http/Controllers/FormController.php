@@ -71,20 +71,29 @@ class FormController extends Controller
         ]);
 
         // dd($request);
-
         $existente = UserData::where('cei', $request->cei)
             ->where('email', $request->email)
             ->first();
+        
+        
         // dd($existente);
-            if($existente) {
-                return redirect()->back()->with('error', 'Ya te has registrado en este formulario.');
-            }
+        if($existente) {
+            return redirect()->back()->with('error', 'Ya te has registrado en este formulario.');
+        }
+        
+        // Validación de limite de usuarios
+        $institucion = Institucion::findOrFail($request->id_institute);
 
-            // Crear y almacenar el formulario
+        $currentUserCount = UserData::where('id_institute', $institucion->id)->count();
 
-            UserData::create($request->all());
+        if ($currentUserCount >= $institucion->user_limit) {
+            return redirect()->back()->with('error', 'El límite de estudiantes para esta institución ha sido alcanzado.');
+        }
 
-            return redirect('/')->with('success', 'Formulario enviado con éxito.');
+        // Crear y almacenar el formulario
+        UserData::create($request->all());
+
+        return redirect('/')->with('success', 'Formulario enviado con éxito.');
     }
 
     public function destroy($id) {
@@ -123,6 +132,15 @@ class FormController extends Controller
             'daytrip' => 'required',
             'id_institute' => 'required',
         ]);
+
+        // Validación de limite de usuarios
+        $institucion = Institucion::findOrFail($request->id_institute);
+
+        $currentUserCount = UserData::where('id_institute', $institucion->id)->count();
+
+        if ($currentUserCount >= $institucion->user_limit) {
+            return redirect()->back()->with('error', 'El límite de estudiantes para esta institución ha sido alcanzado.');
+        }
 
         $registro->update($request->all());
 
