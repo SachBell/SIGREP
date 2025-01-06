@@ -6,7 +6,7 @@
                 <h1 class="text-uppercase">Editar Registro</h1>
             </div>
             <div id="form-container" class="contianer-fluid py-4">
-                <form id="edit-form" class="py-5 px-5" action="{{ route('dashboard.registros.update', $registro->id) }}"
+                <form id="edit-form" class="py-5 px-5" action="{{ route('admin.registros.update', $registro->id) }}"
                     method="POST">
                     @csrf
                     @method('PUT')
@@ -127,7 +127,7 @@
 
                     <div class="mobile container-fluid d-flex justify-content-center gap-2">
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        <a href="{{ route('dashboard.registros.index') }}" class="mobile btn btn-secondary">Cancelar</a>
+                        <a href="{{ route('admin.registros.index') }}" class="mobile btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </div>

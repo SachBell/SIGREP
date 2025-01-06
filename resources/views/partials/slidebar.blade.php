@@ -5,15 +5,29 @@
     <div class="h-100 d-flex flex-column justify-content-between contianer-fluid mt-4 px-1">
         <div class="container-fluid ms-3">
             <ul class="navbar-nav gap-2">
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link fs-5 active" aria-current="page">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.registros.index') }}" class="nav-link fs-5">Registros de Formulario</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('dashboard.institutes.index')}}" class="nav-link fs-5">Institutos</a>
-                </li>
+                @auth
+                    @if (Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link fs-5 active"
+                                aria-current="page">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.registros.index') }}" class="nav-link fs-5">Registros de
+                                Formulario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.institutes.index') }}" class="nav-link fs-5">Institutos</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('user.dashboard') }}" class="nav-link fs-5 active"
+                                aria-current="page">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link fs-5">Registrar Practicas</a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </div>
         <div id="footer-slidebar" class="container-fluid py-4 px-0">

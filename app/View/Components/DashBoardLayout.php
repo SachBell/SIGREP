@@ -12,6 +12,6 @@ class DashBoardLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.dashboard');
+        return view('layouts.user');
     }
 }

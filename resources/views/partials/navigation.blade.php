@@ -11,7 +11,7 @@
                     <a href="/" class="nav-link active fs-5" aria-current="page">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('login')}}" class="nav-link fs-5" aria-current="page">Log In</a>
+                    <a href="{{ route('login') }}" class="nav-link fs-5" aria-current="page">Log In</a>
                 </li>
             </ul>
         </div>

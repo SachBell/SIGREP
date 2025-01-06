@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Institucion;
 
@@ -30,11 +31,11 @@ class InstitutesController extends Controller
 
         $registros = $query->paginate(5);
 
-        return view('dashboard.institutes.index', compact('registros'));
+        return view('admin.institutes.index', compact('registros'));
     }
 
     public function create(){
-        return view('dashboard.institutes.partials.create');
+        return view('admin.institutes.partials.create');
     }
 
     public function store(Request $request){
@@ -55,20 +56,20 @@ class InstitutesController extends Controller
         
         Institucion::create($request->all());
         
-        return redirect('/institutes')->with('success', 'Institución creada con éxito.');
+        return redirect()->route('admin.institutes.index')->with('success', 'Institución creada con éxito.');
     }
 
     public function destroy($id) {
         $registro = Institucion::findOrFail($id);
         $registro->delete();
 
-        return redirect()->route('dashboard.institutes.index')->with('success', 'Institución eliminada con éxito.');
+        return redirect()->route('admin.institutes.index')->with('success', 'Institución eliminada con éxito.');
     }
 
     public function edit($id){
         $registro = Institucion::findOrFail($id);
         
-        return view('dashboard.institutes.partials.edit', compact('registro'));
+        return view('admin.institutes.partials.edit', compact('registro'));
     }
 
     public function update(Request $request, $id){
@@ -82,6 +83,6 @@ class InstitutesController extends Controller
 
         $registro->update($request->all());
 
-        return redirect()->route('dashboard.institutes.index')->with('success', 'Institución actualizada con éxito');
+        return redirect()->route('admin.institutes.index')->with('success', 'Institución actualizada con éxito');
     }
 }

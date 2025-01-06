@@ -1,9 +1,9 @@
 @extends('layouts.dashboard')
-@section('title', 'Registros')
+@section('title', 'Institutos')
 @section('content')
     <div class="container-fluid d-flex mt-1 mb-5">
         <div class="container-fluid d-flex justify-content-center py-2 w-100">
-            <h2 class="title-reg my-auto">Registros de Practicas Preprofesionales ISUS 2024-II</h2>
+            <h2 class="title-reg my-auto">Instituciones para Practicas Preprofesionales ISUS 2024-II</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center py-2">
             <button id="toggle-btn" class="btn btn-primary mx-3">
@@ -13,11 +13,11 @@
     </div>
     <div class="container-fluid d-flex flex-column gap-3">
         <div class="container-fluid">
-            <form action="{{ route('dashboard.registros.index') }}" method="GET" class="d-flex gap-2 align-items-center">
+            <form action="{{ route('admin.institutes.index') }}" method="GET" class="d-flex gap-2 align-items-center">
                 <input type="text" name="search" placeholder="Buscar..." class="form-control"
                     value="{{ request()->query('search') }}" required>
                 <button type="submit" class="btn btn-primary">Buscar</button>
-                <a href="{{ route('dashboard.registros.index') }}" class="btn btn-secondary">Resetear</a>
+                <a href="{{ route('admin.institutes.index') }}" class="btn btn-secondary">Resetear</a>
             </form>
         </div>
 
@@ -28,18 +28,9 @@
                 <table id="reg-table" class="table">
                     <tr>
                         <th class="border px-1 align-middle">ID</th>
-                        <th class="border px-5 align-middle">CEI</th>
-                        <th class="border px-5 align-middle">Nombres</th>
-                        <th class="border px-5 align-middle">Apellidos</th>
-                        <th class="border px-5 align-middle">Celular</th>
-                        <th class="border px-5 align-middle">Correo</th>
+                        <th class="border px-5 align-middle">Nombre</th>
                         <th class="border px-5 align-middle">Dirección</th>
-                        <th class="border px-5 align-middle">Barrio</th>
-                        <th class="border px-4 align-middle">Semestre</th>
-                        <th class="border px-2 align-middle">Paralelo</th>
-                        <th class="border px-4 align-middle">Jornada</th>
-                        <th class="border px-5 align-middle">Institución</th>
-                        <th class="border px-5 align-middle">Dirección Institución</th>
+                        <th class="border px-5 align-middle">Límite de Usuarios</th>
                         <th class="border px-4 align-middle">Registro</th>
                         <th class="border px-4 align-middle">Modificación</th>
                     </tr>
@@ -47,34 +38,20 @@
                         @foreach ($registros as $registro)
                             <tr>
                                 <td class="border border-gray-300 align-middle">{{ $registro->id }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->cei }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->name }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->lastname }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->phone_number }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->email }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->address }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->neighborhood }}</td>
-                                <td class="border border-gray-300 align-middle">
-                                    {{ $registro->semesters->semester ?? 'Sin Asignar' }}</td>
-                                <td class="border border-gray-300 align-middle">
-                                    {{ $registro->grades->grade ?? 'Sin Asignar' }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->daytrip }}</td>
-                                <td class="border border-gray-300 align-middle">
-                                    {{ $registro->institutes->name ?? 'Sin Asignar' }}
-                                </td>
-                                <td class="border border-gray-300 align-middle">
-                                    {{ $registro->institutes->address ?? 'Sin Asignar' }}</td>
+                                <td class="border border-gray-300 align-middle">{{ $registro->user_limit }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->created_at }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->updated_at }}</td>
                                 <td class="border border-gray-300">
                                     <form class="delete-form mb-2"
-                                        action="{{ route('dashboard.registros.destroy', $registro->id) }}" method="POST">
+                                        action="{{ route('admin.institutes.destroy', $registro->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">Eliminar</button>
                                     </form>
                                     @include('components.alert-confirm')
-                                    <a href="{{ route('dashboard.registros.edit', $registro->id) }}"
+                                    <a href="{{ route('admin.institutes.edit', $registro->id) }}"
                                         class="btn btn-primary btn-sm">Editar</a>
                                 </td>
                             </tr>
@@ -88,8 +65,16 @@
             {{ $registros->links() }}
         </div>
     </div>
-    <div class="container-fluid">
-        <a href="{{ route('dashboard.registros.export') }}" class="btn btn-success">Descargar Registros</a>
 
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <h2>Nueva Institución</h2>
+            <p>
+                Añade nuevas instituciones en las cuales podras definir el número exacto de cupos que puede tener.
+            </p>
+        </div>
+        <div class="container-fluid">
+            <a class="btn btn-primary" href="{{ route('admin.institutes.create') }}">Añadir Institución</a>
+        </div>
     </div>
 @endsection

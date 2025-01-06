@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Formulario;
 use App\Models\UserData;
@@ -14,6 +15,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class FormController extends Controller
 {
+
+    public function dashboard(){
+        return view('admin.dashboard');
+    }
 
     public function index(Request $request) {
         $search = $request->input('search');
@@ -43,7 +48,7 @@ class FormController extends Controller
         $registros = $query->with(['institutes', 'semesters', 'grades'])->paginate(5);
 
         // dd($registros);
-        return view('dashboard.registers.index', compact('registros'));
+        return view('admin.registers.index', compact('registros'));
     }
 
     public function create() {
@@ -78,7 +83,7 @@ class FormController extends Controller
         
         // dd($existente);
         if($existente) {
-            return redirect()->back()->with('error', 'Ya te has registrado en este formulario.');
+            return redirect()->back()->with('error', 'Este usuario ya está registrado.');
         }
         
         // Validación de limite de usuarios
@@ -87,7 +92,7 @@ class FormController extends Controller
         $currentUserCount = UserData::where('id_institute', $institucion->id)->count();
 
         if ($currentUserCount >= $institucion->user_limit) {
-            return redirect()->back()->with('error', 'El límite de estudiantes para esta institución ha sido alcanzado.');
+            return redirect()->back()->with('error', 'Límite de estudiantes alcanzado.');
         }
 
         // Crear y almacenar el formulario
@@ -101,7 +106,7 @@ class FormController extends Controller
         $registro = UserData::findOrFail($id);
         $registro->delete();
 
-        return redirect()->route('dashboard.registros.index')->with('success', 'Registro eliminado con éxito.');
+        return redirect()->route('admin.registros.index')->with('success', 'Registro eliminado con éxito.');
 
     }
 
@@ -110,7 +115,7 @@ class FormController extends Controller
         $entidades = Institucion::all();
         $semesters = Semester::all();
         $grades = Grade::all();
-        return view('dashboard.registers.partials.edit', compact('registro', 'entidades', 'grades', 'semesters'));
+        return view('admin.registers.partials.edit', compact('registro', 'entidades', 'grades', 'semesters'));
     }
 
     public function update(Request $request, $id) {
@@ -144,7 +149,7 @@ class FormController extends Controller
 
         $registro->update($request->all());
 
-        return redirect()->route('dashboard.registros.index')->with('success', 'Registro Actualizado con Exito');
+        return redirect()->route('admin.registros.index')->with('success', 'Registro Actualizado con Exito');
     }
 
     public function export(){

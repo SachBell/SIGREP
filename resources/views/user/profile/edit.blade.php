@@ -11,13 +11,13 @@
         <div class="mx-auto">
             <div class="p-4">
                 <div>
-                    @include('profile.partials.update-profile-information-form')
+                    @include('user.profile.partials.update-profile-information-form')
                 </div>
             </div>
 
             <div class="p-4 ">
                 <div>
-                    @include('profile.partials.update-password-form')
+                    @include('user.profile.partials.update-password-form')
                 </div>
             </div>
         </div>

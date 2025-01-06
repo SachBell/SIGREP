@@ -17,7 +17,7 @@
         @endif
 
         <div id="form-container" class="container-fluid">
-            <form id="edit-form" class="d-flex flex-column gap-3 py-5 px-5" action="{{ route('institutes.store') }}"
+            <form id="edit-form" class="d-flex flex-column gap-3 py-5 px-5" action="{{ route('admin.institutes.store') }}"
                 method="POST">
                 @csrf
                 <div class="container">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="mobile container-fluid d-flex justify-content-center gap-3">
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    <a href="{{ route('dashboard.institutes.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <a href="{{ route('admin.institutes.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>
