@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class FormController extends Controller
 {
     public function dashboard(){
-        return view('user.dashboard');
+        return view('user.index');
     }
 
     public function create() {
