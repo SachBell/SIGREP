@@ -36,6 +36,10 @@
     background: var(--background-dark-opacity);
 }
 
+body.swal2-height-auto {
+    height: inherit !important;
+}
+
 body {
     background: radial-gradient(circle at center, #303f4c 0%, var(--background-dark) 100%);
     color: var(--font-color);

@@ -43,10 +43,14 @@ body {
 
 body {
     display: grid;
-    grid-template-columns: 350px 80%;
+    grid-template-columns: 300px 80%;
     grid-template-rows: 100% 1fr;
     background: var(--form-color);
     color: var(--font-black-color);
+}
+
+body.swal2-height-auto {
+    height: inherit !important;
 }
 
 header {
@@ -54,7 +58,7 @@ header {
 }
 
 nav {
-    width: 300px;
+    width: 300px !important;
 }
 
 .bg-dark {
@@ -98,7 +102,6 @@ nav {
 
     body {
         display: flex;
-        flex-direction: column;
     }
 
     header {
@@ -107,6 +110,7 @@ nav {
     }
 
     #main {
+        width: 100%;
         height: 100%;
     }
 
@@ -130,6 +134,7 @@ nav {
 
 /* Estilo para la slidebar en pantallas grandes (desktop) */
 @media (min-width: 769px) {
+
     .slidebar {
         transform: translateX(0) !important;
         transition: transform .5s ease;

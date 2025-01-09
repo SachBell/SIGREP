@@ -1,6 +1,5 @@
-@extends('layouts.dashboard')
 @section('title', 'Institutos')
-@section('content')
+<x-dashboard-layout>
     <div class="container-fluid d-flex mt-1 mb-5">
         <div class="container-fluid d-flex justify-content-center py-2 w-100">
             <h2 class="title-reg my-auto">Instituciones para Practicas Preprofesionales ISUS 2024-II</h2>
@@ -48,7 +47,8 @@
                                         action="{{ route('admin.institutes.destroy', $registro->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn">Eliminar</button>
+                                        <button type="submit"
+                                            class="btn btn-danger btn-sm delete-btn">Eliminar</button>
                                     </form>
                                     @include('components.alert-confirm')
                                     <a href="{{ route('admin.institutes.edit', $registro->id) }}"
@@ -77,4 +77,4 @@
             <a class="btn btn-primary" href="{{ route('admin.institutes.create') }}">Añadir Institución</a>
         </div>
     </div>
-@endsection
+</x-dashboard-layout>

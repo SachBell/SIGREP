@@ -1,6 +1,5 @@
-@extends('layouts.crud')
 @section('title', 'Nueva Institución')
-@section('content')
+<x-crud-layout>
     <div id="create-container" class="container-fluid d-flex flex-column align-items-center">
         <div class="container-fluid py-4 pb-2 text-center">
             <h1 class="text-uppercase">Añadir Institución</h1>
@@ -23,8 +22,8 @@
                 <div class="container">
                     <div class="mb-3">
                         <label for="name" class="form-label fs-5">Nombre de la Institución</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
-                            required>
+                        <input type="text" name="name" id="name" class="form-control"
+                            value="{{ old('name') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label fs-5">Dirección</label>
@@ -44,4 +43,4 @@
             </form>
         </div>
     </div>
-@endsection
+</x-crud-layout>

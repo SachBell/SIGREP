@@ -1,6 +1,5 @@
-@extends('layouts.dashboard')
 @section('title', 'Panel de Control')
-@section('content')
+<x-dashboard-layout>
     <div class="container-fluid d-flex justify-content-end mx-0 my-2">
         <div class="container-fluid w-100">
             <h2>Bienvenido de nuevo {{ auth()->user()->name }}</h2>
@@ -11,4 +10,4 @@
             </button>
         </div>
     </div>
-@endsection
+</x-dashboard-layout>

@@ -17,12 +17,12 @@
 </head>
 
 <body>
+    @include('partials.swa')
     <header>
         @include('partials.navigation')
     </header>
     <main class="container-fluid d-flex justify-content-center mt-5">
-        @include('partials.swa')
-        @yield('content')
+        {{ $slot }}
     </main>
     <footer>
         @include('partials.footer')

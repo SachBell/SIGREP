@@ -1,7 +1,5 @@
-@extends('layouts.app')
 @section('title', 'Inicio')
-@section('content')
-    <!-- Formulario de Estudiantes -->
+<x-app-layout>
     <form id="spp-form" class="pt-5 pb-5" action="{{ route('form.store') }}" method="POST">
         @csrf
         <div class="input-container container d-flex flex-column gap-5">
@@ -11,12 +9,14 @@
                 </div>
                 <div class="container mt-4">
                     <p class="description fs-5">
-                        ¡Bienvenido al sistema de gestión de prácticas! Este formulario ha sido diseñado para facilitar la
+                        ¡Bienvenido al sistema de gestión de prácticas! Este formulario ha sido diseñado para facilitar
+                        la
                         coordinación entre los estudiantes y las instituciones que ofrecen oportunidades de prácticas
                         preprofesionales.
                     </p>
                     <p class="description fs-5">
-                        A través de este formulario, podrás registrar tus datos personales, seleccionar la institución que
+                        A través de este formulario, podrás registrar tus datos personales, seleccionar la institución
+                        que
                         mejor se adapte a tu ubicación y postularte para las prácticas. <b>Ten en cuenta que cada
                             institución cuenta con un límite de plazas disponibles.</b>
                     </p>
@@ -38,10 +38,11 @@
                                         <div class="container mt-4">
                                             <label class="form-label fs-5" for="ci_input"><b class="fw-bold"
                                                     style="color: red;">*</b> Cédula</label>
-                                            <input class="form-control @error('cei') is-invalid @enderror" type="text"
-                                                id="cei" pattern="[0-9]*" inputmode="numeric" maxlength="10"
-                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="cei"
-                                                placeholder="Cédula de Identidad" value="{{ old('cei') }}">
+                                            <input class="form-control @error('cei') is-invalid @enderror"
+                                                type="text" id="cei" pattern="[0-9]*" inputmode="numeric"
+                                                maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                name="cei" placeholder="Cédula de Identidad"
+                                                value="{{ old('cei') }}">
                                             @error('cei')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -50,8 +51,9 @@
                                         <div class="container mt-2">
                                             <label for="names_input" class="form-label fs-5"><b class="fw-bold"
                                                     style="color: red;">*</b> Nombres</label>
-                                            <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                                name="name" placeholder="Nombres" value="{{ old('name') }}">
+                                            <input class="form-control @error('name') is-invalid @enderror"
+                                                type="text" name="name" placeholder="Nombres"
+                                                value="{{ old('name') }}">
                                             @error('name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -83,8 +85,9 @@
                                         <div class="container mt-2">
                                             <label class="form-label fs-5" for="email"><b class="fw-bold"
                                                     style="color: red;">*</b> Correo</label>
-                                            <input class="form-control @error('email') is-invalid @enderror" type="email"
-                                                name="email" placeholder="Correo" value="{{ old('email') }}">
+                                            <input class="form-control @error('email') is-invalid @enderror"
+                                                type="email" name="email" placeholder="Correo"
+                                                value="{{ old('email') }}">
                                             @error('email')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -122,8 +125,9 @@
                                                     name="id_semester" id="id_semester">
                                                     <option selected disabled>Elige tu Semestre</option>
                                                     @foreach ($semesters as $semester)
-                                                        <option value="{{ $semester->id }}" {{old('id_semester') == $semester->id ? 'selected' : ''}}>
-                                                            {{$semester->semester}}
+                                                        <option value="{{ $semester->id }}"
+                                                            {{ old('id_semester') == $semester->id ? 'selected' : '' }}>
+                                                            {{ $semester->semester }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -139,8 +143,9 @@
                                                     name="id_grade" id="id_grade">
                                                     <option selected disabled>Elige tu Paralelo</option>
                                                     @foreach ($grades as $grade)
-                                                        <option value="{{ $grade->id }}" {{old('id_grade') == $grade->id ? 'selected' : ''}}>
-                                                            {{$grade->grade}}
+                                                        <option value="{{ $grade->id }}"
+                                                            {{ old('id_grade') == $grade->id ? 'selected' : '' }}>
+                                                            {{ $grade->grade }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -156,7 +161,8 @@
                                                     name="daytrip" id="daytrip">
                                                     <option selected disabled>Elige tu Jornada</option>
                                                     <option value="Vespertina"
-                                                        {{ old('daytrip') == 'Vespertina' ? 'selected' : '' }}>Vespertina
+                                                        {{ old('daytrip') == 'Vespertina' ? 'selected' : '' }}>
+                                                        Vespertina
                                                     </option>
                                                     <option value="Nocturna"
                                                         {{ old('daytrip') == 'Nocturna' ? 'selected' : '' }}>Nocturna
@@ -208,4 +214,4 @@
             </div>
         </div>
     </form>
-@endsection
+</x-app-layout>

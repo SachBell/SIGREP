@@ -17,13 +17,13 @@
 </head>
 
 <body>
-    @include('partials.swa')
     <header>
         @include('partials.slidebar')
     </header>
-    <div id="main" class="d-flex flex-column justify-content-between pt-3 mx-4">
+    @include('partials.swa')
+    <div id="main" class="d-flex flex-column justify-content-between pt-3">
         <main>
-            @yield('content')
+            {{ $slot }}
         </main>
         <footer>
             @include('partials.footer')

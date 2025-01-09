@@ -1,6 +1,5 @@
-@extends('layouts.dashboard')
 @section('title', 'Registros')
-@section('content')
+<x-dashboard-layout>
     <div class="container-fluid d-flex mt-1 mb-5">
         <div class="container-fluid d-flex justify-content-center py-2 w-100">
             <h2 class="title-reg my-auto">Registros de Practicas Preprofesionales ISUS 2024-II</h2>
@@ -71,7 +70,8 @@
                                         action="{{ route('admin.registros.destroy', $registro->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn">Eliminar</button>
+                                        <button type="submit"
+                                            class="btn btn-danger btn-sm delete-btn">Eliminar</button>
                                     </form>
                                     @include('components.alert-confirm')
                                     <a href="{{ route('admin.registros.edit', $registro->id) }}"
@@ -90,6 +90,5 @@
     </div>
     <div class="container-fluid">
         <a href="{{ route('admin.registros.export') }}" class="btn btn-success">Descargar Registros</a>
-
     </div>
-@endsection
+</x-dashboard-layout>
