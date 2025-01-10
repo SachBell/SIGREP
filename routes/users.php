@@ -28,17 +28,12 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
 // USER ROUTES
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('user.dashboard'); // Dashboard para usuarios regulares
-//     })->name('user.dashboard');
-// });
-
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('user.profile.destroy');
+    Route::view('/forms', 'user.form-register.index')->name('user.form-register.index');
 });
 
 require __DIR__.'/auth.php';

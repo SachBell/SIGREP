@@ -24,7 +24,7 @@
                                 aria-current="page">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link fs-5">Registrar Practicas</a>
+                            <a href="{{route('user.form-register.index')}}" class="nav-link fs-5">Registrar Practicas</a>
                         </li>
                     @endif
                 @endauth

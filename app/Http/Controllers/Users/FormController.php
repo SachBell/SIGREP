@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Institucion;
+use App\Models\UserData;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -39,13 +41,13 @@ class FormController extends Controller
         $existente = UserData::where('cei', $request->cei)
             ->where('email', $request->email)
             ->first();
-        
-        
+
+
         // dd($existente);
         if($existente) {
             return redirect()->back()->with('error', 'Ya te has registrado en este formulario.');
         }
-        
+
         // Validación de limite de usuarios
         $institucion = Institucion::findOrFail($request->id_institute);
 
