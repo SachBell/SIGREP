@@ -83,7 +83,7 @@ class InstitutesController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'user_limit' => 'required',
+            'user_limit' => 'required|integer|min:1',
         ]);
 
         $registro->update($request->all());

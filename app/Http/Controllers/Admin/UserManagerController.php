@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -48,8 +49,9 @@ class UserManagerController extends Controller
     public function edit($id)
     {
         $registro = User::findOrFail($id);
+        $roles = Role::all();
 
-        return view('admin.user-manager.partials.edit', compact('registro'));
+        return view('admin.user-manager.partials.edit', compact('registro', 'roles'));
     }
 
     public function update(Request $request, $id)
@@ -59,7 +61,7 @@ class UserManagerController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'role' => 'required',
+            'id_role' => 'required',
         ]);
 
         $registro->update($request->all());
