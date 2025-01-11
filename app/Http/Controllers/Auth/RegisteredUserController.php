@@ -39,11 +39,8 @@ class RegisteredUserController extends Controller
                 'string',
                 'max:255',
                 function ($attribute, $value, $fail) use ($prohibitedNames) {
-<<<<<<< HEAD
+
                     if (in_array(strtolower($value), array_map('strtolower', $prohibitedNames))) {
-=======
-                    if (in_array(strtolower($value), array_map('strlower', $prohibitedNames))) {
->>>>>>> 5f2b28fe56663d6e67698d63c30006cccd1202a6
                         $fail('Este nombre no se puede usar.');
                     } else {
                         if (User::where('name', $value)->exists()) {
