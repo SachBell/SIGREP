@@ -30,9 +30,25 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        $prohibitedNames = ['admin', 'administrator', 'adm', 'root', 'superuser'];
+
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) use ($prohibitedNames) {
+                    if (in_array(strtolower($value), $prohibitedNames)) {
+                        $fail('Este nombre no se puede usar.');
+                    } else {
+                        if (User::where('name', $value)->exists()) {
+                            $fail('El nombre de usuario ya existe.');
+                        }
+                    }
+                },
+            ],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
