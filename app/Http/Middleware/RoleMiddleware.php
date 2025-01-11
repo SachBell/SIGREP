@@ -17,7 +17,7 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (Auth::user()->role !== $role) {
+        if (Auth::user()->id_role !== (int)$role) {
             return redirect()->route('user.dashboard')->with('error', 'No tienes acceso a esta página!');
         }
 

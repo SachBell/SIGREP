@@ -8,7 +8,8 @@ use App\Models\Institute;
 
 class InstitutesController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         $search = $request->input('search');
 
@@ -26,7 +27,6 @@ class InstitutesController extends Controller
                 $query->where('name', 'like', '%' . $search . '%')
                     ->orWhere('address', 'like', '%' . $search . '%');
             });
-
         }
 
         $registros = $query->paginate(5);
@@ -34,11 +34,13 @@ class InstitutesController extends Controller
         return view('admin.institutes.index', compact('registros'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.institutes.partials.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $request->validate([
             'name' => 'required',
@@ -50,29 +52,32 @@ class InstitutesController extends Controller
             ->where('name', $request->name)
             ->first();
 
-            if($existente){
-                return redirect()->back()->with('error', 'Ya existe una Institución con ese nombre');
-            }
+        if ($existente) {
+            return redirect()->back()->with('error', 'Ya existe una Institución con ese nombre');
+        }
 
         Institute::create($request->all());
 
         return redirect()->route('admin.institutes.index')->with('success', 'Institución creada con éxito.');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $registro = Institute::findOrFail($id);
         $registro->delete();
 
         return redirect()->route('admin.institutes.index')->with('success', 'Institución eliminada con éxito.');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $registro = Institute::findOrFail($id);
 
         return view('admin.institutes.partials.edit', compact('registro'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $registro = Institute::findOrFail($id);
 
         $request->validate([
