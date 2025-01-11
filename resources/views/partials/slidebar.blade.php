@@ -6,7 +6,7 @@
         <div class="container-fluid ms-3">
             <ul class="navbar-nav gap-2">
                 @auth
-                    @if (Auth::user()->role == 'admin')
+                    @if (Auth::user()->id_role === 1)
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link fs-5 active"
                                 aria-current="page">Inicio</a>
@@ -18,13 +18,16 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.institutes.index') }}" class="nav-link fs-5">Institutos</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.user-manager.index') }}" class="nav-link fs-5">Administrador de Usuarios</a>
+                        </li>
                     @else
                         <li class="nav-item">
                             <a href="{{ route('user.dashboard') }}" class="nav-link fs-5 active"
                                 aria-current="page">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('user.form-register.index')}}" class="nav-link fs-5">Registrar Practicas</a>
+                            <a href="{{ route('user.form-register.index') }}" class="nav-link fs-5">Registrar Practicas</a>
                         </li>
                     @endif
                 @endauth
