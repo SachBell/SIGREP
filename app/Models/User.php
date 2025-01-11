@@ -24,7 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'id_role',
         'user_data_id'
     ];
 
@@ -48,8 +48,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function userData(){
+    public function userData()
+    {
         return $this->belongsTo(UserData::class, 'user_data_id', 'id');
     }
 
+    public function userRole()
+    {
+        return $this->belongsTo(Role::class, 'id_role', 'id');
+    }
 }
