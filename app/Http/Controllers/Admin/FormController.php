@@ -79,7 +79,7 @@ class FormController extends Controller
 
         // dd($request);
         $existente = UserData::where('cei', $request->cei)
-            ->where('email', $request->email)
+            ->orWhere('email', $request->email)
             ->first();
 
 
@@ -153,9 +153,11 @@ class FormController extends Controller
         $registro = UserData::findOrFail($id);
 
         // Verificar si hay otro usuario con el mismo CEI y correo electrónico (excluyendo este usuario)
-        $existente = UserData::where('cei', $request->cei)
-            ->where('email', $request->email)
-            ->where('id', '!=', $id) // Asegurarse de no comparar con el propio registro
+        $existente = UserData::where(function ($query) use ($request) {
+            $query->where('cei', $request->cei)
+                ->orWhere('email', $request->email);
+        })
+            ->where('id', '!=', $id)
             ->first();
 
         if ($existente) {

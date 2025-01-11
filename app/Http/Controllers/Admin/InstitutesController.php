@@ -86,6 +86,16 @@ class InstitutesController extends Controller
             'user_limit' => 'required|integer|min:1',
         ]);
 
+        $existente = Institute::where(function ($query) use ($request) {
+            $query->where('name', $request->name);
+        })
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existente) {
+            return redirect()->back()->with('error', 'Este institución ya está registrada.');
+        }
+
         $registro->update($request->all());
 
         return redirect()->route('admin.institutes.index')->with('success', 'Institución actualizada con éxito');

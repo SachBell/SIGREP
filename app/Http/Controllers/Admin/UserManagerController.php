@@ -64,6 +64,17 @@ class UserManagerController extends Controller
             'id_role' => 'required',
         ]);
 
+        $existente = User::where(function ($query) use ($request) {
+            $query->where('name', $request->name)
+                ->orWhere('email', $request->email);
+        })
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existente) {
+            return redirect()->back()->with('error', 'Este usuario ya está registrado.');
+        }
+
         $registro->update($request->all());
 
         return redirect()->route('admin.user-manager.index')->with('success', 'Usuario actualizado con éxito.');

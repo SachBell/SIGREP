@@ -45,7 +45,7 @@ class FormController extends Controller
 
         // dd($request);
         $existente = UserData::where('cei', $request->cei)
-            ->where('email', $request->email)
+            ->orWhere('email', $request->email)
             ->first();
 
 
