@@ -11,28 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_data', function (Blueprint $table) {
+        Schema::create('application_details', function (Blueprint $table) {
             $table->id();
-            $table->string('cei', 10);
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('phone_number', 10);
-            $table->string('email');
-            $table->string('address');
-            $table->string('neighborhood');
-            $table->foreignId('id_semester')
+            $table->foreignId('id_application_calls')
                 ->nullable()
-                ->constrained('semesters')
+                ->constrained('application_calls')
                 ->nullOnDelete();
-            $table->foreignId('id_grade')
+            $table->foreignId('id_user_data')
                 ->nullable()
-                ->constrained('grades')
+                ->constrained('user_data')
                 ->nullOnDelete();
-            $table->foreignId('id_institute')
+            $table->foreignId('id_institutes')
                 ->nullable()
                 ->constrained('institutes')
                 ->nullOnDelete();
-            $table->string('daytrip');
+            $table->string('status_individual', 50);
             $table->timestamps();
         });
     }
@@ -42,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_data');
+        Schema::dropIfExists('application_details');
     }
 };

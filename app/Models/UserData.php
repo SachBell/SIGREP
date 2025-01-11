@@ -21,19 +21,21 @@ class UserData extends Model
         'neighborhood',
         'id_semester',
         'id_grade',
-        'id_institute',
         'daytrip',
     ];
 
-    public function grades() {
+    public function applicationDetails()
+    {
+        return $this->hasMany(ApplicationDetails::class, 'id_user_data');
+    }
+
+    public function grades()
+    {
         return $this->belongsTo(Grade::class, 'id_grade');
     }
 
-    public function semesters() {
+    public function semesters()
+    {
         return $this->belongsTo(Semester::class, 'id_semester');
-    }
-
-    public function institutes() {
-        return $this->belongsTo(Institucion::class, 'id_institute');
     }
 }

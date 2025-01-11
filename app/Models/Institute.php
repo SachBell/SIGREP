@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Institucion extends Model
+class Institute extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,8 @@ class Institucion extends Model
         'user_limit'
     ];
 
-    public function userData() {
-        return $this->belongsTo(UserData::class, 'id_institute');
+    public function applicatonDetails()
+    {
+        return $this->hasMany(ApplicationDetails::class, 'id_institute');
     }
 }

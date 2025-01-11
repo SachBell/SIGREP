@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Institucion;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Institute;
 
 class InstitutesSeeder extends Seeder
 {
@@ -23,7 +22,7 @@ class InstitutesSeeder extends Seeder
         ];
 
         foreach($institutes as $data) {
-            Semester::create($data);
+            Institute::create($data);
         }
     }
 }
