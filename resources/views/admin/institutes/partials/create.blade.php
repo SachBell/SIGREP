@@ -23,17 +23,18 @@
                     <div class="mb-3">
                         <label for="name" class="form-label fs-5">Nombre de la Institución</label>
                         <input type="text" name="name" id="name" class="form-control"
-                            value="{{ old('name') }}" required>
+                            value="{{ old('name') }}">
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label fs-5">Dirección</label>
                         <input type="text" name="address" id="address" class="form-control"
-                            value="{{ old('address') }}" required>
+                            value="{{ old('address') }}">
                     </div>
                     <div class="mb-3">
                         <label for="user_limit" class="form-label fs-5">Límite de Estudiantes</label>
                         <input type="number" name="user_limit" id="user_limit" class="form-control"
-                            value="{{ old('user_limit') }}" required>
+                            value="{{ old('user_limit') }}" pattern="\d*"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" inputmode="numeric">
                     </div>
                 </div>
                 <div class="mobile container-fluid d-flex justify-content-center gap-3">

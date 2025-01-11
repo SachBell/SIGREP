@@ -14,17 +14,18 @@
                     <div class="mb-3">
                         <label for="name" class="form-label fs-5">Nombre de la Institución</label>
                         <input type="text" name="name" id="name" class="form-control"
-                            value="{{ old('name', $registro->name) }}" required>
+                            value="{{ old('name', $registro->name) }}">
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label fs-5">Dirección</label>
                         <input type="text" name="address" id="address" class="form-control"
-                            value="{{ old('address', $registro->address) }}" required>
+                            value="{{ old('address', $registro->address) }}">
                     </div>
                     <div class="mb-3">
                         <label for="user_limit" class="form-label fs-5">Límite de Usuarios</label>
-                        <input type="number" name="user_limit" id="user_limit" class="form-control"
-                            value="{{ old('user_limit', $registro->user_limit) }}" required>
+                        <input type="text" name="user_limit" id="user_limit" class="form-control"
+                            value="{{ old('user_limit', $registro->user_limit) }}" pattern="\d*"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" inputmode="numeric">
                     </div>
                 </div>
 

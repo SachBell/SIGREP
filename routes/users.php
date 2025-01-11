@@ -28,9 +28,11 @@ Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
     Route::delete('/registros/{id}', [AdminController::class, 'destroy'])->name('admin.registros.destroy');
     Route::delete('/institutes/{id}', [InstitutesController::class, 'destroy'])->name('admin.institutes.destroy');
+    Route::delete('/user-manager/{id}', [UserManagerController::class, 'destroy'])->name('admin.user-manager.destroy');
     // PUTS
     Route::put('/registros/{id}', [AdminController::class, 'update'])->name('admin.registros.update');
     Route::put('/institutes/{id}', [InstitutesController::class, 'update'])->name('admin.institutes.update');
+    Route::put('/user-manager/{id}', [UserManagerController::class, 'update'])->name('admin.user-manager.update');
     // POSTS
     Route::post('/institutes/create', [InstitutesController::class, 'store'])->name('admin.institutes.store');
 });
@@ -45,4 +47,4 @@ Route::middleware('auth')->group(function () {
     Route::view('/forms', 'user.form-register.index')->name('user.form-register.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

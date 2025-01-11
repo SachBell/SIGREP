@@ -18,7 +18,7 @@
 
 <body>
     @include('partials.swa')
-    <main class="container d-flex justify-content-center align-items-center">
+    <main class="container">
         {{ $slot }}
     </main>
 </body>

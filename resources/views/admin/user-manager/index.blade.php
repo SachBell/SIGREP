@@ -45,7 +45,7 @@
                                 <td class="border border-gray-300 align-middle p-0">
                                     <div class="container d-flex gap-3">
                                         <form class="delete-form"
-                                            action="{{ route('admin.registros.destroy', $registro->id) }}"
+                                            action="{{ route('admin.user-manager.destroy', $registro->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -53,7 +53,7 @@
                                                 class="btn btn-danger btn-sm delete-btn">Eliminar</button>
                                         </form>
                                         @include('components.alert-confirm')
-                                        <a href="{{ route('admin.registros.edit', $registro->id) }}"
+                                        <a href="{{ route('admin.user-manager.edit', $registro->id) }}"
                                             class="btn btn-primary btn-sm">Editar</a>
                                     </div>
                                 </td>

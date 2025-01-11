@@ -40,6 +40,11 @@ body.swal2-height-auto {
     height: inherit !important;
 }
 
+html,
+body {
+    height: 100vh !important;
+}
+
 body {
     background: radial-gradient(circle at center, #303f4c 0%, var(--background-dark) 100%);
     color: var(--font-color);
@@ -57,15 +62,16 @@ main {
     background-color: var(--primary-button-hover);
 }
 
-#form-container {
-    width: calc(100% - 35%);
-}
-
 #edit-form {
     border-radius: 15px;
     color: var(--font-color);
     background: var(--background-dark);
     box-shadow: 20px 50px 70px rgba(0, 0, 0, .5);
+}
+
+.custom-py {
+    padding-top: 6.5rem !important;
+    padding-bottom: 6.5rem !important;
 }
 
 input,
@@ -88,6 +94,20 @@ option {
     background: #303f4c;
 }
 
+.form-select {
+    -moz-padding-start: 0.75rem !important;
+}
+
+.user-edit {
+    width: calc(100% - 52%) !important;
+    transition: all .5s ease-in;
+}
+
+.form-edit {
+    width: calc(100% - 20%) !important;
+    transition: all .5s ease-in;
+}
+
 @media (max-width: 576px) {
 
     .mobile {
@@ -98,12 +118,21 @@ option {
         margin-top: 0 !important;
     }
 
-    #form-container {
-        width: calc(100% - 10%);
+    .custom-py {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    .user-edit {
+        width: 100% !important;
+    }
+
+    .form-edit {
+        width: 100% !important;
     }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 577px) and (max-width: 768px) {
 
     .mobile {
         flex-direction: column;
@@ -113,7 +142,55 @@ option {
         margin-top: 0 !important;
     }
 
-    #form-container {
-        width: calc(100% - 10%);
+    .custom-py {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    .user-edit {
+        width: 100% !important;
+    }
+
+    .form-edit {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+
+    .mobile {
+        flex-direction: column;
+    }
+
+    #create-container {
+        margin-top: 0 !important;
+    }
+
+    .custom-py {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    .user-edit {
+        width: calc(100% - 20%) !important;
+    }
+
+    .form-edit {
+        width: calc(100% - 20%) !important;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+
+    #create-container {
+        margin-top: 0 !important;
+    }
+
+    .user-edit {
+        width: calc(100% - 35%) !important;
+    }
+
+    .form-edit {
+        width: calc(100% - 35%) !important;
     }
 }

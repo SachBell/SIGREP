@@ -4,8 +4,8 @@
         <div class="container-fluid py-4 pb-1 text-center">
             <h1 class="text-uppercase">Editar Registro</h1>
         </div>
-        <div id="form-container" class="contianer-fluid py-4">
-            <form id="edit-form" class="py-5 px-5" action="{{ route('admin.registros.update', $registro->id) }}"
+        <div id="form-container" class="form-edit contianer-fluid py-4">
+            <form id="edit-form" class="py-5 px-5 custom-py" action="{{ route('admin.registros.update', $registro->id) }}"
                 method="POST">
                 @csrf
                 @method('PUT')
@@ -22,44 +22,44 @@
                                 <div class="mb-3">
                                     <label for="cei" class="form-label fs-5 ">CEI</label>
                                     <input type="text" name="cei" id="cei" class="form-control"
-                                        value="{{ old('cei', $registro->cei) }}" required>
+                                        value="{{ old('cei', $registro->cei) }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label fs-5 ">Nombres</label>
                                     <input type="text" name="name" id="name" class="form-control"
-                                        value="{{ old('name', $registro->name) }}" required>
+                                        value="{{ old('name', $registro->name) }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="lastname" class="form-label fs-5 ">Apellidos</label>
                                     <input type="text" name="lastname" id="lastname" class="form-control"
-                                        value="{{ old('lastname', $registro->lastname) }}" required>
+                                        value="{{ old('lastname', $registro->lastname) }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="phone_number" class="form-label fs-5 ">Celular</label>
                                     <input type="text" name="phone_number" id="phone_number" class="form-control"
-                                        value="{{ old('phone_number', $registro->phone_number) }}" required>
+                                        value="{{ old('phone_number', $registro->phone_number) }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label fs-5 ">Correo</label>
                                     <input type="text" name="email" id="email" class="form-control"
-                                        value="{{ old('email', $registro->email) }}" required>
+                                        value="{{ old('email', $registro->email) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
                                 <div class="mb-3">
                                     <label for="address" class="form-label fs-5 ">Dirección</label>
                                     <input type="text" name="address" id="address" class="form-control"
-                                        value="{{ old('address', $registro->address) }}" required>
+                                        value="{{ old('address', $registro->address) }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="neighborhood" class="form-label fs-5 ">Barrio</label>
                                     <input type="text" name="neighborhood" id="neighborhood" class="form-control"
-                                        value="{{ old('neighborhood', $registro->neighborhood) }}" required>
+                                        value="{{ old('neighborhood', $registro->neighborhood) }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="semester" class="form-label fs-5 ">Semestre</label>
