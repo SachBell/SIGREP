@@ -59,10 +59,10 @@
                                     {{ $registro->grades->grade ?? 'Sin Asignar' }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->daytrip }}</td>
                                 <td class="border border-gray-300 align-middle">
-                                    {{ $registro->institutes->name ?? 'Sin Asignar' }}
+                                    {{ $registro->applicationDetails->first()?->institutes->name ?? 'Sin Asignar' }}
                                 </td>
                                 <td class="border border-gray-300 align-middle">
-                                    {{ $registro->institutes->address ?? 'Sin Asignar' }}</td>
+                                    {{ $registro->applicationDetails->first()?->institutes->address ?? 'Sin Asignar' }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->created_at }}</td>
                                 <td class="border border-gray-300 align-middle">{{ $registro->updated_at }}</td>
                                 <td class="border border-gray-300">

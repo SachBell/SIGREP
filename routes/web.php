@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\FormController;
+use App\Http\Controllers\Users\FormController as UsersFormController;
 
 Route::view('/', 'welcome')->name('welcome');
 
-Route::get('/', [FormController::class, 'create'])->name('form.create');
-Route::post('/', [FormController::class, 'store'])->name('form.store');
+Route::get('/', [UsersFormController::class, 'create'])->name('form.create');
+Route::post('/', [UsersFormController::class, 'store'])->name('form.store');
 
 
 

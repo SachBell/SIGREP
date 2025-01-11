@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Institucion;
+use App\Models\Institute;
 
 class InstitutesController extends Controller
 {
@@ -13,7 +13,7 @@ class InstitutesController extends Controller
         $search = $request->input('search');
 
         // Consulta base para registros
-        $query = Institucion::query();
+        $query = Institute::query();
 
         if (!empty($search)) {
             // Validar longitud mínima del término de búsqueda
@@ -39,41 +39,41 @@ class InstitutesController extends Controller
     }
 
     public function store(Request $request){
-        
+
         $request->validate([
             'name' => 'required',
             'address' => 'required',
             'user_limit' => 'required',
         ]);
 
-        $existente = Institucion::where('name', $request->name)
+        $existente = Institute::where('name', $request->name)
             ->where('name', $request->name)
             ->first();
-            
+
             if($existente){
                 return redirect()->back()->with('error', 'Ya existe una Institución con ese nombre');
             }
-        
-        Institucion::create($request->all());
-        
+
+        Institute::create($request->all());
+
         return redirect()->route('admin.institutes.index')->with('success', 'Institución creada con éxito.');
     }
 
     public function destroy($id) {
-        $registro = Institucion::findOrFail($id);
+        $registro = Institute::findOrFail($id);
         $registro->delete();
 
         return redirect()->route('admin.institutes.index')->with('success', 'Institución eliminada con éxito.');
     }
 
     public function edit($id){
-        $registro = Institucion::findOrFail($id);
-        
+        $registro = Institute::findOrFail($id);
+
         return view('admin.institutes.partials.edit', compact('registro'));
     }
 
     public function update(Request $request, $id){
-        $registro = Institucion::findOrFail($id);
+        $registro = Institute::findOrFail($id);
 
         $request->validate([
             'name' => 'required',

@@ -14,8 +14,10 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 class FormularioExport implements FromCollection, WithHeadings, WithStyles
 {
 
-    public function collection() {
-        return UserData::with('institutes', 'grades', 'semesters')->get()->map(function ($registro){
+    public function collection()
+    {
+        return UserData::with('applicationDetails.institutes', 'grades', 'semesters')->get()->map(function ($registro) {
+            $institucion = $registro->applicationDetails->first()->institutes ?? null;
             return [
                 'id' => $registro->id,
                 'cei' => $registro->cei,
@@ -28,13 +30,14 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
                 'semestre' => $registro->semesters->semester ?? 'Sin Asignar',
                 'paralelo' => $registro->grades->grade ?? 'Sin Asignar',
                 'jornada' => $registro->daytrip,
-                'institucion' => $registro->institutes->name ?? 'Sin Asignar.',
-                'dir_institucion' => $registro->institutes->address ?? 'Sin Asignar',
+                'institucion' => $institucion ? $institucion->name : 'Sin Asignar.',
+                'dir_institucion' => $institucion ? $institucion->address : 'Sin Asignar',
             ];
         });
     }
 
-    public function headings(): array {
+    public function headings(): array
+    {
         return [
             'ID',
             'CEI',
@@ -52,10 +55,11 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
         ];
     }
 
-    public function styles(Worksheet $sheet){
+    public function styles(Worksheet $sheet)
+    {
 
         $lastRow = $sheet->getHighestRow();
-        
+
         $sheet->getStyle('A1:M1')->applyFromArray([
             'font' => [
                 'bold' => true,
@@ -78,7 +82,7 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
             ],
         ]);
 
-        for ($row = 2; $row <= $lastRow ; $row++) { 
+        for ($row = 2; $row <= $lastRow; $row++) {
             $fillColor = $row % 2 === 0 ? 'e2f0fc' : 'bfe0f8';
 
             $sheet->getStyle("A{$row}:M{$row}")->applyFromArray([
@@ -99,6 +103,5 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
         ]);
 
         $sheet->setAutoFilter($sheet->calculateWorksheetDimension());
-
     }
 }
