@@ -18,8 +18,8 @@
 
 <body class="d-flex flex-column justify-content-center">
     <div class="h-100 d-flex flex-column justify-content-center align-items-center pt-6">
-        <div>
-            <span id="log-title" class="fs-2 fw-bold">Log In</span>
+        <div class="d-flex justify-content-center w-100">
+            <img id="logo-img" src="{{asset('img/logo.png')}}" alt="logo.png" class="bg-white rounded">
         </div>
 
         <div class="mt-5 px-5 py-4 rounded bg-white">
