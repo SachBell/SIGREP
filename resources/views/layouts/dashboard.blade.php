@@ -17,10 +17,10 @@
 </head>
 
 <body>
+    @include('partials.swa')
     <header>
         @include('partials.slidebar')
     </header>
-    @include('partials.swa')
     <div id="main" class="d-flex flex-column justify-content-between pt-3">
         <main>
             {{ $slot }}

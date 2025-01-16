@@ -1,53 +1,61 @@
-<nav id="sidebar" class="slidebar h-100 d-flex flex-column justify-content-between position-fixed top-0 pt-3 bg-dark">
-    <div class="container-fluid justify-content-center">
+<div id="sidebar" class="sidebar d-flex flex-column flex-shrink-0 p-3 position-fixed top-0 bg-dark h-100"
+    style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-2">SIREP ISUS</span>
+    </a>
+    <hr>
+    <ul class="nav flex-column mb-auto">
+        @auth
+            @if (Auth::user()->id_role === 1)
+                <li class="nav-item">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link fs-5 active" aria-current="page">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.registros.index') }}" class="nav-link fs-5">Registros</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.institutes.index') }}" class="nav-link fs-5">Institutos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.user-manager.index') }}" class="nav-link fs-5">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.application-calls.index') }}" class="nav-link fs-5">Postulaciones</a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="{{ route('user.dashboard') }}" class="nav-link active fs-5" aria-current="page">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.form-register.index') }}" class="nav-link fs-5">Registrar Practicas</a>
+                </li>
+            @endif
+        @endauth
+    </ul>
+    <hr>
+    <div class="dropdown">
+        <a id="profileAction" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://placehold.co/400" alt="" width="32" height="32"
+                class="rounded-circle me-2">
+            <strong>{{ auth()->user()->name }}</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+            @if (Auth::user()->id_role === 1)
+                <li><a class="dropdown-item" href="{{ route('admin.profile.edit') }}">Profile</a></li>
+            @else
+                <li><a class="dropdown-item" href="{{ route('user.profile.edit') }}">Profile</a></li>
+            @endif
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <a class="dropdown-item" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
+                </form>
+            </li>
+        </ul>
     </div>
-    <div class="h-100 d-flex flex-column justify-content-between contianer-fluid mt-4 px-1">
-        <div class="container-fluid ms-3">
-            <ul class="navbar-nav gap-2">
-                @auth
-                    @if (Auth::user()->id_role === 1)
-                        <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link fs-5 active"
-                                aria-current="page">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.registros.index') }}" class="nav-link fs-5">Registros de
-                                Formulario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.institutes.index') }}" class="nav-link fs-5">Institutos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.user-manager.index') }}" class="nav-link fs-5">Administrador de Usuarios</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('user.dashboard') }}" class="nav-link fs-5 active"
-                                aria-current="page">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('user.form-register.index') }}" class="nav-link fs-5">Registrar Practicas</a>
-                        </li>
-                    @endif
-                @endauth
-            </ul>
-        </div>
-        <div id="footer-slidebar" class="container-fluid py-4 px-0">
-            <div class="container-fluid d-flex justify-content-center">
-                <div class="container text-center p-0">
-                    <a id="session-btn" href="profile" class="p-3 ps-4 pe-4 fs-4"><i class="fa-solid fa-user"></i></a>
-                </div>
-                <div class="container text-center p-0">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <a id="session-btn" class="p-3 ps-4 pe-4 fs-4" href="#"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+</div>

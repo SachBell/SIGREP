@@ -42,9 +42,10 @@ body {
 }
 
 body {
+    width: 100%;
     display: grid;
-    grid-template-columns: 300px 80%;
-    grid-template-rows: 100% 1fr;
+    grid:
+        "sidebar body" 1fr / 300px 1fr;
     background: var(--form-color);
     color: var(--font-black-color);
 }
@@ -54,15 +55,16 @@ body.swal2-height-auto {
 }
 
 header {
+    grid-area: sidebar body;
     color: var(--font-color);
-}
-
-nav {
-    width: 300px !important;
 }
 
 .bg-dark {
     background-color: var(--background-dark) !important;
+}
+
+#profileAction {
+    cursor: pointer;
 }
 
 .nav-link {
@@ -75,18 +77,22 @@ nav {
     transform: scale(110%);
 }
 
-#footer-slidebar {
-    border-top: solid 1px rgba(255, 255, 255, .2);
-}
-
-#session-btn i {
+#applicationContent {
+    min-width: 350px;
+    max-width: calc(100% - 70%);
     color: var(--font-color);
-    transition: all .5s ease;
+    background: linear-gradient(to top left, var(--secondary-black-color) 0%, var(--background-dark) 100%);
+    box-shadow: 15px 20px 3.5rem rgba(0, 0, 0, .5);
 }
 
-#session-btn i:hover {
-    color: var(--font-hover-color);
-    transform: scale(115%);
+.fa-circle.active {
+    border: none;
+    color: #0fcd0f;
+}
+
+.fa-circle.disable {
+    border: none;
+    color: #cd320f;
 }
 
 .btn-primary {
@@ -97,8 +103,54 @@ nav {
     background-color: var(--primary-button-hover);
 }
 
-/* Estilo para la slidebar en móvil */
-@media (max-width: 768px) {
+#toggle-btn {
+    display: none;
+}
+
+#applicationCardAdmin {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+@media (max-width: 576px) {
+    body {
+        display: flex;
+    }
+
+    header {
+        display: flex;
+        background: var(--background-dark);
+    }
+
+    #main {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sidebar {
+        transform: translateX(-100%) !important;
+        transition: transform .5s ease;
+    }
+
+    .sidebar.toggle {
+        transform: translateX(0) !important;
+    }
+
+    #toggle-btn {
+        display: block;
+    }
+
+    .title-reg {
+        font-size: 1.4rem !important;
+    }
+
+    #applicationCard {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
 
     body {
         display: flex;
@@ -114,12 +166,12 @@ nav {
         height: 100%;
     }
 
-    .slidebar {
+    .sidebar {
         transform: translateX(-100%) !important;
         transition: transform .5s ease;
     }
 
-    .slidebar.toggle {
+    .sidebar.toggle {
         transform: translateX(0) !important;
     }
 
@@ -130,18 +182,67 @@ nav {
     .title-reg {
         font-size: 1.4rem !important;
     }
+
+    #applicationCard {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #applicationContent {
+        min-width: 300px;
+        max-width: calc(100% - 74%);
+        color: var(--font-color);
+        background: linear-gradient(to top left, var(--secondary-black-color) 0%, var(--background-dark) 100%);
+        box-shadow: 15px 20px 3.5rem rgba(0, 0, 0, .5);
+    }
 }
 
-/* Estilo para la slidebar en pantallas grandes (desktop) */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (max-width: 992px) {
 
-    .slidebar {
+    body {
+        width: 100%;
+        display: grid;
+        grid:
+            "sidebar body" 1fr / 300px 1fr;
+        background: var(--form-color);
+        color: var(--font-black-color);
+    }
+
+    .sidebar {
         transform: translateX(0) !important;
         transition: transform .5s ease;
     }
 
     #toggle-btn {
-        display: none;
-        /* Ocultar el botón en pantallas grandes */
+        display: block;
+    }
+
+    #applicationCard {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #applicationContent {
+        display: flex !important;
+        flex-direction: column !important;
+        color: var(--font-color);
+        background: linear-gradient(to top left, var(--secondary-black-color) 0%, var(--background-dark) 100%);
+        box-shadow: 15px 20px 3.5rem rgba(0, 0, 0, .5);
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1399px) {
+    body {
+        width: 100%;
+        display: grid;
+        grid:
+            "sidebar body" 1fr / 300px 1fr;
+        background: var(--form-color);
+        color: var(--font-black-color);
+    }
+
+    #applicationCard {
+        display: flex !important;
+        flex-direction: column !important;
     }
 }
