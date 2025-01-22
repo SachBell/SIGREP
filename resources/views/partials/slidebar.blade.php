@@ -1,8 +1,16 @@
 <div id="sidebar" class="sidebar d-flex flex-column flex-shrink-0 p-3 position-fixed top-0 bg-dark h-100"
     style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-2">SIREP ISUS</span>
-    </a>
+    @if (Auth::user()->id_role === 1)
+        <a href="{{ route('admin.dashboard') }}"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-2">SIREP ISUS</span>
+        </a>
+    @else
+        <a href="{{ route('user.dashboard') }}"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-2">SIREP ISUS</span>
+        </a>
+    @endif
     <hr>
     <ul class="nav flex-column mb-auto">
         @auth
