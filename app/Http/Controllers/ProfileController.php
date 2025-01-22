@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Grade;
-use App\Models\Institute;
 use App\Models\Semester;
 use App\Models\UserData;
 use Illuminate\Http\RedirectResponse;
@@ -55,6 +54,9 @@ class ProfileController extends Controller
 
     public function dataUpdate(Request $request)
     {
+
+        // dd($request);
+
         $request->validate([
             'cei' => 'required|numeric|digits_between:1,10',
             'name' => 'required',
@@ -67,8 +69,8 @@ class ProfileController extends Controller
             'daytrip' => 'required',
         ]);
 
-        $user = auth()->user()->user_data_id;
-        $userData = UserData::findOrFail($user);
+        $user = auth()->user();
+        $userData = $user->userData;
 
         $userData->update($request->all());
 

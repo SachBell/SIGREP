@@ -10,6 +10,8 @@ use App\Models\Semester;
 use App\Models\Institute;
 use App\Models\UserData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class FormController extends Controller
 {
@@ -42,45 +44,26 @@ class FormController extends Controller
             'name' => 'required',
             'lastname' => 'required',
             'phone_number' => 'required',
-            'email' => 'required',
             'address' => 'required',
             'neighborhood' => 'required',
             'id_semester' => 'required',
             'id_grade' => 'required',
-            'id_institute' => 'required|exists:institutes,id',
             'daytrip' => 'required',
         ]);
 
         // dd($request);
         $existente = UserData::where('cei', $request->cei)
-            ->orWhere('email', $request->email)
             ->first();
 
-
-        // dd($existente);
         if ($existente) {
-            return redirect()->back()->with('error', 'Ya te has registrado en este formulario.');
+            return redirect()->back()->with('error', 'Ya te hay un usuario registrado con estos datos.');
         }
 
-        // Validación de limite de usuarios
-        $institucion = Institute::findOrFail($request->id_institute);
-
-        $currentUserCount = ApplicationDetails::where('id_institutes', $institucion->id)->count();
-
-        if ($currentUserCount >= $institucion->user_limit) {
-            return redirect()->back()->with('error', 'Límite de estudiantes alcanzado.');
-        }
+        $user = auth()->user();
 
         // Crear y almacenar el formulario
-        $userData = UserData::create($request->all());
+        $user->userData()->create($request->all());
 
-        ApplicationDetails::create([
-            'id_application_calls' => null, // Define si hay una convocatoria activa
-            'id_user_data' => $userData->id,
-            'id_institutes' => $institucion->id,
-            'status_individual' => 'Pendiente', // O el estado inicial que prefieras
-        ]);
-
-        return redirect('/')->with('success', 'Te has registrado con éxito');
+        return Redirect::route('user.profile.edit')->with('status', 'data-create');
     }
 }

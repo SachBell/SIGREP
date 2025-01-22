@@ -25,7 +25,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('institutes')
                 ->nullOnDelete();
-            $table->string('status_individual', 50);
+            $table->enum('status_individual', ['pendiente', 'activo', 'finalizado'])->default('pendiente');
             $table->timestamps();
         });
     }

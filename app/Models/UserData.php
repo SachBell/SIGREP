@@ -12,11 +12,11 @@ class UserData extends Model
     protected $table = 'user_data';
 
     protected $fillable = [
+        'id_user',
         'cei',
         'name',
         'lastname',
         'phone_number',
-        'email',
         'address',
         'neighborhood',
         'id_semester',
@@ -37,5 +37,10 @@ class UserData extends Model
     public function semesters()
     {
         return $this->belongsTo(Semester::class, 'id_semester');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

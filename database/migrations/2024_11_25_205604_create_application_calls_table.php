@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('application_calls', function (Blueprint $table) {
             $table->id();
+            $table->string('application_title');
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('status_call')->default(false);
+            $table->boolean('status_call')->default(true);
             $table->timestamps();
         });
     }

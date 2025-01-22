@@ -22,10 +22,7 @@ return new class extends Migration
                 ->default(2)
                 ->constrained('roles')
                 ->nullOnDelete();
-            $table->foreignId('user_data_id')
-                ->nullable()
-                ->constrained('user_data')
-                ->nullOnDelete();
+            $table->unsignedBigInteger('user_data_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
