@@ -1,6 +1,6 @@
 @section('title', 'Registros')
 <x-dashboard-layout>
-    <div class="container-fluid d-flex mt-1 mb-5">
+    <div class="container d-flex mt-1 mb-5">
         <div class="container-fluid d-flex justify-content-center py-2 w-100">
             <h2 class="title-reg my-auto">Registros de Practicas Preprofesionales ISUS 2024-II</h2>
         </div>
@@ -10,7 +10,7 @@
             </button>
         </div>
     </div>
-    <div class="container-fluid d-flex flex-column gap-3">
+    <div class="container d-flex flex-column gap-3">
         <div class="container-fluid">
             <form action="{{ route('admin.registros.index') }}" method="GET" class="d-flex gap-2 align-items-center">
                 <input type="text" name="search" placeholder="Buscar..." class="form-control"
@@ -88,7 +88,7 @@
             {{ $registros->links() }}
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container">
         <a href="{{ route('admin.registros.export') }}" class="btn btn-success">Descargar Registros</a>
     </div>
 </x-dashboard-layout>

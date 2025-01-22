@@ -22,6 +22,12 @@
 
             <div class="p-4 ">
                 <div>
+                    @include('user.profile.partials.update-profile-data-form')
+                </div>
+            </div>
+
+            <div class="p-4 ">
+                <div>
                     @include('user.profile.partials.update-password-form')
                 </div>
             </div>

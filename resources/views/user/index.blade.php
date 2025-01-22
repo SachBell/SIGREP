@@ -11,33 +11,17 @@
                 </button>
             </div>
         </div>
-        <div class="container-fluid">
-            <div id="applicationCard" class="container d-flex gap-3">
-                @forelse ($applications as $app)
-                    <div id="applicationContent"
-                        class="container d-flex flex-column justify-content-between gap-5 py-4 px-4 rounded">
-                        <div class="contianer d-flex flex-column gap-3 px-0">
-                            <div class="container-fluid d-flex justify-content-center">
-                                <h3 class="fs-3 fw-bold">{{ $app->application_title }}</h3>
-                            </div>
-                            <div class="container-fluid d-flex justify-content-center gap-2">
-                                <span class="fs-6"><b>{{ $app->start_date }}</b> - <b>{{ $app->end_date }}</b></span>
-                            </div>
-                            <div class="container-fluid d-flex justify-content-center gap-2">
-                                <x-application-status :application="$app" />
-                            </div>
-                        </div>
-                        <div class="container-fluid d-flex justify-content-center">
-                            <form action="" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Postularme</button>
-                            </form>
-                        </div>
-                    </div>
-                @empty
-                    <p>Aun no hay postulaciones. Intentalo más tarde.</p>
-                @endforelse
-            </div>
+        <div class="container">
+            @if ($applications->isEmpty())
+                <p>Aun no hay postulaciones. Intentalo más tarde.</p>
+            @else
+                @if ($userExist)
+                    <p>Ya te has registrado en el proceso de practicas preprofesionales.</p>
+                @else
+                    <p>Hay postulaciones activas. Puedes verlas en <a
+                            href="{{ route('user.form-register.index') }}">Postularse</a>.</p>
+                @endif
+            @endif
         </div>
     </div>
 </x-dashboard-layout>

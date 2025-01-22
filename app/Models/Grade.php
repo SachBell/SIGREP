@@ -17,6 +17,6 @@ class Grade extends Model
     ];
 
     public function userData() {
-        return $this->belongsTo(UserData::class, 'id_grade');
+        return $this->hasMany(UserData::class, 'id_grade');
     }
 }

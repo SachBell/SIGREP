@@ -48,6 +48,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function status()
+    {
+        return ApplicationDetails::where('id_user_data', $this->user_data_id)
+            ->with(['applicationCalls', 'userData', 'institutes'])
+            ->latest('created_at')
+            ->first();
+    }
+
     public function userData()
     {
         return $this->belongsTo(UserData::class, 'user_data_id', 'id');

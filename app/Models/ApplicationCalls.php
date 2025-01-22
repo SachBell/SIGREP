@@ -12,10 +12,17 @@ class ApplicationCalls extends Model
     protected $table = 'application_calls';
 
     protected $fillable = [
+        'application_title',
         'start_date',
         'end_date',
-        'status',
+        'status_call',
     ];
+
+    public function isActive(): bool
+    {
+        $currentDate = now();
+        return $this->start_date <= $currentDate && $this->end_date >= $currentDate;
+    }
 
     public function applicationCalls()
     {

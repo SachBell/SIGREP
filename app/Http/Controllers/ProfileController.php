@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Grade;
+use App\Models\Institute;
+use App\Models\Semester;
+use App\Models\UserData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,16 +20,17 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        if (Auth::user()->role == 'admin') {
-            return view('admin.profile.edit', [
-                'user' => $request->user(),
-            ]);
-        } else {
-            return view('user.profile.edit', [
-                'user' => $request->user(),
-            ]);
-        }
 
+        $user = auth()->user();
+        $userData = $user->userData;
+        $semesters = Semester::all();
+        $grades = Grade::all();
+
+        if ($user->id_role == 1) {
+            return view('admin.profile.edit', compact('user'));
+        } else {
+            return view('user.profile.edit', compact('user', 'userData', 'semesters', 'grades'));
+        }
     }
 
     /**
@@ -41,7 +46,37 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('admin.profile.edit')->with('status', 'profile-updated');
+        if (Auth::user()->id_role === 1) {
+            return Redirect::route('admin.profile.edit')->with('status', 'profile-updated');
+        } else {
+            return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
+        }
+    }
+
+    public function dataUpdate(Request $request)
+    {
+        $request->validate([
+            'cei' => 'required|numeric|digits_between:1,10',
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'neighborhood' => 'required',
+            'id_semester' => 'required',
+            'id_grade' => 'required',
+            'daytrip' => 'required',
+        ]);
+
+        $user = auth()->user()->user_data_id;
+        $userData = UserData::findOrFail($user);
+
+        $userData->update($request->all());
+
+        if (Auth::user()->id_role === 1) {
+            return Redirect::route('admin.profile.edit')->with('status', 'data-updated');
+        } else {
+            return Redirect::route('user.profile.edit')->with('status', 'data-updated');
+        }
     }
 
     /**

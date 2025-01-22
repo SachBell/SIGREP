@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApplicationCalls;
 use App\Models\ApplicationDetails;
 use App\Models\Grade;
 use App\Models\Semester;
@@ -12,9 +13,16 @@ use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
+
     public function dashboard()
     {
-        return view('user.index');
+        $applications = ApplicationCalls::where('status_call', 1)->get();
+
+        $user = auth()->user()->user_data_id;
+
+        $userExist = ApplicationDetails::where('id_user_data', $user)->exists();
+
+        return view('user.index', compact('applications', 'userExist'));
     }
 
     public function create()
