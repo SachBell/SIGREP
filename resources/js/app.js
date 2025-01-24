@@ -1,11 +1,13 @@
-import Alpine from 'alpinejs'
-document.addEventListener('DOMContentLoaded', () => {
-    // Obtener el botón y la barra lateral
-    const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
+import './bootstrap';
 
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('toggle');  // Alterna la clase d-none (ocultar) y d-block (mostrar)
-    });
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+const hamBurger = document.querySelector(".toggle-btn");
+
+hamBurger.addEventListener("click", function () {
+    document.querySelector("#sidebar").classList.toggle("expand");
 });
 
+Alpine.start();
