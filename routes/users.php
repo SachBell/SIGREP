@@ -16,9 +16,9 @@ Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
     // GETS
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
-    Route::get('/registros', [AdminController::class, 'index'])->name('admin.registros.index');
-    Route::get('/registros/edit/{id}', [AdminController::class, 'edit'])->name('admin.registros.edit');
-    Route::get('/registros/export', [AdminController::class, 'export'])->name('admin.registros.export');
+    Route::get('/registers', [AdminController::class, 'index'])->name('admin.registros.index');
+    Route::get('/registers/edit/{id}', [AdminController::class, 'edit'])->name('admin.registros.edit');
+    Route::get('/registers/export', [AdminController::class, 'export'])->name('admin.registros.export');
     Route::get('/institutes', [InstitutesController::class, 'index'])->name('admin.institutes.index');
     Route::get('/institutes/create', [InstitutesController::class, 'create'])->name('admin.institutes.create');
     Route::get('/institutes/edit/{id}', [InstitutesController::class, 'edit'])->name('admin.institutes.edit');
