@@ -2,13 +2,8 @@
 <x-dashboard-layout>
     <div class="container-fluid d-flex flex-column justify-content-end mx-0 my-2">
         <div class="container-fluid px-0 mb-4 d-flex">
-            <div class="container-fluid px-0 py-2 w-100">
+            <div class="container-fluid px-0 w-100">
                 <h2 class="title-reg my-auto">Gestor de Usuarios</h2>
-            </div>
-            <div class="d-flex justify-content-center align-items-center py-2">
-                <button id="toggle-btn" class="btn btn-primary mx-3">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
             </div>
         </div>
         <div class="container-fluid px-0 mb-4">

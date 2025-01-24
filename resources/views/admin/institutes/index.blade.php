@@ -1,13 +1,8 @@
 @section('title', 'Institutos')
 <x-dashboard-layout>
-    <div class="container-fluid d-flex mt-1 mb-5">
+    <div class="container-fluid d-flex mb-5">
         <div class="container-fluid d-flex justify-content-center py-2 w-100">
             <h2 class="title-reg my-auto">Instituciones para Practicas Preprofesionales ISUS 2024-II</h2>
-        </div>
-        <div class="d-flex justify-content-center align-items-center py-2">
-            <button id="toggle-btn" class="btn btn-primary mx-3">
-                <i class="fa-solid fa-bars"></i>
-            </button>
         </div>
     </div>
     <div class="container-fluid d-flex flex-column gap-3">

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --primary-color: #1770B5;
     --secondary-color: #258bd2;
@@ -20,18 +24,11 @@
     width: 0 !important;
 }
 
-body.swal2-height-auto {
-    height: inherit !important;
-}
-
 body {
-    min-height: 100dvh;
-    display: grid !important;
-    grid-template-rows: auto 1fr auto;
     background: linear-gradient(var(--secondary-black-color) 0%, var(--primary-black-color) 100%) !important;
 }
 
-nav {
+/*nav {
     background: var(--primary-black-color) !important;
 }
 
@@ -109,7 +106,7 @@ main #spp-form {
 footer {
     height: 100px;
     color: var(--font-color) !important;
-    /* background: var(--primary-black-color); */
+    background: var(--primary-black-color);
 }
 
 footer a {
@@ -125,9 +122,9 @@ footer a:hover {
 #logo-img {
     width: calc(100% - 75%) !important;
     transition: all .5s ease;
-}
+} */
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
     main {
         padding-left: 1em !important;
         padding-right: 1em !important;
@@ -189,4 +186,4 @@ footer a:hover {
     #logo-img {
         width: calc(100% - 55%) !important;
     }
-}
+} */

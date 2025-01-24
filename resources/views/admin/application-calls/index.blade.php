@@ -5,11 +5,6 @@
             <div class="container-fluid w-100">
                 <h2>Administrador de Postulaciones</h2>
             </div>
-            <div class="d-flex justify-content-center align-items-center">
-                <button id="toggle-btn" class="btn btn-primary mx-3">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
         </div>
         <div class="container-fluid">
             <div class="container">

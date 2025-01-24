@@ -6,11 +6,6 @@
                 {{ __('Perfil de Usuario') }}
             </h2>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <button id="toggle-btn" class="btn btn-primary mx-3">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
     </div>
     <div class="py-12">
         <div class="mx-auto">

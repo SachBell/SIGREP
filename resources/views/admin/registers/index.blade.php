@@ -4,11 +4,6 @@
         <div class="container-fluid d-flex justify-content-center py-2 w-100">
             <h2 class="title-reg my-auto">Registros de Practicas Preprofesionales ISUS 2024-II</h2>
         </div>
-        <div class="d-flex justify-content-center align-items-center py-2">
-            <button id="toggle-btn" class="btn btn-primary mx-3">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
     </div>
     <div class="container d-flex flex-column gap-3">
         <div class="container-fluid">

@@ -12,22 +12,21 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://kit.fontawesome.com/be6056a694.js" crossOrigin="anonymous"></script>
-    @vite(['resources/css/dashboard.css', 'resources/js/app.js'])
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    @vite(['resources/css/dashboard.css'])
 </head>
 
 <body>
     @include('partials.swa')
-    <header>
-        @include('partials.slidebar')
-    </header>
-    <div id="main" class="d-flex flex-column justify-content-between pt-3">
-        <main>
+    <div class="wrapper">
+        <aside id="sidebar" class="expand">
+            @include('partials.sidebar')
+        </aside>
+        <main class="p-3">
             {{ $slot }}
         </main>
-        <footer>
-            @include('partials.footer')
-        </footer>
     </div>
 </body>
 

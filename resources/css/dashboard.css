@@ -36,45 +36,156 @@
     background: var(--background-dark-opacity);
 }
 
-html,
-body {
-    height: 100vh;
+::after,
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body {
-    width: 100%;
-    display: grid;
-    grid:
-        "sidebar body" 1fr / 300px 1fr;
-    background: var(--form-color);
-    color: var(--font-black-color);
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 1.5rem;
 }
 
 body.swal2-height-auto {
     height: inherit !important;
 }
 
-header {
-    grid-area: sidebar body;
-    color: var(--font-color);
+body {
+    font-family: 'Poppins', sans-serif;
 }
 
-.bg-dark {
-    background-color: var(--background-dark) !important;
+.wrapper {
+    display: flex;
 }
 
-#profileAction {
+main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+    background: #fafbfe url('../../public/img/logo-isus.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 50%);
+    background-size: clamp(200px, calc(100% - 36%), 800px);
+    z-index: 2;
+}
+
+#sidebar {
+    width: 70px;
+    min-width: 70px;
+    z-index: 1;
+    transition: all .25s ease-in-out;
+    background-color: #0e2238;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar.expand {
+    width: 250px;
+    min-width: 250px;
+}
+
+.toggle-btn {
+    background-color: transparent;
     cursor: pointer;
+    border: 0;
+    padding: 1rem 1.5rem;
 }
 
-.nav-link {
-    color: var(--font-color);
-    transition: all .5s ease;
+.toggle-btn i {
+    font-size: 1.5rem;
+    color: #FFF;
 }
 
-.nav-link:hover {
-    color: var(--font-hover-color);
-    transform: scale(110%);
+.sidebar-logo {
+    margin: auto 0;
+}
+
+.sidebar-logo a {
+    color: #FFF;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+    display: none;
+}
+
+.sidebar-nav {
+    width: 260px;
+    padding: 1.5rem 0;
+    flex: 1 1 auto;
+}
+
+a.sidebar-link {
+    padding: .89rem 1.625rem;
+    color: #FFF;
+    display: block;
+    white-space: nowrap;
+    font-weight: 600;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-link i {
+    font-size: 1.2rem;
+    margin-right: .75rem;
+    padding-bottom: 0;
+    line-height: .5;
+}
+
+a.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, .075);
+    border-left: 3px solid #3b7ddd;
+}
+
+.sidebar-item {
+    position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    background-color: #0e2238;
+    padding: 0;
+    min-width: 15rem;
+    display: none;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+    display: block;
+    max-height: 15em;
+    width: 100%;
+    opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
 }
 
 #applicationContent {
@@ -101,148 +212,4 @@ header {
 
 .btn-primary:hover {
     background-color: var(--primary-button-hover);
-}
-
-#toggle-btn {
-    display: none;
-}
-
-#applicationCardAdmin {
-    display: flex !important;
-    flex-direction: row !important;
-}
-
-@media (max-width: 576px) {
-    body {
-        display: flex;
-    }
-
-    header {
-        display: flex;
-        background: var(--background-dark);
-    }
-
-    #main {
-        width: 100%;
-        height: 100%;
-    }
-
-    .sidebar {
-        transform: translateX(-100%) !important;
-        transition: transform .5s ease;
-    }
-
-    .sidebar.toggle {
-        transform: translateX(0) !important;
-    }
-
-    #toggle-btn {
-        display: block;
-    }
-
-    .title-reg {
-        font-size: 1.4rem !important;
-    }
-
-    #applicationCard {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-}
-
-@media (min-width: 577px) and (max-width: 768px) {
-
-    body {
-        display: flex;
-    }
-
-    header {
-        display: flex;
-        background: var(--background-dark);
-    }
-
-    #main {
-        width: 100%;
-        height: 100%;
-    }
-
-    .sidebar {
-        transform: translateX(-100%) !important;
-        transition: transform .5s ease;
-    }
-
-    .sidebar.toggle {
-        transform: translateX(0) !important;
-    }
-
-    #toggle-btn {
-        display: block;
-    }
-
-    .title-reg {
-        font-size: 1.4rem !important;
-    }
-
-    #applicationCard {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    #applicationContent {
-        min-width: 300px;
-        max-width: calc(100% - 74%);
-        color: var(--font-color);
-        background: linear-gradient(to top left, var(--secondary-black-color) 0%, var(--background-dark) 100%);
-        box-shadow: 15px 20px 3.5rem rgba(0, 0, 0, .5);
-    }
-}
-
-@media (min-width: 769px) and (max-width: 992px) {
-
-    body {
-        width: 100%;
-        display: grid;
-        grid:
-            "sidebar body" 1fr / 300px 1fr;
-        background: var(--form-color);
-        color: var(--font-black-color);
-    }
-
-    .sidebar {
-        transform: translateX(0) !important;
-        transition: transform .5s ease;
-    }
-
-    #toggle-btn {
-        display: block;
-    }
-
-    #applicationCard {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    #applicationContent {
-        display: flex !important;
-        flex-direction: column !important;
-        color: var(--font-color);
-        background: linear-gradient(to top left, var(--secondary-black-color) 0%, var(--background-dark) 100%);
-        box-shadow: 15px 20px 3.5rem rgba(0, 0, 0, .5);
-    }
-}
-
-@media (min-width: 993px) and (max-width: 1399px) {
-    body {
-        width: 100%;
-        display: grid;
-        grid:
-            "sidebar body" 1fr / 300px 1fr;
-        background: var(--form-color);
-        color: var(--font-black-color);
-    }
-
-    #applicationCard {
-        display: flex !important;
-        flex-direction: column !important;
-    }
 }
