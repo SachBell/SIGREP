@@ -23,6 +23,7 @@ Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
     Route::get('/institutes/create', [InstitutesController::class, 'create'])->name('admin.institutes.create');
     Route::get('/institutes/edit/{id}', [InstitutesController::class, 'edit'])->name('admin.institutes.edit');
     Route::get('user-manager', [UserManagerController::class, 'index'])->name('admin.user-manager.index');
+    Route::get('user-manager/create', [UserManagerController::class, 'create'])->name('admin.user-manager.create');
     Route::get('/user-manager/edit/{id}', [UserManagerController::class, 'edit'])->name('admin.user-manager.edit');
     Route::get('/application-calls', [AdminAppController::class, 'index'])->name('admin.application-calls.index');
     Route::get('/application-calls/create', [AdminAppController::class, 'create'])->name('admin.application-calls.create');
@@ -43,12 +44,13 @@ Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
     Route::put('/application-calls/{id}', [AdminAppController::class, 'update'])->name('admin.application-calls.update');
     // POSTS
     Route::post('/institutes/create', [InstitutesController::class, 'store'])->name('admin.institutes.store');
-    Route::post('/application-calls/create', [AdminAppController::class, 'store'])->name('admin.application-calls.create');
+    Route::post('user-manager/create', [UserManagerController::class, 'store'])->name('admin.user-manager.store');
+    Route::post('/application-calls/create', [AdminAppController::class, 'store'])->name('admin.application-calls.store');
 });
 
 // USER ROUTES
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     // GETS
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
