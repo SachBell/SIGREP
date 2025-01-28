@@ -10,6 +10,7 @@ use App\Models\Grade;
 use App\Models\Semester;
 use App\Exports\FormularioExport;
 use App\Models\ApplicationDetails;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
 class FormController extends Controller
@@ -135,32 +136,38 @@ class FormController extends Controller
     {
 
         // dd($request->all());
-
-        $request->validate([
-            'cei' => 'required|numeric|digits_between:1,10',
-            'name' => 'required',
-            'lastname' => 'required',
-            'phone_number' => 'required',
-            'email' => 'required|email',
-            'address' => 'required',
-            'neighborhood' => 'required',
-            'id_semester' => 'required',
-            'id_grade' => 'required',
-            'daytrip' => 'required',
-            'id_institute' => 'required|exists:institutes,id',
-        ]);
+        // dd($request);
 
         $registro = UserData::findOrFail($id);
 
+        $request->validate([
+            'cei' => 'required|numeric|digits_between:1,10',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'phone_number' => 'required|digits:10',
+            'email' => 'required|email|max:255',
+            'address' => 'required|string|max:255',
+            'neighborhood' => 'required|string|max:255',
+            'id_semester' => 'required|exists:semesters,id',
+            'id_grade' => 'required|exists:grades,id',
+            'daytrip' => 'required|string|max:255',
+            'id_institute' => 'required|exists:institutes,id',
+        ]);
+
+        // dd($request);
+
+        $user = User::findOrFail($registro->id_user);
+
         // Verificar si hay otro usuario con el mismo CEI y correo electrónico (excluyendo este usuario)
-        $existente = UserData::where(function ($query) use ($request) {
-            $query->where('cei', $request->cei)
-                ->orWhere('email', $request->email);
-        })
+        $existsCei = UserData::where('cei', $request->cei)
             ->where('id', '!=', $id)
             ->first();
 
-        if ($existente) {
+        $existsEmail = User::where('email', $request->email)
+            ->where('id', '!=', $registro->user->id)
+            ->first();
+
+        if ($existsCei || $existsEmail) {
             return redirect()->back()->with('error', 'Este usuario ya está registrado.');
         }
 
@@ -179,6 +186,8 @@ class FormController extends Controller
         if ($currentUserCount >= $institucion->user_limit) {
             return redirect()->back()->with('error', 'Límite de estudiantes alcanzado.');
         }
+
+        $user->update(['email' => $request->email]);
 
         $applicationDetail->update([
             'id_institutes' => $institucion->id, // Actualizamos el instituto

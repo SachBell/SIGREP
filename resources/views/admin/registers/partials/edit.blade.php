@@ -16,7 +16,8 @@
                     </legend>
                 </fieldset>
             </div>
-            <div class="w-full mb-4 flex flex-col items-center space-y-5 sm:flex-col sm:space-y-5 sm:space-x-0 md:flex-row md:space-x-5">
+            <div
+                class="w-full mb-4 flex flex-col items-center space-y-5 sm:flex-col sm:space-y-5 sm:space-x-0 md:flex-row md:space-x-5">
 
                 <div class="w-full">
                     <div class="mt-4">
@@ -49,7 +50,8 @@
                     <div class="mt-4">
                         <x-input-label for="email" class="text-gray-900 text-lg" :value="__('Correo')" />
                         <x-text-input type="text" name="email" id="email"
-                            class="text-gray-900 block mt-1 w-full" value="{{ old('email', $registro->email) }}" />
+                            class="text-gray-900 block mt-1 w-full"
+                            value="{{ old('email', $registro->user->email) }}" />
                     </div>
                 </div>
 
@@ -97,11 +99,11 @@
                         <x-input-label for="daytrip" class="text-gray-900 text-lg" :value="__('Jornada')" />
                         <x-select-input name="daytrip" id="daytrip" class="text-gray-900 block mt-1 w-full text-lg">
                             <option value="Vespertina"
-                                {{ old('grade', $registro->daytrip) == 'Vespertina' ? 'selected' : '' }}>
+                                {{ old('daytrip', $registro->daytrip) == 'Vespertina' ? 'selected' : '' }}>
                                 Vespertina
                             </option>
                             <option value="Nocturna"
-                                {{ old('grade', $registro->daytrip) == 'Nocturna' ? 'selected' : '' }}>
+                                {{ old('daytrip', $registro->daytrip) == 'Nocturna' ? 'selected' : '' }}>
                                 Nocturna
                             </option>
                         </x-select-input>
@@ -132,11 +134,11 @@
 
         <div class="flex justify-center align-middle mt-8 space-x-4">
             <x-custom-button
-                class="font-bold text-sm text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
+                class="px-4 py-2 font-bold text-sm text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                 {{ __('Guardar') }}
             </x-custom-button>
             <x-custom-link-button link="{{ route('admin.registros.index') }}"
-                class="font-bold text-sm text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
+                class="px-4 py-2 font-bold text-sm text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
                 {{ __('Cancelar') }}
             </x-custom-link-button>
         </div>

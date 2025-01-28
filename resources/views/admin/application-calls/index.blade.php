@@ -1,17 +1,35 @@
 @section('title', 'Postulaciones')
 <x-dashboard-layout>
-    <div class="container-fluid d-flex flex-column justify-content-end mx-0 my-2 gap-4">
-        <div class="container-fluid d-flex alifn-items-center px-0">
-            <div class="container-fluid w-100">
-                <h2>Administrador de Postulaciones</h2>
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
+            {{ __('Administrador de Postulaciones') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12 space-y-5">
+        <div class="mx-auto">
+            <div id="applicationCardAdmin" class="row mb-3 flex flex-col">
+                <x-applications-card :applications="$applications">
+                    <p class="sm:mx-4 lg:mx-4 text-md">Aún no hay postulaciones activas.</p>
+                </x-applications-card>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="container">
-                <div id="applicationCardAdmin" class="row mb-3 gap-4 d-flex flex-column">
-                    <x-applications-card :applications="$applications">
-                        <p>Aún no hay postulaciones activas.</p>
-                    </x-applications-card>
+        <div class="mx-w-7x1 mx-auto sm:px-4 lg:px-4 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-5">
+                <div>
+                    <h2 class="text-3xl font-medium text-gray-900">
+                        {{ __('Nuevo Proceso') }}
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ __('Añade nuevos procesos de postulación.') }}
+                    </p>
+                </div>
+                <div>
+                    <x-custom-link-button link="{{ route('admin.application-calls.create') }}"
+                        class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
+                        {{ __('Crear Proceso') }}
+                    </x-custom-link-button>
                 </div>
             </div>
         </div>

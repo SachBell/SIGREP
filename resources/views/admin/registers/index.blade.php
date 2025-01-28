@@ -24,7 +24,7 @@
 
         <div class="flex flex-col my-2">
             @if ($registros->isEmpty())
-                <span class="text-md">No se encontraron Registros.</span>
+                <span class="sm:mx-4 lg:mx-4 text-md">No se encontraron Registros.</span>
             @else
                 <div class="mx-w-7x1 sm:mx-4 lg:mx-4 overflow-auto rounded-lg shadow">
                     <table class="w-full">
@@ -62,7 +62,7 @@
                                     <td class="p-3 align-middle whitespace-nowrap">
                                         {{ $registro->phone_number }}</td>
                                     <td class="p-3 align-middle whitespace-nowrap">
-                                        {{ $registro->email }}</td>
+                                        {{ $registro->user->email }}</td>
                                     <td class="p-3 align-middle whitespace-nowrap">
                                         {{ $registro->address }}</td>
                                     <td class="p-3 align-middle whitespace-nowrap">

@@ -24,7 +24,7 @@
 
         <div class="flex flex-col my-2">
             @if ($registros->isEmpty())
-                <span class="text-md">No se encontraron Registros.</span>
+                <span class="sm:mx-4 lg:mx-4 text-md">No se encontraron Registros.</span>
             @else
                 <div class="overflow-auto rounded-lg shadow mx-4">
                     <table class="w-full">

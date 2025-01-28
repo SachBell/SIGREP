@@ -7,7 +7,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 space-y-5">
+    <div class="py-12 space-y-6">
         <div class="mx-auto">
             <form action="{{ route('admin.user-manager.index') }}" method="GET"
                 class="flex flex-col justify-center space-y-5">
@@ -23,7 +23,7 @@
         </div>
         <div class="flex flex-col my-2">
             @if ($registros->isEmpty())
-                <span class="text-md">No se encontraron usarios.</span>
+                <span class="sm:mx-4 lg:mx-4 text-md">No se encontraron usarios.</span>
             @else
                 <div class="overflow-auto rounded-lg shadow mx-4">
                     <table class="w-full">
@@ -63,7 +63,8 @@
                                             </x-custom-button>
                                         </form>
                                         @include('components.alert-confirm')
-                                        <x-custom-link-button link="{{ route('admin.user-manager.edit', $registro->id) }}"
+                                        <x-custom-link-button
+                                            link="{{ route('admin.user-manager.edit', $registro->id) }}"
                                             class="px-3 py-1 font-bold text-xs text-white uppercase bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                                             <i class="bi bi-pen text-lg"></i>
                                         </x-custom-link-button>
@@ -75,5 +76,22 @@
                 </div>
             @endif
         </div>
-    </div>
+        <div class="mx-w-7x1 mx-auto sm:px-4 lg:px-4 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-5">
+                <div>
+                    <h2 class="text-3xl font-medium text-gray-900">
+                        {{ __('Nuevo Usuario') }}
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ __('Crea usuarios con la libertad de escoger su role.') }}
+                    </p>
+                </div>
+                <div>
+                    <x-custom-link-button link="{{ route('admin.user-manager.create') }}"
+                        class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
+                        {{ __('Crear Usuario') }}
+                    </x-custom-link-button>
+                </div>
+            </div>
+        </div>
 </x-dashboard-layout>

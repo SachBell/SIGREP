@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserManagerController extends Controller
 {
@@ -36,6 +37,40 @@ class UserManagerController extends Controller
 
         // dd($registros);
         return view('admin.user-manager.index', compact('registros'));
+    }
+
+    public function create()
+    {
+        $roles = Role::all();
+        return view('admin.user-manager.partials.create', compact('roles'));
+    }
+
+    public function store(Request $request)
+    {
+        $validate = $request->validate([
+            'name' => 'required|string|max:255|alpha_dash',
+            'password' => 'required|string|min:8',
+            'email' => 'required|email',
+            'id_role' => 'required|exists:roles,id'
+        ]);
+
+        // dd($request->all());
+
+        $userEmail = User::where('name', $request->name)
+            ->orWhere('email', $request->email)
+            ->first();
+
+        if ($userEmail) {
+            return redirect()->back()->with('error', 'Ya hay un usuario con estos datos.');
+        }
+
+        $newUser = $request->only(['name', 'email', 'id_role']);
+
+        $newUser['password'] = Hash::make($validate['password']);
+
+        User::create($newUser);
+
+        return redirect()->route('admin.user-manager.index')->with('success', 'Usuario creado con éxito.');
     }
 
     public function destroy($id)

@@ -19,7 +19,7 @@ class PreventAdminAccess
 
 
         if (Auth::check() && Auth::user()->id_role === 1) {
-            return redirect('/dashboard')->with('error', 'No tienes acceso a esta función.');
+            return redirect('user.dashboard')->with('error', 'No tienes acceso a esta función.');
         }
 
         return $next($request);

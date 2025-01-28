@@ -6,7 +6,7 @@
         </div>
         <div id="form-container" class="contianer-fluid py-4">
             <form id="edit-form" class="py-5 px-5"
-                action="{{ route('admin.application-calls.create') }}" method="POST">
+                action="{{ route('admin.application-calls.store') }}" method="POST">
                 @csrf
                 <div class="container-fluid">
                     <div class="mb-3">
