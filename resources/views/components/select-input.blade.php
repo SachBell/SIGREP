@@ -1,5 +1,7 @@
 @props(['disabled' => false])
 
-<select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-select ps-3 pe-3 p-2']) !!}>
+<select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge([
+    'class' => 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm py-[0.34rem]',
+]) !!}>
     {{ $slot }}
 </select>

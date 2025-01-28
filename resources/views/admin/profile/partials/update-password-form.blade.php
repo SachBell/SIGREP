@@ -1,13 +1,13 @@
 <section>
-    <div>
-        <h2>
+    <header>
+        <h2 class="text-lg font-semibold text-gray-900">
             {{ __('Actualizar Contraseña') }}
         </h2>
 
-        <p class="mt-1">
+        <p class="mt-1 text-sm text-gray-600">
             {{ __('Asegúrese de que su cuenta utilice una contraseña larga y aleatoria para mantenerla segura.') }}
         </p>
-    </div>
+    </header>
 
     <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
         @csrf

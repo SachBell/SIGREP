@@ -1,61 +1,78 @@
 @section('title', 'Gestor de Usuario')
 <x-dashboard-layout>
-    <div class="container-fluid d-flex flex-column justify-content-end mx-0 my-2">
-        <div class="container-fluid px-0 mb-4 d-flex">
-            <div class="container-fluid px-0 w-100">
-                <h2 class="title-reg my-auto">Gestor de Usuarios</h2>
-            </div>
-        </div>
-        <div class="container-fluid px-0 mb-4">
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
+            {{ __('Gestor de Usuarios') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12 space-y-5">
+        <div class="mx-auto">
             <form action="{{ route('admin.user-manager.index') }}" method="GET"
-                class="d-flex gap-2 align-items-center">
-                <input type="text" name="search" placeholder="Buscar..." class="form-control"
-                    value="{{ request()->query('search') }}" required>
-                <button type="submit" class="btn btn-primary">Buscar</button>
-                <a href="{{ route('admin.user-manager.index') }}" class="btn btn-secondary">Resetear</a>
+                class="flex flex-col justify-center space-y-5">
+                <x-input-search type="text" name="search" placeholder="Buscar..." class="mx-4"
+                    value="{{ request()->query('search') }}" required />
+                <div class="flex justify-center space-x-5">
+                    <x-custom-button
+                        class="px-4 py-2 font-bold text-md text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">Buscar</x-custom-button>
+                    <x-custom-link-button link="{{ route('admin.user-manager.index') }}"
+                        class="px-4 py-2 font-bold text-md text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">Resetear</x-custom-link-button>
+                </div>
             </form>
         </div>
-        <div class="container-fluid table-responsive px-0">
+        <div class="flex flex-col my-2">
             @if ($registros->isEmpty())
-                <span class="fs-5">No se encontraron usarios.</span>
+                <span class="text-md">No se encontraron usarios.</span>
             @else
-                <table class="table">
-                    <tr>
-                        <th class="border col-0 py-0 align-middle">ID</th>
-                        <th class="border col-4 align-middle">Nombre de Usuario</th>
-                        <th class="border col-2 align-middle">Role</th>
-                        <th class="border col-4 align-middle">Correo</th>
-                        <th class="border col-4 align-middle">Contraseña</th>
-                    </tr>
-                    <tbody>
-                        @foreach ($registros as $registro)
+                <div class="overflow-auto rounded-lg shadow mx-4">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 border-b-2 border-gray-200">
                             <tr>
-                                <td class="border border-gray-300 align-middle">{{ $registro->id }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->name }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->userRole->role_name ?? 'Sin Role' }}</td>
-                                <td class="border border-gray-300 align-middle">{{ $registro->email }}</td>
-                                <td class="border border-gray-300 align-middle">
-                                    <a href="" class="btn btn-primary btn-sm">Resetear Contraseña</a>
-                                </td>
-                                <td class="border border-gray-300 align-middle p-0">
-                                    <div class="container d-flex gap-3">
+                                <th class="p-3 text-sm whitespace-nowrap">ID</th>
+                                <th class="p-3 text-sm whitespace-nowrap">Nombre de Usuario</th>
+                                <th class="p-3 text-sm whitespace-nowrap">Role</th>
+                                <th class="p-3 text-sm whitespace-nowrap">Correo</th>
+                                <th class="p-3 text-sm whitespace-nowrap">Contraseña</th>
+                                <th class="p-3 text-sm whitespace-nowrap">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-100">
+                            @foreach ($registros as $registro)
+                                <tr>
+                                    <td class="p-3 text-md whitespace-nowrap">{{ $registro->id }}
+                                    </td>
+                                    <td class="p-3 text-md whitespace-nowrap">
+                                        {{ $registro->name }}</td>
+                                    <td class="p-3 text-md whitespace-nowrap">
+                                        {{ $registro->userRole->role_name ?? 'Sin Role' }}</td>
+                                    <td class="p-3 text-md whitespace-nowrap">
+                                        {{ $registro->email }}</td>
+                                    <td class="p-3 text-md whitespace-nowrap">
+                                        <a href="" class="btn btn-primary btn-sm">Resetear Contraseña</a>
+                                    </td>
+                                    <td class="p-3 text-center whitespace-nowrap space-y-2">
                                         <form class="delete-form"
                                             action="{{ route('admin.user-manager.destroy', $registro->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
-                                                class="btn btn-danger btn-sm delete-btn">Eliminar</button>
+                                            <x-custom-button type="submit"
+                                                class="inline-flex items-center px-3 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                                                <i class="bi bi-trash-fill text-lg mt-1"></i>
+                                            </x-custom-button>
                                         </form>
                                         @include('components.alert-confirm')
-                                        <a href="{{ route('admin.user-manager.edit', $registro->id) }}"
-                                            class="btn btn-primary btn-sm">Editar</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                        <x-custom-link-button link="{{ route('admin.user-manager.edit', $registro->id) }}"
+                                            class="px-3 py-1 font-bold text-xs text-white uppercase bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
+                                            <i class="bi bi-pen text-lg"></i>
+                                        </x-custom-link-button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endif
         </div>
     </div>

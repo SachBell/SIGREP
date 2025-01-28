@@ -1,17 +1,17 @@
 @if (Auth::user()->id_role == 1)
     @forelse ($applications as $application)
-        <div class="col-md-12 col-sm-12 col-lg-5 border">
-            <div class="d-flex flex-column justify-content-between mb-3 py-4 px-3 h-100">
-                <div class="container-fluid d-flex justify-content-center">
+        <div class="flex flex-center border">
+            <div class="flex flex-col justify-between mb-3 py-4 px-3 h-100">
+                <div class="flex justify-center">
                     <h3>{{ $application->application_title }}</h3>
                 </div>
-                <div class="container-fluid d-flex justify-content-center gap-2">
+                <div class="flex justify-center gap-2">
                     <span>{{ $application->start_date }} - {{ $application->end_date }}</span>
                 </div>
-                <div class="container-fluid d-flex justify-content-center gap-2">
+                <div class="flex justify-center gap-2">
                     <x-application-status :application="$application" />
                 </div>
-                <div class="container-fluid d-flex justify-content-center gap-3 py-2">
+                <div class="flex justify-center gap-3 py-2">
                     <form class="delete-form" action="{{ route('admin.application-calls.destroy', $application->id) }}"
                         method="POST">
                         @csrf
@@ -28,23 +28,24 @@
         {{ $slot }}
     @endforelse
 @else
-    <div id="applicationCard" class="container d-flex gap-3">
+    <div id="applicationCard" class="flex gap-3">
         @forelse ($applications as $app)
-            <div id="applicationContent"
-                class="container d-flex flex-column justify-content-between gap-5 py-4 px-4 rounded">
-                <div class="contianer d-flex flex-column gap-3 px-0">
-                    <div class="container-fluid d-flex justify-content-center">
-                        <h3 class="fs-3 fw-bold">{{ $app->application_title }}</h3>
+            <div id="applicationContent" class="flex flex-col justify-between gap-5 py-4 px-4 rounded">
+                <div class="flex flex-col gap-3 px-0">
+                    <div class="flex justify-center">
+                        <h3 class="text-2xl font-bold">{{ $app->application_title }}</h3>
                     </div>
-                    <div class="container-fluid d-flex justify-content-center gap-2">
-                        <span class="fs-6"><b>{{ $app->start_date }}</b> - <b>{{ $app->end_date }}</b></span>
+                    <div class="flex justify-center gap-2">
+                        <span class="text-md"><b>{{ $app->start_date }}</b> - <b>{{ $app->end_date }}</b></span>
                     </div>
-                    <div class="container-fluid d-flex justify-content-center gap-2">
+                    <div class="flex justify-center gap-2">
                         <x-application-status :application="$app" />
                     </div>
                 </div>
-                <div class="container-fluid d-flex justify-content-center">
-                    <a href="{{ route('user.form-register.create', $app->id) }}" class="btn btn-primary">Postularme</a>
+                <div class="flex justify-center">
+                    <x-link-button link="{{ route('user.form-register.create', $app->id) }}">
+                        {{ __('Postularme') }}
+                    </x-link-button>
                 </div>
             </div>
         @empty

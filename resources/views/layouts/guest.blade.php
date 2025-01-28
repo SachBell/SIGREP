@@ -16,9 +16,9 @@
             <img src="{{asset('img/logo.png')}}" alt="logo.png" class="w-50 h-50 fill-current bg-white rounded" width="450px">
         </div>
 
-        <div class="w-full sm:max-w-md mt-6 px-9 py-7 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <main class="w-full sm:max-w-md mt-6 px-9 py-7 bg-white shadow-md overflow-hidden sm:rounded-lg">
             {{ $slot }}
-        </div>
+        </main>
     </div>
 </body>
 

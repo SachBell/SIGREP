@@ -1,12 +1,13 @@
 @section('title', 'Postulaciones')
 <x-dashboard-layout>
-    <div class="container-fluid d-flex flex-column justify-content-end px-0 my-2 gap-4">
-        <div class="d-flex alifn-items-center px-0">
-            <div class="container-fluid w-100">
-                <h2>Registrar Practicas Preprofesionales</h2>
-            </div>
-        </div>
-        <div class="">
+    <div class="mx-4">
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
+                {{ __('Registrar Practicas Preprofesionales') }}
+            </h2>
+        </x-slot>
+
+        <div class="py-12">
             @if ($userExist)
                 @include('user.form-register.partials.status')
             @else

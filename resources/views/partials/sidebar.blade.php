@@ -1,4 +1,114 @@
-<div id="sidebar-content" class="d-flex flex-column position-fixed top-0">
+<div id="sidebar"
+    class="absolute md:relative md:flex flex-col w-64 bg-gray-800 transition-all h-screen ease-in-out transition-transform transform -translate-x-full md:translate-x-0 ease-in-out duration-300 z-50 h-screen">
+    <div class="text-center tracking-widest border-b-2 border-gray-800 py-3 bg-gray-900 mb-8">
+        <a href="#" class="text-2xl text-white font-bold uppercase">sigrep</a>
+    </div>
+    <nav class="flex flex-col flex-1 px-1 overflow-y-auto text-sm text-gray-300">
+        <ul
+            class="flex flex-col justify-between space-y-[4rem]">
+            @if (Auth::user()->id_role === 1)
+                <div>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard') ? 'bg-gray-600' : '' }} hover:bg-gray-700 hover:text-white rounded">
+                        <a href="{{ route('admin.dashboard') }}" class="py-3 flex items-center">
+                            <i class="bi bi-house-fill mr-4 text-base text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Panel') }}</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-bold rounded">
+                        {{ __('Control de Usarios') }}
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.user-manager.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.user-manager.index') }}" class="py-3 flex items-center">
+                            <i class="bi bi-people-fill mr-4 text-xl"></i>
+                            <span class="text-lg font-semibold">{{ __('Usuarios') }}</span>
+                        </a>
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.registros.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.registros.index') }}" class="py-3 flex items-center">
+                            <i class="bi bi-journal-text mr-4 text-xl"></i>
+                            <span class="text-lg font-semibold">{{ __('Registros') }}</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-bold">
+                        {{ __('Control de Postulaciones') }}
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.application-calls.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.application-calls.index') }}" class="py-3 flex items-center">
+                            <i class="bi bi-award mr-4 text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Postulaciones') }}</span>
+                        </a>
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.institutes.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.institutes.index') }}" class="py-3 flex items-center">
+                            <i class="bi bi-book mr-4 text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Institutos') }}</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-bold">
+                        {{ __('Ajustes') }}
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.profile.edit') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.profile.edit') }}" class="py-3 flex items-center">
+                            <i class="bi bi-person-circle mr-4 text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Perfil') }}</span>
+                        </a>
+                    </li>
+                </div>
+            @else
+                <div>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('user.dashboard') ? 'bg-gray-600' : '' }} hover:bg-gray-700 hover:text-white rounded">
+                        <a href="{{ route('user.dashboard') }}" class="py-3 flex items-center">
+                            <i class="bi bi-house-fill mr-4 text-base text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Panel') }}</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-bold rounded">
+                        {{ __('Control de Prácticas') }}
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('user.form-register.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('user.form-register.index') }}" class="py-3 flex items-center">
+                            <i class="bi bi-people-fill mr-4 text-xl"></i>
+                            <span class="text-lg font-semibold">{{ __('Postulaciones') }}</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-bold">
+                        {{ __('Ajustes') }}
+                    </li>
+                    <li
+                        class="px-4 cursor-pointer {{ request()->routeIs('user.profile.edit') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('user.profile.edit') }}" class="py-3 flex items-center">
+                            <i class="bi bi-person-circle mr-4 text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Perfil') }}</span>
+                        </a>
+                    </li>
+                </div>
+            @endif
+            <div class="border-t pt-3 border-gray-700">
+                <li class="px-4 cursor-pointer hover:bg-gray-700 rounded">
+                    <form class="flex items-center w-full" id="logout-form" action="{{ route('logout') }}"
+                        method="POST">
+                        @csrf
+                        <a class="flex items-center w-full py-3" href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-left mr-4 text-lg"></i>
+                            <span class="text-lg font-semibold">{{ __('Cerrar Sesión') }}</span>
+                        </a>
+                    </form>
+                </li>
+            </div>
+        </ul>
+    </nav>
+</div>
+
+{{-- <div id="sidebar-content" class="d-flex flex-column position-fixed top-0">
     <div class="d-flex">
         <button class="toggle-btn" type="button">
             <i class="bi bi-grid"></i>
@@ -76,13 +186,12 @@
                 <a class="sidebar-link" href="#"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-left"></i>
-                    <span>{{ __('Log Out') }}</span>
+                    <span>{{ __('Cerrar Sesión') }}</span>
                 </a>
             </form>
         </li>
     </ul>
-</div>
-
+</div> --}}
 {{-- <li class="sidebar-item">
     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth"
         aria-expanded="false" aria-controls="auth">
