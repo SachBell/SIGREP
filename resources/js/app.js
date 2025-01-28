@@ -4,10 +4,19 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-const hamBurger = document.querySelector(".toggle-btn");
+const sidebar = document.getElementById('sidebar');
+const openSidebarButton = document.getElementById('sidebar-open');
 
-hamBurger.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("expand");
+openSidebarButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sidebar.classList.toggle('-translate-x-full');
+});
+
+// Close the sidebar when clicking outside of it
+document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !openSidebarButton.contains(e.target)) {
+        sidebar.classList.add('-translate-x-full');
+    }
 });
 
 Alpine.start();
