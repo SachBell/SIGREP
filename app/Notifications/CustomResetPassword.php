@@ -38,11 +38,12 @@ class CustomResetPassword extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting(__('emails.reset_greeting_title', ['name' => $notifiable->name]))
-            ->subject(__('emails.reset_password_subject'))
-            ->line(__('emails.reset_password_line'))
-            ->action(__('emails.reset_password_button'), route('password.reset', ['token' => $this->token]))
-            ->line(__('emails.reset_password_footer'));
+            ->greeting(__('emails.reset.greeting_title', ['name' => $notifiable->name]))
+            ->subject(__('emails.reset.password_subject'))
+            ->line(__('emails.reset.password_firts_line'))
+            ->line(__('emails.reset.password_second_line'))
+            ->action(__('emails.reset.password_button'), route('password.reset', ['token' => $this->token]))
+            ->line(__('emails.reset.password_footer'));
     }
 
     /**
