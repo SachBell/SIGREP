@@ -15,9 +15,11 @@ class ApplicationController extends Controller
     {
         $applications = ApplicationCalls::where('status_call', 1)->get();
 
-        $user = auth()->user()->user_data_id;
+        $user = auth()->user()->userData;
 
-        $userExist = ApplicationDetails::where('id_user_data', $user)->exists();
+        $userExist = ApplicationDetails::where('id_user_data', $user->id)->exists();
+
+        // dd($user);
 
         $applicationDetails = auth()->user()->status();
 
@@ -28,19 +30,25 @@ class ApplicationController extends Controller
     {
         $application = ApplicationCalls::findOrFail($id);
         $institutes = Institute::all();
+        $currentDate = now();
 
         $user = auth()->user()->userData;
 
+        // Verificar si la postulacion esta activa
         if (!$application->isActive()) {
-            return redirect()->back()->with('error', 'El periodo de postulación ha terminado.');
+            return redirect()->back()->with('error', 'El periodo de postulación ha terminado en: ' . $application->end_date);
         }
 
         if (!$user) {
             return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte');
         }
 
-        $appExist = ApplicationDetails::where('id_user_data', $user)
-            ->where('id_application_calls', $id)
+        // Verificar si el usuario ya está inscrito en alguna convocatoria activa
+        $appExist = ApplicationDetails::where('id_user_data', $user->id)
+            ->whereHas('applicationCalls', function ($query) use ($currentDate) {
+                $query->where('start_date', '<=', $currentDate)
+                    ->where('end_date', '>=', $currentDate);
+            })
             ->exists();
 
         if ($appExist) {
@@ -58,7 +66,7 @@ class ApplicationController extends Controller
             'id_institute' => 'required|exists:institutes,id',
         ]);
 
-        $user = auth()->user()->user_data_id;
+        $user = auth()->user()->userData;
 
         if (!$user) {
             return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte');
@@ -84,7 +92,7 @@ class ApplicationController extends Controller
 
         ApplicationDetails::create([
             'id_application_calls' => $applicationId,
-            'id_user_data' => $user,
+            'id_user_data' => $user->id,
             'id_institutes' => $instituteId,
             'status_individual' => ApplicationDetails::STATUS_PENDIENTE,
         ]);
