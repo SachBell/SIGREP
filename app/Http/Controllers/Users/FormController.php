@@ -20,9 +20,9 @@ class FormController extends Controller
     {
         $applications = ApplicationCalls::where('status_call', 1)->get();
 
-        $user = auth()->user()->user_data_id;
+        $user = auth()->user()->userData;
 
-        $userExist = ApplicationDetails::where('id_user_data', $user)->exists();
+        $userExist = ApplicationDetails::where('id_user_data', $user->id)->exists();
 
         return view('user.index', compact('applications', 'userExist'));
     }
