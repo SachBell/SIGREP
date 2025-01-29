@@ -10,9 +10,12 @@ class ApplicationController extends Controller
 {
     public function index()
     {
-
         $applications = ApplicationCalls::all();
         return view('admin.application-calls.index', compact('applications'));
+
+        if (!$applications->isActive()) {
+            return redirect()->back()->with('error', 'El periodo de postulación ha terminado.');
+        }
     }
 
     public function create()

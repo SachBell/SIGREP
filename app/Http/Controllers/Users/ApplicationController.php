@@ -31,9 +31,8 @@ class ApplicationController extends Controller
 
         $user = auth()->user()->userData;
 
-        $currentDate = now();
-        if ($currentDate->lt($application->start_date) || $currentDate->gt($application->end_date)) {
-            return redirect()->back()->with('error', 'El periodo de postulación ha terminado en ' . $application->end_date);
+        if (!$application->isActive()) {
+            return redirect()->back()->with('error', 'El periodo de postulación ha terminado.');
         }
 
         if (!$user) {
