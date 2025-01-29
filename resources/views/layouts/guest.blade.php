@@ -7,10 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | SIGREP</title>
     <script src="https://kit.fontawesome.com/be6056a694.js" crossOrigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
+    @include('partials.swa')
     <div class="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0">
         <div class="px-4">
             <img src="{{ asset('img/logo.png') }}" alt="logo.png" class="w-50 h-50 fill-current bg-white rounded"
