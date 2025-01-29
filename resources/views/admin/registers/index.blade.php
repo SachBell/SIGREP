@@ -30,7 +30,6 @@
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b-2 border-gray-200">
                             <tr>
-                                <th class="p-3 text-sm whitespace-nowrap">ID</th>
                                 <th class="p-6 text-sm whitespace-nowrap">CEI</th>
                                 <th class="p-6 text-sm whitespace-nowrap">Nombres</th>
                                 <th class="p-6 text-sm whitespace-nowrap">Apellidos</th>
@@ -51,39 +50,37 @@
                         <tbody class="bg-gray-100">
                             @foreach ($registros as $registro)
                                 <tr>
-                                    <td class="p-3 align-middle whitespace-nowrap">
-                                        {{ $registro->id }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->cei }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->name }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->lastname }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->phone_number }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->user->email }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->address }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->neighborhood }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->semesters->semester ?? 'Sin Asignar' }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->grades->grade ?? 'Sin Asignar' }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->daytrip }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->applicationDetails->first()?->institutes->name ?? 'Sin Asignar' }}
                                     </td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->applicationDetails->first()?->institutes->address ?? 'Sin Asignar' }}
                                     </td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->created_at }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->updated_at }}</td>
-                                    <td class="p-3 text-center whitespace-nowrap space-y-2">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap space-y-2">
                                         <form class="delete-form"
                                             action="{{ route('admin.registros.destroy', $registro->id) }}"
                                             method="POST">

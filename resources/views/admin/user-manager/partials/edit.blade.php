@@ -37,11 +37,11 @@
 
         <div class="flex justify-center align-middle mt-6 space-x-4">
             <x-custom-button
-                class="font-bold text-sm text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
+                class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                 {{ __('Guardar') }}
             </x-custom-button>
             <x-custom-link-button link="{{ route('admin.user-manager.index') }}"
-                class="font-bold text-sm text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
+                class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
                 {{__('Cancelar')}}
             </x-custom-link-button>
         </div>

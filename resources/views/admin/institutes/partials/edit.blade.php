@@ -1,39 +1,44 @@
 @section('title', 'Editar Registro')
 <x-crud-layout>
-    <div class="container-fluid d-flex flex-column align-items-center">
-        <div class="container-fluid py-4 pb-1 text-center">
-            <h1 class="text-uppercase">Editar Institución</h1>
-        </div>
-        <div id="form-container" class="contianer-fluid py-4">
-            <form id="edit-form" class="py-5 px-5" action="{{ route('admin.institutes.update', $registro->id) }}"
-                method="POST">
-                @csrf
-                @method('PUT')
-
-                <div class="container-fluid">
-                    <div class="mb-3">
-                        <label for="name" class="form-label fs-5">Nombre de la Institución</label>
-                        <input type="text" name="name" id="name" class="form-control"
-                            value="{{ old('name', $registro->name) }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label fs-5">Dirección</label>
-                        <input type="text" name="address" id="address" class="form-control"
-                            value="{{ old('address', $registro->address) }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="user_limit" class="form-label fs-5">Límite de Usuarios</label>
-                        <input type="text" name="user_limit" id="user_limit" class="form-control"
-                            value="{{ old('user_limit', $registro->user_limit) }}" pattern="\d*"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" inputmode="numeric">
-                    </div>
-                </div>
-
-                <div class="mobile container-fluid d-flex justify-content-center gap-2">
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    <a href="{{ route('admin.institutes.index') }}" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
-        </div>
+    <div class="py-4 pb-1">
+        <h2 class="font-semibold uppercase text-3xl text-gray-900 leading-tigth text-center">
+            {{ __('Editar Institución') }}
+        </h2>
     </div>
+    <form id="edit-form" class="py-5 px-5" action="{{ route('admin.institutes.update', $registro->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div>
+            <x-input-label for="name" class="text-gray-900 text-xl" :value="__('Nombre')" />
+            <x-text-input id="name" name="name" type="text" class="text-gray-900 block mt-1 w-full text-lg"
+                value="{{ old('name', $registro->name) }}" autocomplete="name" placeholder="{{ __('Nombre') }}" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+        <div class="mt-4">
+            <x-input-label for="address" class="text-gray-900 text-xl" :value="__('Dirección')" />
+            <x-text-input id="address" name="address" type="text" class="text-gray-900 block mt-1 w-full text-lg"
+                value="{{ old('address', $registro->address) }}" autocomplete="address" placeholder="{{ __('Dirección') }}" />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+        <div class="mt-4">
+            <x-input-label for="user_limit" class="text-gray-900 text-xl" :value="__('Límite de Usuarios')" />
+            <x-text-input id="user_limit" name="user_limit" type="number"
+                class="text-gray-900 block mt-1 w-full text-lg" value="{{ old('user_limit', $registro->user_limit) }}"
+                autocomplete="user_limit" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                inputmode="numeric" placeholder="{{ __('Límite de Usuarios') }}" />
+            <x-input-error :messages="$errors->get('user_limit')" class="mt-2" />
+        </div>
+
+        <div class="flex justify-center align-middle mt-6 space-x-4">
+            <x-custom-button
+                class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
+                {{ __('Guardar') }}
+            </x-custom-button>
+            <x-custom-link-button link="{{ route('admin.institutes.index') }}"
+                class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
+                {{ __('Cancelar') }}
+            </x-custom-link-button>
+        </div>
+    </form>
 </x-crud-layout>

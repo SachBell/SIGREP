@@ -30,7 +30,6 @@
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b-2 border-gray-200">
                             <tr>
-                                <th class="p-3 text-sm whitespace-nowrap">ID</th>
                                 <th class="p-6 text-sm whitespace-nowrap">Nombre</th>
                                 <th class="p-6 text-sm whitespace-nowrap">Dirección</th>
                                 <th class="p-3 text-sm whitespace-nowrap">Límite de Usuarios</th>
@@ -42,19 +41,17 @@
                         <tbody class="bg-gray-100">
                             @foreach ($registros as $registro)
                                 <tr>
-                                    <td class="p-3 text-center align-middle whitespace-nowrap">
-                                        {{ $registro->id }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->name }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->address }}</td>
-                                    <td class="p-3 text-center align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->user_limit }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->created_at }}</td>
-                                    <td class="p-3 align-middle whitespace-nowrap">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap">
                                         {{ $registro->updated_at }}</td>
-                                    <td class="p-3 text-center whitespace-nowrap space-y-2">
+                                    <td class="p-3 align-middle text-center whitespace-nowrap space-y-2">
                                         <form class="delete-form"
                                             action="{{ route('admin.institutes.destroy', $registro->id) }}"
                                             method="POST">

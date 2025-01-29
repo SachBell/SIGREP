@@ -29,7 +29,6 @@
                     <table class="w-full">
                         <thead class="bg-gray-50 border-b-2 border-gray-200">
                             <tr>
-                                <th class="p-3 text-sm whitespace-nowrap">ID</th>
                                 <th class="p-3 text-sm whitespace-nowrap">Nombre de Usuario</th>
                                 <th class="p-3 text-sm whitespace-nowrap">Role</th>
                                 <th class="p-3 text-sm whitespace-nowrap">Correo</th>
@@ -40,15 +39,13 @@
                         <tbody class="bg-gray-100">
                             @foreach ($registros as $registro)
                                 <tr>
-                                    <td class="p-3 text-md whitespace-nowrap">{{ $registro->id }}
-                                    </td>
-                                    <td class="p-3 text-md whitespace-nowrap">
+                                    <td class="p-3 text-md text-center whitespace-nowrap">
                                         {{ $registro->name }}</td>
-                                    <td class="p-3 text-md whitespace-nowrap">
+                                    <td class="p-3 text-md text-center whitespace-nowrap">
                                         {{ $registro->userRole->role_name ?? 'Sin Role' }}</td>
-                                    <td class="p-3 text-md whitespace-nowrap">
+                                    <td class="p-3 text-md  text-center whitespace-nowrap">
                                         {{ $registro->email }}</td>
-                                    <td class="p-3 text-md whitespace-nowrap">
+                                    <td class="p-3 text-md text-center whitespace-nowrap">
                                         <a href="" class="btn btn-primary btn-sm">Resetear Contraseña</a>
                                     </td>
                                     <td class="p-3 text-center whitespace-nowrap space-y-2">

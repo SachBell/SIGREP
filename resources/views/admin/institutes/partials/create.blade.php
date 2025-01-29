@@ -1,47 +1,45 @@
 @section('title', 'Nueva Institución')
 <x-crud-layout>
-    <div id="create-container" class="container-fluid d-flex flex-column align-items-center">
-        <div class="container-fluid py-4 pb-2 text-center">
-            <h1 class="text-uppercase">Añadir Institución</h1>
-        </div>
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <div id="form-container" class="container-fluid">
-            <form id="edit-form" class="d-flex flex-column gap-3 py-5 px-5" action="{{ route('admin.institutes.store') }}"
-                method="POST">
-                @csrf
-                <div class="container">
-                    <div class="mb-3">
-                        <label for="name" class="form-label fs-5">Nombre de la Institución</label>
-                        <input type="text" name="name" id="name" class="form-control"
-                            value="{{ old('name') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label fs-5">Dirección</label>
-                        <input type="text" name="address" id="address" class="form-control"
-                            value="{{ old('address') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="user_limit" class="form-label fs-5">Límite de Estudiantes</label>
-                        <input type="number" name="user_limit" id="user_limit" class="form-control"
-                            value="{{ old('user_limit') }}" pattern="\d*"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" inputmode="numeric">
-                    </div>
-                </div>
-                <div class="mobile container-fluid d-flex justify-content-center gap-3">
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    <a href="{{ route('admin.institutes.index') }}" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
-        </div>
+    <div class="py-4 pb-1">
+        <h2 class="font-semibold uppercase text-3xl text-gray-900 leading-tigth text-center">
+            {{ __('Añadir Institución') }}
+        </h2>
     </div>
+
+    <form id="edit-form" class="d-flex flex-column gap-3 py-5 px-5" action="{{ route('admin.institutes.store') }}"
+        method="POST">
+        @csrf
+
+        <div>
+            <x-input-label for="name" class="text-gray-900 text-xl" :value="__('Nombre')" />
+            <x-text-input id="name" name="name" type="text" class="text-gray-900 block mt-1 w-full text-lg"
+                value="{{ old('name') }}" autocomplete="name" placeholder="{{ __('Nombre') }}" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+        <div class="mt-4">
+            <x-input-label for="address" class="text-gray-900 text-xl" :value="__('Dirección')" />
+            <x-text-input id="address" name="address" type="text" class="text-gray-900 block mt-1 w-full text-lg"
+                value="{{ old('address') }}" autocomplete="address" placeholder="{{ __('Dirección') }}" />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+        <div class="mt-4">
+            <x-input-label for="user_limit" class="text-gray-900 text-xl" :value="__('Límite de Usuarios')" />
+            <x-text-input id="user_limit" name="user_limit" type="number"
+                class="text-gray-900 block mt-1 w-full text-lg" value="{{ old('user_limit') }}"
+                autocomplete="user_limit" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                inputmode="numeric" placeholder="{{ __('Límite de Usuarios') }}" />
+            <x-input-error :messages="$errors->get('user_limit')" class="mt-2" />
+        </div>
+
+        <div class="flex justify-center align-middle mt-6 space-x-4">
+            <x-custom-button
+                class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
+                {{ __('Guardar') }}
+            </x-custom-button>
+            <x-custom-link-button link="{{ route('admin.institutes.index') }}"
+                class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
+                {{ __('Cancelar') }}
+            </x-custom-link-button>
+        </div>
+    </form>
 </x-crud-layout>
