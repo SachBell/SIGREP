@@ -26,14 +26,15 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // dd($request);
+
         $request->validate([
             'email' => ['required', 'email'],
         ]);
 
-        $prohibitedRoles = explode(',', env('RESERVED_ROLES', ''));
         $user = User::where('email', $request->email)->first();
 
-        if ($user && in_array(strtolower($user->role_name), array_map('strtolower', $prohibitedRoles))) {
+        if ($user && $user->id_role === 1) {
             return redirect('/login')->with('error', 'No se puede recuperar esta cuenta.');
         }
 
