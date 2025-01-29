@@ -20,10 +20,7 @@
 
         {{-- Main Content --}}
         <main class="flex flex-col flex-1 overflow-auto">
-            <div class="flex items-center justify-between min-h-16 bg-white border-b border-gray-200">
-                <div class="flex items-center px-4">
-                    <span class="opacity-50">/dashboard</span>
-                </div>
+            <div class="flex items-center justify-end min-h-16 bg-white border-b border-gray-200">
                 <div class="md:hidden flex items-center px-4">
                     <button id="sidebar-open" class="mr-4 px-2 py-1 bg-gray-300 rounded focus:outline-none text-2xl">
                         <i class="bi bi-grid"></i>
