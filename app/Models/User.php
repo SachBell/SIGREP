@@ -74,7 +74,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function status()
     {
-        return ApplicationDetails::where('id_user_data', $this->user_data_id)
+        $user = auth()->user()->userData;
+
+        return ApplicationDetails::where('id_user_data', $user->id)
             ->with(['applicationCalls', 'userData', 'institutes'])
             ->latest('created_at')
             ->first();
