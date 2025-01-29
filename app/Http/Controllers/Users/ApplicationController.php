@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ApplicationCalls;
 use App\Models\ApplicationDetails;
 use App\Models\Institute;
+use App\Models\UserData;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -35,6 +36,10 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'El periodo de postulación ha terminado en ' . $application->end_date);
         }
 
+        if (!$user) {
+            return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte');
+        }
+
         $appExist = ApplicationDetails::where('id_user_data', $user)
             ->where('id_application_calls', $id)
             ->exists();
@@ -57,7 +62,7 @@ class ApplicationController extends Controller
         $user = auth()->user()->user_data_id;
 
         if (!$user) {
-            return redirect()->route('user.dashboard')->with('error', 'No tienes datos personales registrados.');
+            return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte');
         }
 
         $applicationId = $request->input('id_application_calls');
