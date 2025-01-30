@@ -8,6 +8,7 @@
     <title>@yield('title') | ISUS</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -19,7 +20,7 @@
         @include('partials.sidebar')
 
         {{-- Main Content --}}
-        <main class="flex flex-col flex-1 overflow-auto">
+        <main class="flex flex-col flex-1 overflow-auto animate__animated animate__fadeIn">
             <div class="flex items-center justify-between min-h-16 bg-white border-b border-gray-200">
                 <div class="flex items-center px-4">
                     @if (Breadcrumbs::exists())
