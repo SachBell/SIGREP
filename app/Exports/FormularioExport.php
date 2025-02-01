@@ -16,15 +16,16 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
 
     public function collection()
     {
-        return UserData::with('applicationDetails.institutes', 'grades', 'semesters')->get()->map(function ($registro) {
+        return UserData::with('user', 'applicationDetails.institutes', 'grades', 'semesters')->get()->map(function ($registro) {
             $institucion = $registro->applicationDetails->first()->institutes ?? null;
+            $email = $registro->user->email ?? null;
             return [
                 'id' => $registro->id,
                 'cei' => $registro->cei,
                 'nombres' => $registro->name,
                 'apellidos' => $registro->lastname,
                 'telefono' => $registro->phone_number,
-                'correo' => $registro->email,
+                'correo' => $email,
                 'direaccion' => $registro->address,
                 'barrio' => $registro->neighborhood,
                 'semestre' => $registro->semesters->semester ?? 'Sin Asignar',
