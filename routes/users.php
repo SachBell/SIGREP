@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FormController as AdminController;
 use App\Http\Controllers\Admin\InstitutesController;
 use App\Http\Controllers\Admin\UserManagerController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Users\FormController as UserController;
 use App\Http\Controllers\ProfileController;
 
@@ -56,6 +57,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::get('/forms', [UserAppController::class, 'index'])->name('user.form-register.index');
     Route::get('/forms/create/{id}', [UserAppController::class, 'create'])->name('user.form-register.create');
+    Route::get('/pdf/solicitud/{id}', [PDFController::class, 'generatePDF'])->name('user.application-pdf.preview');
     // PATCHS
     Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::put('/profile', [ProfileController::class, 'dataUpdate'])->name('user.profile.dataUpdate');
