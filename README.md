@@ -17,6 +17,7 @@ Este es un aplicativo web para el Instituto Superior Universitario Sucre. La fin
  - [diglactic/laravel-breadcrumbs](https://github.com/diglactic/laravel-breadcrumbs)
  - [maatwebsite/excel](https://laravel-excel.com/)
  - [Animate.css](https://animate.style/)
+ - [phpoffice/phpspreadsheet](https://github.com/PHPOffice/PhpSpreadsheet)
 
 
 ## Descripción
