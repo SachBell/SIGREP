@@ -19,6 +19,8 @@
 
         <h2>Estado del Estudiante</h2>
         <p><strong>Estado:</strong> {{ $applicationDetails->status_individual }}</p>
+
+        <a href="{{route('user.application-pdf.preview', $applicationDetails->id)}}">Descargar Registro</a>
     @else
         <p>No se encontraron datos para mostrar.</p>
     @endif
