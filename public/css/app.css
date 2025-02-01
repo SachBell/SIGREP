@@ -1,0 +1,187 @@
+:root {
+    --primary-color: #1770B5;
+    --secondary-color: #258bd2;
+    --accent-color: #4ca6e4;
+    --primary-black-color: #145890;
+    --secondary-black-color: #144b78;
+    --accent-black-color: #163f64;
+    --font-color: #f2f8fd;
+    --font-black-color: #0f2942;
+    --font-hover-color: #c1dff6;
+    --form-color: #f2f8fd;
+    --form-black-color: #0f2942;
+}
+
+::selection {
+    background: var(--accent-color);
+}
+
+::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+body {
+    min-height: 100dvh;
+    display: grid !important;
+    grid-template-rows: auto 1fr auto;
+    background: linear-gradient(var(--secondary-black-color) 0%, var(--primary-black-color) 100%) !important;
+}
+
+nav {
+    background: var(--primary-black-color) !important;
+}
+
+.navbar-brand,
+.nav-link {
+    color: var(--font-color) !important;
+}
+
+.nav-link.active {
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--font-hover-color) !important;
+}
+
+.navbar-toggler-icon {
+    height: auto !important;
+    color: var(--font-color);
+    background-image: none !important;
+}
+
+.navbar-toggler {
+    line-height: 0 !important;
+    font-size: 2rem !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
+main {
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
+    padding-left: 12em !important;
+    padding-right: 12em !important;
+    transition: all .5s ease;
+}
+
+main form {
+    box-shadow: 20px 50px 70px rgba(0, 0, 0, .5);
+    border-radius: 15px;
+    color: var(--font-black-color);
+    background: var(--form-color);
+}
+
+main #ppForm {
+    width: calc(100% - 25%) !important;
+}
+
+.description {
+    text-align: justify !important;
+}
+
+.btn-primary {
+    border: none !important;
+    background: var(--primary-black-color) !important;
+    transition: all .5s ease;
+}
+
+.btn-primary:hover {
+    border: none !important;
+    background: var(--secondary-black-color) !important;
+}
+
+#loginForm {
+    width: calc(100% - 50%);
+    height: fit-content !important;
+}
+
+.message {
+    display: none;
+}
+
+.message.active {
+    display: block;
+}
+
+footer {
+    height: 100px;
+    color: var(--font-color) !important;
+    /* background: var(--primary-black-color); */
+}
+
+footer a {
+    font-weight: 700;
+    color: #ffff !important;
+    transition: all .5s ease;
+}
+
+footer a:hover {
+    color: var(--font-hover-color) !important;
+}
+
+@media (max-width: 576px) {
+    main {
+        padding-left: 1em !important;
+        padding-right: 1em !important;
+    }
+
+    main #ppForm {
+        width: 100% !important;
+    }
+
+    .description {
+        font-size: 1.2em !important;
+    }
+
+    #loginForm {
+        width: calc(100% - 20%) !important;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    main {
+        padding-left: 1.5em !important;
+        padding-right: 1.5em !important;
+    }
+
+    main #ppForm {
+        width: calc(100% - 10%) !important;
+    }
+
+    .description {
+        font-size: 1.2em !important;
+    }
+
+    #loginForm {
+        width: calc(100% - 20%) !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    main {
+        padding-left: 2em !important;
+        padding-right: 2em !important;
+    }
+
+    main #ppForm {
+        width: calc(100% - 10%) !important;
+    }
+
+    #loginForm {
+        width: calc(100% - 20%) !important;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+
+    main #ppForm {
+        width: 100% !important;
+    }
+
+    #loginForm {
+        width: calc(100% - 20%) !important;
+    }
+}
