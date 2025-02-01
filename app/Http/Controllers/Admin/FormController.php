@@ -40,7 +40,6 @@ class FormController extends Controller
                 $query->where('cei', 'like', '%' . $search . '%')
                     ->orWhere('name', 'like', '%' . $search . '%')
                     ->orWhere('lastname', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('phone_number', 'like', '%' . $search . '%');
             });
         }

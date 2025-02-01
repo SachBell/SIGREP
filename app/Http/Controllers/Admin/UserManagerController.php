@@ -28,7 +28,7 @@ class UserManagerController extends Controller
             $query->where(function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('userRole', 'like', '%' . $search . '%');
+                    ->orWhere('id_role', 'like', '%' . $search . '%');
             });
         }
 
