@@ -47,6 +47,7 @@ Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
     Route::post('/institutes/create', [InstitutesController::class, 'store'])->name('admin.institutes.store');
     Route::post('user-manager/create', [UserManagerController::class, 'store'])->name('admin.user-manager.store');
     Route::post('/application-calls/create', [AdminAppController::class, 'store'])->name('admin.application-calls.store');
+    Route::post('/user-manager/{id}/reset-password', [UserManagerController::class, 'sendResetPassword'])->name('admin.user-manager.reset-password');
 });
 
 // USER ROUTES

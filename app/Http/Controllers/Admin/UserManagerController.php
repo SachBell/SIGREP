@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class UserManagerController extends Controller
 {
@@ -113,5 +114,16 @@ class UserManagerController extends Controller
         $registro->update($request->all());
 
         return redirect()->route('admin.user-manager.index')->with('success', 'Usuario actualizado con éxito.');
+    }
+
+    public function sendResetPassword(Request $request, $id)
+    {
+        $registro = User::findOrFail($id);
+
+        // dd($registro);
+
+        Password::sendResetLink(['email' => $registro->email]);
+
+        return redirect()->back()->with('success', 'Se ha enviado un correo de reseteo de contraseña al usuario.');
     }
 }

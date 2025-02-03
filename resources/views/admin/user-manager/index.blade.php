@@ -46,7 +46,14 @@
                                     <td class="p-3 text-md  text-center whitespace-nowrap">
                                         {{ $registro->email }}</td>
                                     <td class="p-3 text-md text-center whitespace-nowrap">
-                                        <a href="" class="btn btn-primary btn-sm">Resetear Contraseña</a>
+                                        <form action="{{ route('admin.user-manager.reset-password', $registro->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <x-custom-button type="submit"
+                                                class="inline-flex items-center px-2 py-2 bg-blue-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
+                                                :value="__('Resetear
+                                                Contraseña')" />
+                                        </form>
                                     </td>
                                     <td class="p-3 text-center whitespace-nowrap space-y-2">
                                         <form class="delete-form"
