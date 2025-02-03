@@ -10,7 +10,6 @@ use App\Models\Semester;
 use App\Models\Institute;
 use App\Models\UserData;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class FormController extends Controller
@@ -21,6 +20,10 @@ class FormController extends Controller
         $applications = ApplicationCalls::where('status_call', 1)->get();
 
         $user = auth()->user()->userData;
+
+        if (!$user) {
+            return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte.');
+        }
 
         $userExist = ApplicationDetails::where('id_user_data', $user->id)->exists();
 
