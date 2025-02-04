@@ -7,7 +7,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 space-y-6">
+    <div class="py-12 space-y-5">
         <div class="mx-auto">
             <form action="{{ route('admin.user-manager.index') }}" method="GET"
                 class="flex flex-col justify-center space-y-5">
@@ -98,4 +98,5 @@
                 </div>
             </div>
         </div>
+    </div>
 </x-dashboard-layout>

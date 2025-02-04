@@ -15,7 +15,7 @@
     --background-dark-opacity: #4747478f;
     --primary-button: #268dd1;
     --primary-button-hover: #176fb2;
-} 
+}
 
 ::selection {
     background: var(--accent-color);
@@ -69,12 +69,11 @@ body {
 }
 
 main #siteMain {
-    height: 100%;
     transition: all 0.35s ease-in-out;
     background: url('../../public/img/logo-isus.png');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: calc(100% - 20%);
     z-index: 2;
 }
 

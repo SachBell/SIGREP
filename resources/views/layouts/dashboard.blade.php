@@ -20,7 +20,7 @@
         @include('partials.sidebar')
 
         {{-- Main Content --}}
-        <main class="flex flex-col flex-1 overflow-auto">
+        <main class="flex flex-col flex-1 overflow-y-auto">
             <div class="flex items-center justify-between min-h-16 bg-white border-b border-gray-200">
                 <div class="flex items-center px-4">
                     @if (Breadcrumbs::exists())
@@ -44,15 +44,13 @@
                 </header>
             @endif
 
-            <div id="siteMain" class="mt-3 min-h-100 animate__animated animate__fadeIn">
+            <div id="siteMain" class="h-full mt-3 animate__animated animate__fadeIn">
                 <div>
                     {{ $slot }}
                 </div>
+                @include('partials.footer')
             </div>
-
-            @include('partials.footer')
         </main>
-
     </div>
 </body>
 
