@@ -36,6 +36,10 @@ El desarrollo del sistema se realizó utilizando **Scrum**, organizando el traba
 
 ## 👥 Colaboradores
 - [@SachBell](https://www.github.com/SachBell)
+<<<<<<< HEAD
+- [Tu Nombre o Equipo] *(si aplica)*
+=======
+>>>>>>> main
 
 ## 📝 Instalación y Configuración
 1. Clonar el repositorio:

@@ -30,9 +30,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        $prohibitedNames = explode(',', env('RESERVED_NAMES', ''));
+
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) use ($prohibitedNames) {
+
+                    if (in_array(strtolower($value), array_map('strtolower', $prohibitedNames))) {
+                        $fail('Este nombre no se puede usar.');
+                    } else {
+                        if (User::where('name', $value)->exists()) {
+                            $fail('El nombre de usuario ya existe.');
+                        }
+                    }
+                },
+            ],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -46,6 +63,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('login')->with('status', 'Te has registrado con éxito. Por favor, verifica tu correo electrónico para verificar tu cuenta');
     }
 }
