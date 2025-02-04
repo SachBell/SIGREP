@@ -12,10 +12,10 @@ use App\Http\Controllers\ProfileController;
 
 // ADMIN ROUTES
 
-Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'role:1', 'redirect.dashboard'])->group(function () {
 
     // GETS
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
     Route::get('/registers', [AdminController::class, 'index'])->name('admin.registros.index');
     Route::get('/registers/edit/{id}', [AdminController::class, 'edit'])->name('admin.registros.edit');
@@ -52,9 +52,9 @@ Route::prefix('admin')->middleware(['auth', 'role:1'])->group(function () {
 
 // USER ROUTES
 
-Route::middleware('auth', 'verified')->group(function () {
+Route::prefix('user')->middleware('auth', 'redirect.dashboard')->group(function () {
     // GETS
-    Route::get('dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::get('/forms', [UserAppController::class, 'index'])->name('user.form-register.index');
     Route::get('/forms/create/{id}', [UserAppController::class, 'create'])->name('user.form-register.create');
