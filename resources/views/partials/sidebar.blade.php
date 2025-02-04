@@ -1,11 +1,14 @@
 <div id="sidebar"
     class="absolute md:relative md:flex flex-col w-64 bg-gray-800 transition-all h-screen ease-in-out transition-transform transform -translate-x-full md:translate-x-0 ease-in-out duration-300 z-50 h-screen">
     <div class="text-center tracking-widest border-b-2 border-gray-800 py-3 bg-gray-900 mb-8">
-        <a href="#" class="text-2xl text-white font-bold uppercase">sigrep</a>
+        @if (auth()->user()->id_role === 1)
+            <a href="{{ route('admin.dashboard') }}" class="text-2xl text-white font-bold uppercase">sigrep</a>
+        @else
+            <a href="{{ route('user.dashboard') }}" class="text-2xl text-white font-bold uppercase">sigrep</a>
+        @endif
     </div>
     <nav class="flex flex-col flex-1 px-1 overflow-y-auto text-sm text-gray-300">
-        <ul
-            class="flex flex-col justify-between space-y-[4rem]">
+        <ul class="flex flex-col justify-between space-y-[4rem]">
             @if (Auth::user()->id_role === 1)
                 <div>
                     <li
