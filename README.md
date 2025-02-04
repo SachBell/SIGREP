@@ -1,32 +1,84 @@
+# Sistema de Gestión de Prácticas Preprofesionales (SIGREP)
 
-# Sistema De Gestión de Prácticas Preprofesionales
+Este es un aplicativo web desarrollado para el **Instituto Superior Universitario Sucre**, con el objetivo de facilitar la gestión de postulaciones a prácticas preprofesionales. La plataforma permite a los estudiantes postularse y actualizar su información, mientras que los docentes pueden gestionar y generar documentos relacionados con el proceso.
 
-Este es un aplicativo web para el Instituto Superior Universitario Sucre. La finalidad de este es facilitar la gestión por parte de los estudiantes que quieran tomar prácticas, como el gestionamiento por parte de los docentes.
+**NOTA: ** Este proyecto solo sirve para una carrera, proximamente será expandido para que sea global.
 
+## 📌 Características Principales
+- Registro y actualización de información estudiantil.
+- Gestión de postulaciones a prácticas.
+- Generación de documentos en PDF y Excel.
+- Sistema de roles y permisos (estudiante, docente, administrador).
+- Interfaz responsiva y accesible.
 
-## Autores
+## 🛠 Tecnologías y Librerías Utilizadas
+El sistema se ha desarrollado utilizando las siguientes tecnologías:
 
+### **Backend**
+- [Laravel 10](https://laravel.com/) - Framework PHP basado en MVC.
+- [Laravel Sanctum](https://laravel.com/docs/10.x/sanctum) - Autenticación y autorización basada en tokens.
+- [Eloquent ORM](https://laravel.com/docs/10.x/eloquent) - Manejo de base de datos.
+- [barryvdh/laravel-dompdf](https://github.com/barryvdh/laravel-dompdf) - Generación de documentos PDF.
+- [maatwebsite/excel](https://laravel-excel.com/) - Exportación de datos a Excel.
+
+### **Frontend**
+- [Tailwind CSS](https://tailwindcss.com/) - Estilos y diseño responsivo.
+- [Bootstrap Icons](https://icons.getbootstrap.com/) - Iconos para mejorar la interfaz.
+- [Animate.css](https://animate.style/) - Animaciones para una mejor experiencia de usuario.
+
+### **Herramientas Adicionales**
+- [Laravel Breadcrumbs](https://github.com/diglactic/laravel-breadcrumbs) - Migas de pan para navegación.
+- [PHPUnit](https://phpunit.de/) - Pruebas unitarias.
+- [Laravel Dusk](https://laravel.com/docs/10.x/dusk) - Pruebas end-to-end.
+
+## 🏗 Metodología de Desarrollo
+El desarrollo del sistema se realizó utilizando **Scrum**, organizando el trabajo en sprints de dos semanas. Se usó **GitHub** para el control de versiones, asignación de tareas y revisión de código mediante _pull requests_.
+
+## 👥 Colaboradores
 - [@SachBell](https://www.github.com/SachBell)
+- [Tu Nombre o Equipo] *(si aplica)*
 
+## 📝 Instalación y Configuración
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/sigrep.git
+   ```
+2. Acceder al directorio del proyecto:
+   ```bash
+   cd sigrep
+   ```
+3. Instalar dependencias:
+   ```bash
+   composer install
+   npm install
+   ```
+4. Configurar el archivo de entorno:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+5. Configurar base de datos y ejecutar migraciones:
+   ```bash
+   php artisan migrate --seed
+   ```
+6. Levantar el servidor de desarrollo:
+   ```bash
+   php artisan serve
+   ```
 
-## Tecnologías y librerías que usamos
- - [Laravel](https://laravel.com/)
- - [Tailwind](https://tailwindcss.com/)
- - [laravel/breeze](https://laravel.com/docs/10.x/starter-kits#laravel-breeze)
- - [barryvdh/laravel-dompdf](https://github.com/barryvdh/laravel-dompdf)
- - [diglactic/laravel-breadcrumbs](https://github.com/diglactic/laravel-breadcrumbs)
- - [maatwebsite/excel](https://laravel-excel.com/)
- - [Animate.css](https://animate.style/)
- - [phpoffice/phpspreadsheet](https://github.com/PHPOffice/PhpSpreadsheet)
+## ✅ Pruebas Realizadas
+Se realizaron las siguientes pruebas para garantizar el correcto funcionamiento del sistema:
+- **Pruebas de Caja Negra**: Validación de funcionalidades sin conocimiento del código.
+- **Pruebas de Caja Blanca**: Verificación del flujo lógico y estructura del código.
+- **Pruebas de Integración**: Evaluación del comportamiento entre módulos del sistema.
+- **Pruebas de Carga**: Simulaciones con alto número de usuarios y datos.
 
+## 📌 Versión
+- **Versión actual:** 1.0.0
+- **Historial de versiones:** Disponible en la sección de _Releases_ de GitHub.
 
-## Descripción
-Este aplicativo web fue hecho para facilitar el gestionamiento de postulación de prácticas preprofesionales. Tanto la petición de estas, como la de escoger a las instituciones en las que realizar las prácticas. 
+## 📄 Licencia
+Este proyecto está bajo la licencia [MIT](LICENSE).
 
-Cuenta con un sistema completo se desarrollo con **Laravel** en conjunto con **Laravel Breeze** para las acciones de inicio de sesión, register, verificación de correo, entre otras cosas. Tomando eso de punto de partida, decidimos usar **Tailwind** que es una librería de manejo de css, para el estilizado de las diferentes vistas que ofrece nuestra aplicación. En conjunto para utilizar animaciones de una manera mucho más fácil, decidimos usar **Animate.css** que ofrece animaciones ya listas para su uso. Y para terminar y darle un estilo más profesional usamos **Laravel-breadcrumbs** para crear una barra de navegación de migas de pan, esto para que el usuario sepa en que sección del aplicativo esta.
-
-Para la parte realmente importante, que es el creador de solicitudes. Usamos **Laravel-dompdf** para realizar el documento de solicitud de prácticas.
-Para el de registros de postulación utilizamos **Maatwebsite/exel** para que nos diera una matríz descargable acerca de los registros de cada estudiante y en las instituciones en las que se encuntran realizando dichas prácticas.
-
-
-## Pruebas Realizadas
+---
+> *Si tienes alguna duda o sugerencia, no dudes en abrir un _issue_ en el repositorio.*
