@@ -74,7 +74,7 @@ Se realizaron las siguientes pruebas para garantizar el correcto funcionamiento 
 - **Pruebas de Carga**: Simulaciones con alto número de usuarios y datos.
 
 ## 📌 Versión
-- **Versión actual:** 1.0.0
+- **Versión actual:** v3.1.1-BETA
 - **Historial de versiones:** Disponible en la sección de _Releases_ de GitHub.
 
 ## 📄 Licencia
