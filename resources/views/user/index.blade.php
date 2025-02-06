@@ -1,6 +1,6 @@
 @section('title', 'Panel de Control')
 <x-dashboard-layout>
-    <div class="mx-4 space-y-5 h-screen">
+    <div class="mx-4 space-y-5">
         <div class="flex">
             <h2 class="font-semibold text-3xl text-gray-800 leading-tigth">
                 {{ __('Bienvenido de nuevo ' . auth()->user()->name) }}
