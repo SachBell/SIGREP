@@ -5,7 +5,7 @@
             {{ __('Editar Institución') }}
         </h2>
     </div>
-    <form id="edit-form" class="py-5 px-5" action="{{ route('admin.institutes.update', $registro->id) }}" method="POST">
+    <form id="edit-form" class="py-5 px-5" action="{{ route('admin.dashboard.institutes.update', $registro->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -35,7 +35,7 @@
                 class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                 {{ __('Guardar') }}
             </x-custom-button>
-            <x-custom-link-button link="{{ route('admin.institutes.index') }}"
+            <x-custom-link-button link="{{ route('admin.dashboard.institutes.index') }}"
                 class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
                 {{ __('Cancelar') }}
             </x-custom-link-button>

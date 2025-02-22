@@ -2,18 +2,18 @@
     class="absolute md:relative md:flex flex-col w-64 bg-gray-800 transition-all h-screen ease-in-out transition-transform transform -translate-x-full md:translate-x-0 ease-in-out duration-300 z-50 h-screen">
     <div class="text-center tracking-widest border-b-2 border-gray-800 py-3 bg-gray-900 mb-8">
         @if (auth()->user()->id_role === 1)
-            <a href="{{ route('admin.dashboard') }}" class="text-2xl text-white font-bold uppercase">sigrep</a>
+            <a href="{{ route('admin.index') }}" class="text-2xl text-white font-bold uppercase">sigrep</a>
         @else
-            <a href="{{ route('user.dashboard') }}" class="text-2xl text-white font-bold uppercase">sigrep</a>
+            <a href="#" class="text-2xl text-white font-bold uppercase">sigrep</a>
         @endif
     </div>
     <nav class="flex flex-col flex-1 px-1 overflow-y-auto text-sm text-gray-300">
         <ul class="flex flex-col justify-between space-y-[4rem]">
-            @if (Auth::user()->id_role === 1)
+            @if (Auth::user()->hasRole('admin'))
                 <div>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard') ? 'bg-gray-600' : '' }} hover:bg-gray-700 hover:text-white rounded">
-                        <a href="{{ route('admin.dashboard') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard.') ? 'bg-gray-600' : '' }} hover:bg-gray-700 hover:text-white rounded">
+                        <a href="{{ route('admin.dashboard.') }}" class="py-3 flex items-center">
                             <i class="bi bi-house-fill mr-4 text-base text-lg"></i>
                             <span class="text-lg font-semibold">{{ __('Panel') }}</span>
                         </a>
@@ -22,15 +22,15 @@
                         {{ __('Control de Usarios') }}
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('admin.user-manager.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('admin.user-manager.index') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard.user-manager.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.dashboard.user-manager.index') }}" class="py-3 flex items-center">
                             <i class="bi bi-people-fill mr-4 text-xl"></i>
                             <span class="text-lg font-semibold">{{ __('Usuarios') }}</span>
                         </a>
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('admin.registros.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('admin.registros.index') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard.registers.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.dashboard.registers.index') }}" class="py-3 flex items-center">
                             <i class="bi bi-journal-text mr-4 text-xl"></i>
                             <span class="text-lg font-semibold">{{ __('Registros') }}</span>
                         </a>
@@ -39,15 +39,15 @@
                         {{ __('Control de Postulaciones') }}
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('admin.application-calls.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('admin.application-calls.index') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard.applications.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.dashboard.applications.index') }}" class="py-3 flex items-center">
                             <i class="bi bi-award mr-4 text-lg"></i>
                             <span class="text-lg font-semibold">{{ __('Postulaciones') }}</span>
                         </a>
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('admin.institutes.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('admin.institutes.index') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard.institutes.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.dashboard.institutes.index') }}" class="py-3 flex items-center">
                             <i class="bi bi-book mr-4 text-lg"></i>
                             <span class="text-lg font-semibold">{{ __('Institutos') }}</span>
                         </a>
@@ -56,8 +56,8 @@
                         {{ __('Ajustes') }}
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('admin.profile.edit') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('admin.profile.edit') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('admin.dashboard.profile') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('admin.dashboard.profile.edit') }}" class="py-3 flex items-center">
                             <i class="bi bi-person-circle mr-4 text-lg"></i>
                             <span class="text-lg font-semibold">{{ __('Perfil') }}</span>
                         </a>
@@ -66,8 +66,8 @@
             @else
                 <div>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('user.dashboard') ? 'bg-gray-600' : '' }} hover:bg-gray-700 hover:text-white rounded">
-                        <a href="{{ route('user.dashboard') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('user.dashboard.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 hover:text-white rounded">
+                        <a href="{{ route('user.dashboard.index') }}" class="py-3 flex items-center">
                             <i class="bi bi-house-fill mr-4 text-base text-lg"></i>
                             <span class="text-lg font-semibold">{{ __('Panel') }}</span>
                         </a>
@@ -76,8 +76,8 @@
                         {{ __('Control de Prácticas') }}
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('user.form-register.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('user.form-register.index') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('user.dashboard.forms.index') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('user.dashboard.forms.index') }}" class="py-3 flex items-center">
                             <i class="bi bi-people-fill mr-4 text-xl"></i>
                             <span class="text-lg font-semibold">{{ __('Postulaciones') }}</span>
                         </a>
@@ -86,8 +86,8 @@
                         {{ __('Ajustes') }}
                     </li>
                     <li
-                        class="px-4 cursor-pointer {{ request()->routeIs('user.profile.edit') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
-                        <a href="{{ route('user.profile.edit') }}" class="py-3 flex items-center">
+                        class="px-4 cursor-pointer {{ request()->routeIs('user.dashboard.profile.edit') ? 'bg-gray-600' : '' }} hover:bg-gray-700 rounded">
+                        <a href="{{ route('user.dashboard.profile.edit') }}" class="py-3 flex items-center">
                             <i class="bi bi-person-circle mr-4 text-lg"></i>
                             <span class="text-lg font-semibold">{{ __('Perfil') }}</span>
                         </a>

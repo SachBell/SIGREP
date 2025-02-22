@@ -15,7 +15,7 @@
                     <p>Ya te has registrado en el proceso de practicas preprofesionales.</p>
                 @else
                     <p>Hay postulaciones activas. Puedes verlas en <a class="text-blue-900 hover:text-blue-700 underline"
-                            href="{{ route('user.form-register.index') }}">Postularse</a>.</p>
+                            href="{{ route('user.dashboard.forms.index') }}">Postularse</a>.</p>
                 @endif
             @endif
         </div>

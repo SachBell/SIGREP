@@ -5,7 +5,7 @@
             {{ __('Editar Postulación') }}
         </h2>
     </div>
-    <form class="p-5" action="{{ route('admin.application-calls.update', $applications->id) }}" method="POST">
+    <form class="p-5" action="{{ route('admin.dashboard.applications.update', $applications->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -52,7 +52,7 @@
                 class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                 {{ __('Guardar') }}
             </x-custom-button>
-            <x-custom-link-button link="{{ route('admin.application-calls.index') }}"
+            <x-custom-link-button link="{{ route('admin.dashboard.applications.index') }}"
                 class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
                 {{ __('Cancelar') }}
             </x-custom-link-button>

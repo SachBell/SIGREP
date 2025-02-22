@@ -85,7 +85,7 @@
         </div>
 
         <div class="w-full flex pt-10 items-center justify-center">
-            <a href="{{ route('user.application-pdf.preview', $applicationDetails->id) }}"
+            <a href="{{ route('user.dashboard.request.preview', $applicationDetails->id) }}"
                 class="inline-flex items-center px-4 py-2 bg-green-800 border border-transparent rounded-md font-bold text-sm text-white uppercase tracking-widest hover:bg-green-600 focus:bg-green-700 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">Descargar
                 Registro</a>
         </div>

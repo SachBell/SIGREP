@@ -11,7 +11,7 @@
             {{ $application->end_date }}</p>
     </div>
 
-    <form class="p-5" action="{{ route('user.form-register.store') }}" method="POST">
+    <form class="p-5" action="{{ route('user.dashboard.forms.store') }}" method="POST">
         @csrf
         <input type="hidden" name="id_application_calls" value="{{ $application->id }}">
 
@@ -38,7 +38,7 @@
                 class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                 {{ __('Guardar') }}
             </x-custom-button>
-            <x-custom-link-button link="{{ route('user.form-register.index') }}"
+            <x-custom-link-button link="{{ route('user.dashboard.forms.index') }}"
                 class="px-4 py-2 font-bold text-sm sm:text-sm md:text-lg text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">
                 {{ __('Cancelar') }}
             </x-custom-link-button>

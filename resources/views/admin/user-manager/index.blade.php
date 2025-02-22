@@ -9,14 +9,14 @@
 
     <div class="py-12 space-y-5">
         <div class="mx-auto">
-            <form action="{{ route('admin.user-manager.index') }}" method="GET"
+            <form action="{{ route('admin.dashboard.user-manager.index') }}" method="GET"
                 class="flex flex-col justify-center space-y-5">
                 <x-input-search type="text" name="search" placeholder="Buscar..." class="mx-4"
                     value="{{ request()->query('search') }}" required />
                 <div class="flex justify-center space-x-5">
                     <x-custom-button
                         class="px-4 py-2 font-bold text-md text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">Buscar</x-custom-button>
-                    <x-custom-link-button link="{{ route('admin.user-manager.index') }}"
+                    <x-custom-link-button link="{{ route('admin.dashboard.user-manager.index') }}"
                         class="px-4 py-2 font-bold text-md text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">Resetear</x-custom-link-button>
                 </div>
             </form>
@@ -42,22 +42,26 @@
                                     <td class="p-3 text-md text-center whitespace-nowrap">
                                         {{ $registro->name }}</td>
                                     <td class="p-3 text-md text-center whitespace-nowrap">
-                                        {{ $registro->userRole->role_name ?? 'Sin Role' }}</td>
+                                        @foreach ($registro->roles as $role)
+                                            {{ $role->name ?? 'Sin Role' }}
+                                        @endforeach
+                                    </td>
                                     <td class="p-3 text-md  text-center whitespace-nowrap">
                                         {{ $registro->email }}</td>
                                     <td class="p-3 text-md text-center whitespace-nowrap">
-                                        <form action="{{ route('admin.user-manager.reset-password', $registro->id) }}"
+                                        <form
+                                            action="{{ route('admin.dashboard.user-manager.resetPassword', $registro->id) }}"
                                             method="POST">
                                             @csrf
                                             <x-custom-button type="submit"
                                                 class="inline-flex items-center px-2 py-2 bg-blue-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
                                                 :value="__('Resetear
-                                                Contraseña')" />
+                                                                                                Contraseña')" />
                                         </form>
                                     </td>
                                     <td class="p-3 text-center whitespace-nowrap space-y-2">
                                         <form class="delete-form"
-                                            action="{{ route('admin.user-manager.destroy', $registro->id) }}"
+                                            action="{{ route('admin.dashboard.user-manager.destroy', $registro->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -68,7 +72,7 @@
                                         </form>
                                         @include('components.alert-confirm')
                                         <x-custom-link-button
-                                            link="{{ route('admin.user-manager.edit', $registro->id) }}"
+                                            link="{{ route('admin.dashboard.user-manager.edit', $registro->id) }}"
                                             class="px-3 py-1 font-bold text-xs text-white uppercase bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                                             <i class="bi bi-pen text-lg"></i>
                                         </x-custom-link-button>
@@ -91,7 +95,7 @@
                     </p>
                 </div>
                 <div>
-                    <x-custom-link-button link="{{ route('admin.user-manager.create') }}"
+                    <x-custom-link-button link="{{ route('admin.dashboard.user-manager.create') }}"
                         class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
                         {{ __('Crear Usuario') }}
                     </x-custom-link-button>

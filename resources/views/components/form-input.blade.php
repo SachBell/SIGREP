@@ -1,5 +1,5 @@
 @if ($userData)
-    <form action="{{ route('user.profile.dataUpdate') }}" method="post" class="mt-6 space-y-6">
+    <form action="{{ route('user.dashboard.profile.dataUpdate') }}" method="POST" class="mt-6 space-y-6">
         @csrf
         @method('PUT')
 
@@ -94,7 +94,7 @@
         </div>
     </form>
 @else
-    <form action="{{ route('user.profile.dataStore') }}" method="post" class="mt-6 space-y-6">
+    <form action="{{ route('user.dashboard.profile.dataStore') }}" method="POST" class="mt-6 space-y-6">
         @csrf
         <div>
             <x-input-label for="name" :value="__('Nombres')" />
@@ -139,7 +139,7 @@
 
         <div>
             <x-input-label for="semester" :value="__('Semestre')" />
-            <x-select-input name="id_semester" id="semester" class="mt-1">
+            <x-select-input name="id_semester" id="semester" class="mt-1 w-full">
                 <option selected disabled>{{ __('Selecciona tu semestre') }}</option>
                 @foreach ($semesters as $semester)
                     <option value="{{ $semester->id }}" {{ old('id_semester') == $semester->id ? 'selected' : '' }}>
@@ -152,7 +152,7 @@
 
         <div>
             <x-input-label for="grade" :value="__('Paralelo')" />
-            <x-select-input name="id_grade" id="grade" class="mt-1">
+            <x-select-input name="id_grade" id="grade" class="mt-1 w-full">
                 <option selected disabled>{{ __('Selecciona tu paralelo') }}</option>
                 @foreach ($grades as $grade)
                     <option value="{{ $grade->id }}" {{ old('id_grade') == $grade->id ? 'selected' : '' }}>
@@ -165,7 +165,7 @@
 
         <div>
             <x-input-label for="daytrip" :value="__('Jornada')" />
-            <x-select-input name="daytrip" id="daytrip" class="mt-1">
+            <x-select-input name="daytrip" id="daytrip" class="mt-1 w-full">
                 <option selected disabled>{{ __('Selecciona tu jornada') }}</option>
                 <option value="Vespertina" {{ old('daytrip') == 'Vespertina' ? 'selected' : '' }}>
                     Vespertina

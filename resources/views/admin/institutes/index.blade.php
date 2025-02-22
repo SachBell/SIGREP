@@ -9,14 +9,14 @@
 
     <div class="py-12 space-y-5">
         <div class="mx-auto">
-            <form action="{{ route('admin.institutes.index') }}" method="GET"
+            <form action="{{ route('admin.dashboard.institutes.index') }}" method="GET"
                 class="flex flex-col justify-center space-y-5">
                 <x-input-search type="text" name="search" placeholder="Buscar..." class="mx-4"
                     value="{{ request()->query('search') }}" required />
                 <div class="flex justify-center space-x-5">
                     <x-custom-button
                         class="px-4 py-2 font-bold text-md text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">Buscar</x-custom-button>
-                    <x-custom-link-button link="{{ route('admin.institutes.index') }}"
+                    <x-custom-link-button link="{{ route('admin.dashboard.institutes.index') }}"
                         class="px-4 py-2 font-bold text-md text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">Resetear</x-custom-link-button>
                 </div>
             </form>
@@ -53,7 +53,7 @@
                                         {{ $registro->updated_at }}</td>
                                     <td class="p-3 align-middle text-center whitespace-nowrap space-y-2">
                                         <form class="delete-form"
-                                            action="{{ route('admin.institutes.destroy', $registro->id) }}"
+                                            action="{{ route('admin.dashboard.institutes.destroy', $registro->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -64,7 +64,7 @@
                                         </form>
                                         @include('components.alert-confirm')
                                         <x-custom-link-button
-                                            link="{{ route('admin.institutes.edit', $registro->id) }}"
+                                            link="{{ route('admin.dashboard.institutes.edit', $registro->id) }}"
                                             class="px-3 py-1 font-bold text-xs text-white uppercase bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
                                             <i class="bi bi-pen text-lg"></i>
                                         </x-custom-link-button>
@@ -92,7 +92,7 @@
                     </p>
                 </div>
                 <div>
-                    <x-custom-link-button link="{{ route('admin.institutes.create') }}"
+                    <x-custom-link-button link="{{ route('admin.dashboard.institutes.create') }}"
                         class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
                         {{ __('Añadir Institución') }}
                     </x-custom-link-button>

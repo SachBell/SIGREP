@@ -1,4 +1,4 @@
-@if (Auth::user()->id_role == 1)
+@if (Auth::user()->hasRole('admin'))
     @forelse ($applications as $application)
         <div class="rounded-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:p-10 lg:mx-8 lg:rounded-3xl">
             <h3 id="tier-hobby" class="text-2xl font-semibold text-blue-600">
@@ -19,7 +19,7 @@
             <div>
                 <form
                     class="delete-form mt-8 block rounded-md text-center text-sm font-semibold text-white bg-red-800 ring-1 ring-inset ring-red-200 hover:ring-red-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-10"
-                    action="{{ route('admin.application-calls.destroy', $application->id) }}" method="POST">
+                    action="{{ route('admin.dashboard.applications.destroy', $application->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="w-full px-3.5 py-2.5 text-center text-sm font-semibold" type="submit"
@@ -28,7 +28,7 @@
                 @include('components.alert-confirm')
                 <a aria-describedby="tier-hobby"
                     class="block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-blue-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-2"
-                    href="{{ route('admin.application-calls.edit', $application->id) }}"
+                    href="{{ route('admin.dashboard.applications.edit', $application->id) }}"
                     class="btn btn-primary">Editar</a>
             </div>
         </div>
@@ -55,7 +55,7 @@
             </ul>
             <a aria-describedby="tier-hobby"
                 class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-blue-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-8"
-                href="{{ route('user.form-register.create', $application->id) }}">{{ __('Postularme') }}</a>
+                href="{{ route('user.dashboard.forms.create', $application->id) }}">{{ __('Postularme') }}</a>
         @empty
             {{ $slot }}
     @endforelse

@@ -27,7 +27,7 @@
                     </p>
                 </div>
                 <div>
-                    <x-custom-link-button link="{{ route('admin.application-calls.create') }}"
+                    <x-custom-link-button link="{{ route('admin.dashboard.applications.create') }}"
                         class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
                         {{ __('Crear Proceso') }}
                     </x-custom-link-button>
