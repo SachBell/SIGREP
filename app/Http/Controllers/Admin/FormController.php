@@ -13,7 +13,7 @@ use App\Models\ApplicationDetails;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
-class FormController extends Controller
+class   FormController extends Controller
 {
 
     public function dashboard()
@@ -116,7 +116,7 @@ class FormController extends Controller
         $registro = UserData::findOrFail($id);
         $registro->delete();
 
-        return redirect()->route('admin.registros.index')->with('success', 'Registro eliminado con éxito.');
+        return redirect()->route('admin.dashboard.registers.index')->with('success', 'Registro eliminado con éxito.');
     }
 
     public function edit($id)
@@ -194,7 +194,7 @@ class FormController extends Controller
 
         $registro->update($request->all());
 
-        return redirect()->route('admin.registros.index')->with('success', 'Registro Actualizado con Exito');
+        return redirect()->route('admin.dashboard.registers.index')->with('success', 'Registro Actualizado con Exito');
     }
 
     public function export()

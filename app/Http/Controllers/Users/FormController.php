@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Redirect;
 class FormController extends Controller
 {
 
-    public function dashboard()
+    public function index()
     {
         $applications = ApplicationCalls::where('status_call', 1)->get();
 
         $user = auth()->user()->userData;
 
         if (!$user) {
-            return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte.');
+            return redirect()->route('user.dashboard.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte.');
         }
 
         $userExist = ApplicationDetails::where('id_user_data', $user->id)->exists();
@@ -67,6 +67,6 @@ class FormController extends Controller
         // Crear y almacenar el formulario
         $user->userData()->create($request->all());
 
-        return Redirect::route('user.profile.edit')->with('status', 'data-create');
+        return Redirect::route('user.dashboard.profile.edit')->with('status', 'data-create');
     }
 }

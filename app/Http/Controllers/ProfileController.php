@@ -25,7 +25,7 @@ class ProfileController extends Controller
         $semesters = Semester::all();
         $grades = Grade::all();
 
-        if ($user->id_role == 1) {
+        if ($user->hasRole('admin')) {
             return view('admin.profile.edit', compact('user'));
         } else {
             return view('user.profile.edit', compact('user', 'userData', 'semesters', 'grades'));
@@ -45,8 +45,8 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        if (Auth::user()->id_role === 1) {
-            return Redirect::route('admin.profile.edit')->with('status', 'profile-updated');
+        if (Auth::user()->hasRole('admin')) {
+            return Redirect::route('admin.dashboard.profile.edit')->with('status', 'profile-updated');
         } else {
             return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
         }

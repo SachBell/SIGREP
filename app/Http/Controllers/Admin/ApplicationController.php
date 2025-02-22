@@ -35,7 +35,7 @@ class ApplicationController extends Controller
 
         ApplicationCalls::create($request->all());
 
-        return redirect()->route('admin.application-calls.index')->with('success', 'Periodo de postulación creada con éxito.');
+        return redirect()->route('admin.dashboard.applications.index')->with('success', 'Periodo de postulación creada con éxito.');
     }
 
     public function edit($id)
@@ -64,7 +64,7 @@ class ApplicationController extends Controller
 
         // dd($request);
 
-        return redirect()->route('admin.application-calls.index')->with('success', 'Periodo de postulación actualizado con éxito.');
+        return redirect()->route('admin.dashboard.applications.index')->with('success', 'Periodo de postulación actualizado con éxito.');
     }
 
     public function destroy($id)

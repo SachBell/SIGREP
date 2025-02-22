@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +22,19 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return $this->redirectByRole($request->user());
             }
         }
 
         return $next($request);
+    }
+
+    private function redirectByRole($user): RedirectResponse
+    {
+        if ($user->hasRole('admin')) {
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        } elseif ($user->hasRole('user')) {
+            return redirect()->intended(RouteServiceProvider::USER_HOME);
+        }
     }
 }

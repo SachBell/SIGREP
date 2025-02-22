@@ -64,11 +64,10 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
     ];
 
     protected $routeMiddleware = [
-        'role' => \App\Http\Middleware\RoleMiddleware::class,
-        'preventAdmin' => \App\Http\Middleware\PreventAdminAccess::class,
         'redirect.dashboard' => \App\Http\Middleware\RedirectIfWrongDashboard::class,
     ];
 }

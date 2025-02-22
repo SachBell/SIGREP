@@ -18,6 +18,8 @@ class UserManagerController extends Controller
         // Consulta base para registros
         $query = User::query();
 
+        $roles = User::role(['admin', 'user'])->get();
+
         // Si hay un término de búsqueda
         if (!empty($search)) {
             // Validar longitud mínima del término de búsqueda
@@ -28,8 +30,7 @@ class UserManagerController extends Controller
             // Filtrar registros por datos relacionados de `UserData`
             $query->where(function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('id_role', 'like', '%' . $search . '%');
+                    ->orWhere('email', 'like', '%' . $search . '%');
             });
         }
 
@@ -37,7 +38,7 @@ class UserManagerController extends Controller
         $registros = $query->paginate(5);
 
         // dd($registros);
-        return view('admin.user-manager.index', compact('registros'));
+        return view('admin.user-manager.index', compact('registros', 'roles'));
     }
 
     public function create()
@@ -71,7 +72,7 @@ class UserManagerController extends Controller
 
         User::create($newUser);
 
-        return redirect()->route('admin.user-manager.index')->with('success', 'Usuario creado con éxito.');
+        return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario creado con éxito.');
     }
 
     public function destroy($id)
@@ -79,7 +80,7 @@ class UserManagerController extends Controller
         $registro = User::findOrFail($id);
         $registro->delete();
 
-        return redirect()->route('admin.user-manager.index')->with('success', 'Usuario eliminado con éxito.');
+        return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario eliminado con éxito.');
     }
 
     public function edit($id)
@@ -113,7 +114,7 @@ class UserManagerController extends Controller
 
         $registro->update($request->all());
 
-        return redirect()->route('admin.user-manager.index')->with('success', 'Usuario actualizado con éxito.');
+        return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario actualizado con éxito.');
     }
 
     public function sendResetPassword(Request $request, $id)

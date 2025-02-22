@@ -17,6 +17,10 @@ class ApplicationController extends Controller
 
         $user = auth()->user()->userData;
 
+        if (!$user) {
+            return redirect()->route('user.dashboard.profile.edit')->with('warning', 'Debes completar el formulario de registro.');
+        }
+
         $userExist = ApplicationDetails::where('id_user_data', $user->id)->exists();
 
         // dd($user);
@@ -69,7 +73,7 @@ class ApplicationController extends Controller
         $user = auth()->user()->userData;
 
         if (!$user) {
-            return redirect()->route('user.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte');
+            return redirect()->route('user.dashboard.profile.edit')->with('warning', 'Primero debes llenar tus datos personales para postularte');
         }
 
         $applicationId = $request->input('id_application_calls');
@@ -97,6 +101,6 @@ class ApplicationController extends Controller
             'status_individual' => ApplicationDetails::STATUS_PENDIENTE,
         ]);
 
-        return redirect()->route('user.form-register.index')->with('success', 'Te has postulado exitosamente.');
+        return redirect()->route('user.dashboard.forms.index')->with('success', 'Te has postulado exitosamente.');
     }
 }

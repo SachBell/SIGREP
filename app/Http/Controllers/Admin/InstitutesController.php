@@ -58,7 +58,7 @@ class InstitutesController extends Controller
 
         Institute::create($request->all());
 
-        return redirect()->route('admin.institutes.index')->with('success', 'Institución creada con éxito.');
+        return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Institución creada con éxito.');
     }
 
     public function destroy($id)
@@ -66,7 +66,7 @@ class InstitutesController extends Controller
         $registro = Institute::findOrFail($id);
         $registro->delete();
 
-        return redirect()->route('admin.institutes.index')->with('success', 'Institución eliminada con éxito.');
+        return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Institución eliminada con éxito.');
     }
 
     public function edit($id)
@@ -98,6 +98,6 @@ class InstitutesController extends Controller
 
         $registro->update($request->all());
 
-        return redirect()->route('admin.institutes.index')->with('success', 'Institución actualizada con éxito');
+        return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Institución actualizada con éxito');
     }
 }
