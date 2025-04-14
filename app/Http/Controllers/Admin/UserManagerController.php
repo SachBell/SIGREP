@@ -3,40 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Role;
 
 class UserManagerController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        // Consulta base para registros
-        $query = User::query();
-
-        $roles = User::role(['admin', 'user'])->get();
-
-        // Si hay un término de búsqueda
-        if (!empty($search)) {
-            // Validar longitud mínima del término de búsqueda
-            if (strlen($search) < 3) {
-                return redirect()->back()->with('warning', 'Por favor, ingresa al menos 3 caracteres para realizar la búsqueda.');
-            }
-
-            // Filtrar registros por datos relacionados de `UserData`
-            $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%');
-            });
-        }
-
-        // Cargar relaciones necesarias y paginar resultados
-        $registros = $query->paginate(5);
-
+        $roles = Role::all();
+        $registros = User::select('users.*')
+            ->leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+            ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+            ->orderBy('roles.name', 'asc')
+            ->paginate(8);
         // dd($registros);
         return view('admin.user-manager.index', compact('registros', 'roles'));
     }
@@ -50,13 +34,12 @@ class UserManagerController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'name' => 'required|string|max:255|alpha_dash',
+            'name' => 'required|string|alpha_dash|max:255',
             'password' => 'required|string|min:8',
             'email' => 'required|email',
-            'id_role' => 'required|exists:roles,id'
+            'id_role' => 'required'
         ]);
 
-        // dd($request->all());
 
         $userEmail = User::where('name', $request->name)
             ->orWhere('email', $request->email)
@@ -66,11 +49,16 @@ class UserManagerController extends Controller
             return redirect()->back()->with('error', 'Ya hay un usuario con estos datos.');
         }
 
-        $newUser = $request->only(['name', 'email', 'id_role']);
+        $newUser = User::create([
+            'name' => $validate['name'],
+            'email' => $validate['email'],
+            'password' => Hash::make($validate['password']),
+        ]);
 
-        $newUser['password'] = Hash::make($validate['password']);
+        $role = Role::where('name', $validate['id_role'])->first();
+        $newUser->assignRole($role);
 
-        User::create($newUser);
+        // dd($newUser);
 
         return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario creado con éxito.');
     }
@@ -83,6 +71,8 @@ class UserManagerController extends Controller
         return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario eliminado con éxito.');
     }
 
+    public function show() {}
+
     public function edit($id)
     {
         $registro = User::findOrFail($id);
@@ -91,12 +81,23 @@ class UserManagerController extends Controller
         return view('admin.user-manager.partials.edit', compact('registro', 'roles'));
     }
 
+    public function search(Request $request)
+    {
+        $roles = Role::all();
+
+        $search = $request->input('query');
+
+        $registros = User::search($search)->paginate(6);
+
+        return view('admin.user-manager.index', compact('registros', 'roles'));
+    }
+
     public function update(Request $request, $id)
     {
         $registro = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|alpha_dash|max:255',
             'email' => 'required|email',
             'id_role' => 'required',
         ]);
@@ -114,6 +115,9 @@ class UserManagerController extends Controller
 
         $registro->update($request->all());
 
+        $role = Role::where('name', $request['id_role'])->first();
+        $registro->syncRoles([$role->name]);
+
         return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario actualizado con éxito.');
     }
 
@@ -126,5 +130,33 @@ class UserManagerController extends Controller
         Password::sendResetLink(['email' => $registro->email]);
 
         return redirect()->back()->with('success', 'Se ha enviado un correo de reseteo de contraseña al usuario.');
+    }
+
+    public function massiveUsersImport(Request $request)
+    {
+
+        $errors = []; // Array para acumular los errores
+
+
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        // dd($request);
+
+        try {
+            Excel::import(new UsersImport, $request->file('file'));
+        } catch (\Exception $e) {
+            // Si hay algún error, lo agregamos al array
+            $errors[] = $e->getMessage();
+        }
+
+        // dd($errors);
+
+        if (count($errors) > 0) {
+            return redirect()->route('admin.dashboard.user-manager.index')->with('error', 'Hubo algunos errores con la inserción, puede que haya valores repetidos.');
+        } else {
+            return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuarios cargados con éxito.');
+        }
     }
 }

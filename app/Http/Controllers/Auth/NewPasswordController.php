@@ -36,12 +36,11 @@ class NewPasswordController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $prohibitedRoles = explode(',', env('RESERVED_ROLES', ''));
         $user = User::where('email', $request->email)->first();
 
-        if ($user && in_array(strtolower($user->role_name), array_map('strtolower', $prohibitedRoles))) {
+        if ($user && $user->hasRole('admin')) {
             return redirect('/login')->with('error', 'No se puede recuperar esta cuenta.');
-        }   
+        }
 
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the

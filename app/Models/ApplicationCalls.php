@@ -26,20 +26,22 @@ class ApplicationCalls extends Model
     {
         parent::boot();
 
-        // Se ejecuta automáticamente al inicializar el modelo
         static::updating(function ($applicationCall) {
             $currentDate = Carbon::now();
+
+            // Si el usuario está editando manualmente, no forzar el cambio de status_call
+            if ($applicationCall->isDirty('status_call')) {
+                return;
+            }
 
             // Desactivar convocatorias cuya fecha final ya ha pasado
             if ($applicationCall->end_date < $currentDate && $applicationCall->status_call == 1) {
                 $applicationCall->status_call = 0;
-                $applicationCall->save();
             }
 
             // Activar convocatorias que estén dentro del rango de fecha
             if ($applicationCall->start_date <= $currentDate && $applicationCall->end_date >= $currentDate && $applicationCall->status_call == 0) {
                 $applicationCall->status_call = 1;
-                $applicationCall->save();
             }
         });
     }

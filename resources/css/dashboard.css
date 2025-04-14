@@ -68,21 +68,19 @@ body {
     display: flex;
 }
 
+.menu li:not(.disabled, :disabled, [disabled])> :not(ul, .menu-title, .collapse, .btn):active,
+.menu li:not(.disabled, :disabled, [disabled])> :not(ul, .menu-title, .collapse, .btn).active {
+    background-color: rgba(193, 223, 246, 0.184) !important;
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, 0.658) !important;
+}
+
 main #siteMain {
     transition: all 0.35s ease-in-out;
     background: url('../../public/img/logo-isus.png');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: calc(100% - 20%);
     z-index: 2;
-}
-
-#applicationContent {
-    min-width: 350px;
-    max-width: calc(100% - 70%);
-    color: var(--font-color);
-    background: linear-gradient(to top left, var(--secondary-black-color) 0%, var(--background-dark) 100%);
-    box-shadow: 15px 20px 3.5rem rgba(0, 0, 0, .5);
 }
 
 .bi-check-circle-fill {
@@ -90,7 +88,7 @@ main #siteMain {
     color: #0fcd0f;
 }
 
-.bi-dash-circle-fill{
+.bi-dash-circle-fill {
     border: none;
     color: #cd320f;
 }

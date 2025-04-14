@@ -8,99 +8,60 @@
     </x-slot>
 
     <div class="py-12 space-y-5">
-        <div class="mx-auto">
-            <form action="{{ route('admin.dashboard.user-manager.index') }}" method="GET"
-                class="flex flex-col justify-center space-y-5">
-                <x-input-search type="text" name="search" placeholder="Buscar..." class="mx-4"
-                    value="{{ request()->query('search') }}" required />
-                <div class="flex justify-center space-x-5">
-                    <x-custom-button
-                        class="px-4 py-2 font-bold text-md text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">Buscar</x-custom-button>
-                    <x-custom-link-button link="{{ route('admin.dashboard.user-manager.index') }}"
-                        class="px-4 py-2 font-bold text-md text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">Resetear</x-custom-link-button>
+        <div class="flex px-5 gap-3">
+            <form class="w-full flex justify-end gap-4" action="{{ route('admin.dashboard.user-manager.search') }}"
+                method="GET">
+                <input type="text" name="query" id="search" class="input ps-4 max-w-sm"
+                    placeholder="Buscar usuarios" value="{{ request('query') }}" value="127">
+
+                <div class="relative group">
+                    <div class="flex items-center gap-4">
+                        <a class="btn btn-md btn-error px-2" href="{{ route('admin.dashboard.user-manager.index') }}">
+                            <span class="icon-[tabler--refresh] size-5"></span>
+                        </a>
+                    </div>
+                    <span
+                        class="absolute text-center left-1/2 -translate-x-1/2 -top-12 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                        Resetear Búsqueda
+                    </span>
                 </div>
             </form>
-        </div>
-        <div class="flex flex-col my-2">
-            @if ($registros->isEmpty())
-                <span class="sm:mx-4 lg:mx-4 text-md">No se encontraron usarios.</span>
-            @else
-                <div class="overflow-auto rounded-lg shadow mx-4">
-                    <table class="w-full">
-                        <thead class="bg-gray-50 border-b-2 border-gray-200">
-                            <tr>
-                                <th class="p-3 text-sm whitespace-nowrap">Nombre de Usuario</th>
-                                <th class="p-3 text-sm whitespace-nowrap">Role</th>
-                                <th class="p-3 text-sm whitespace-nowrap">Correo</th>
-                                <th class="p-3 text-sm whitespace-nowrap">Contraseña</th>
-                                <th class="p-3 text-sm whitespace-nowrap">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-gray-100">
-                            @foreach ($registros as $registro)
-                                <tr>
-                                    <td class="p-3 text-md text-center whitespace-nowrap">
-                                        {{ $registro->name }}</td>
-                                    <td class="p-3 text-md text-center whitespace-nowrap">
-                                        @foreach ($registro->roles as $role)
-                                            {{ $role->name ?? 'Sin Role' }}
-                                        @endforeach
-                                    </td>
-                                    <td class="p-3 text-md  text-center whitespace-nowrap">
-                                        {{ $registro->email }}</td>
-                                    <td class="p-3 text-md text-center whitespace-nowrap">
-                                        <form
-                                            action="{{ route('admin.dashboard.user-manager.resetPassword', $registro->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            <x-custom-button type="submit"
-                                                class="inline-flex items-center px-2 py-2 bg-blue-700 border border-transparent rounded-md font-semibold text-sm text-white uppercase hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                                                :value="__('Resetear
-                                                                                                Contraseña')" />
-                                        </form>
-                                    </td>
-                                    <td class="p-3 text-center whitespace-nowrap space-y-2">
-                                        <form class="delete-form"
-                                            action="{{ route('admin.dashboard.user-manager.destroy', $registro->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-custom-button type="submit"
-                                                class="inline-flex items-center px-3 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                                <i class="bi bi-trash-fill text-lg mt-1"></i>
-                                            </x-custom-button>
-                                        </form>
-                                        @include('components.alert-confirm')
-                                        <x-custom-link-button
-                                            link="{{ route('admin.dashboard.user-manager.edit', $registro->id) }}"
-                                            class="px-3 py-1 font-bold text-xs text-white uppercase bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
-                                            <i class="bi bi-pen text-lg"></i>
-                                        </x-custom-link-button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-        </div>
-        <div class="mx-w-7x1 mx-auto sm:px-4 lg:px-4 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-5">
-                <div>
-                    <h2 class="text-3xl font-medium text-gray-900">
-                        {{ __('Nuevo Usuario') }}
-                    </h2>
-                    <p class="mt-1 text-sm text-gray-600">
-                        {{ __('Crea usuarios con la libertad de escoger su role.') }}
-                    </p>
-                </div>
-                <div>
-                    <x-custom-link-button link="{{ route('admin.dashboard.user-manager.create') }}"
-                        class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
-                        {{ __('Crear Usuario') }}
-                    </x-custom-link-button>
-                </div>
+            <div class="relative group">
+                <x-custom-link-button link="{{ route('admin.dashboard.user-manager.create') }}"
+                    class="btn btn-md px-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
+                    <span class="icon-[tabler--user-plus] size-5"></span>
+                </x-custom-link-button>
+                <span
+                    class="absolute text-center left-1/2 -translate-x-1/2 -top-12 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                    Nuevo Usuario
+                </span>
+            </div>
+            <div class="relative group">
+                <button type="button"
+                    class="btn btn-md px-2.5 font-bold text-sm text-white bg-cyan-800 hover:bg-cyan-900 focus:bg-cyan-700 active:bg-cyan-800"
+                    aria-haspopup="dialog" aria-expanded="false" aria-controls="form-modal" data-overlay="#form-modal">
+                    <span class="icon-[tabler--users-group] size-5"></span>
+                </button>
+                <span
+                    class="absolute text-center left-1/2 -translate-x-1/2 -top-12 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                    Usuarios por Lote
+                </span>
             </div>
         </div>
+        <div class="max-w-[110rem] overflow-auto h-fit bg-white mx-4 rounded-lg shadow">
+            <table class="table">
+                <thead>
+                    <th class="text-sm whitespace-nowrap font-semibold py-5">Nombre de Usuario</th>
+                    <th class="text-sm whitespace-nowrap font-semibold py-5">Correo</th>
+                    <th class="text-sm whitespace-nowrap font-semibold py-5">Role</th>
+                    <th class="text-sm whitespace-nowrap font-semibold py-5">Acciones</th>
+                </thead>
+                <x-custom-table :keys="$registros" />
+            </table>
+        </div>
+
+        <x-custom-pagination :key="$registros" />
     </div>
 </x-dashboard-layout>
+
+{{-- massiveUsersImport --}}

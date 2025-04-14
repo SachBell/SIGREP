@@ -1,7 +1,0 @@
-body.swal2-height-auto {
-    height: inherit !important;
-}
-
-body {
-    background: radial-gradient(circle at center, #303f4c 0%, var(--background-dark) 100%);
-}

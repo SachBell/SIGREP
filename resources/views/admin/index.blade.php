@@ -1,10 +1,10 @@
 @section('title', 'Panel de Control')
 <x-dashboard-layout>
-    <div class="mx-4 h-full">
-        <div class="flex">
-            <h2 class="font-semibold text-3xl text-gray-800 leading-tigth">
-                {{ __('Bienvenido de nuevo ' . auth()->user()->name) }}
-            </h2>
-        </div>
-    </div>
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
+            {{ __('Bienvenido de nuevo ' . auth()->user()->name) }}
+        </h2>
+    </x-slot>
+
 </x-dashboard-layout>

@@ -1,5 +1,5 @@
 @section('title', 'Editar Registro')
-<x-crud-layout>
+<x-dashboard-layout>
     <div class="py-4 pb-1">
         <h2 class="font-semibold uppercase text-3xl text-gray-900 leading-tigth text-center">{{ __('Editar Registro') }}
         </h2>
@@ -145,4 +145,4 @@
     </form>
 
 
-</x-crud-layout>
+</x-dashboard-layout>

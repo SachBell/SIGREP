@@ -5,53 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title') | ISUS</title>
+    <title>@yield('title') | SIGREP </title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="flex">
     @include('partials.swa')
-    <div class="flex h-screen bg-gray-100">
+    @include('partials.sidebar')
 
-        {{-- SideBar --}}
-        @include('partials.sidebar')
+    @if (request()->routeIs('admin.dashboard.user-manager.index'))
+        <x-custom-modal :action="route('admin.dashboard.user-manager.massive-users')" />
+    @endif
 
-        {{-- Main Content --}}
-        <main class="flex flex-col flex-1 overflow-y-auto">
-            <div class="flex items-center justify-between min-h-16 bg-white border-b border-gray-200">
-                <div class="flex items-center px-4">
-                    @if (Breadcrumbs::exists())
-                        <span class="opacity-50 breadcrumb">
-                            {{ Breadcrumbs::render() }}
-                        </span>
-                    @endif
-                </div>
-                <div class="md:hidden flex items-center px-4">
-                    <button id="sidebar-open" class="mr-4 px-2 py-1 bg-gray-300 rounded focus:outline-none text-2xl">
-                        <i class="bi bi-grid"></i>
-                    </button>
-                </div>
-            </div>
+    @if (request()->routeIs('admin.dashboard.institutes.index'))
+        <x-custom-modal :action="route('admin.dashboard.institutes.massive-institutes')" />
+    @endif
 
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+    <main class="flex-1 h-screen overflow-x-auto">
+        <div class="w-full">
+            @if (Breadcrumbs::exists())
+                <span class="opacity-50 breadcrumb">
+                    {{ Breadcrumbs::render() }}
+                </span>
             @endif
+        </div>
 
-            <div id="siteMain" class="h-full mt-3 animate__animated animate__fadeIn">
-                <div>
-                    {{ $slot }}
+        @if (isset($header))
+            <header class="bg-white shadow">
+                <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
                 </div>
-                {{-- @include('partials.footer') --}}
+            </header>
+        @endif
+
+        <div id="siteMain" class="h-full flex flex-col space-y-[5rem] animate__animated animate__fadeIn">
+            <div class="py-3 px-4">
+                {{ $slot }}
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 </body>
 
 </html>

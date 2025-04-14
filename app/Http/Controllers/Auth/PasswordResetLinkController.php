@@ -34,7 +34,7 @@ class PasswordResetLinkController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if ($user && $user->id_role === 1) {
+        if ($user && $user->hasRole('admin')) {
             return redirect('/login')->with('error', 'No se puede recuperar esta cuenta.');
         }
 

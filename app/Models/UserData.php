@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class UserData extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $table = 'user_data';
 
@@ -42,5 +43,16 @@ class UserData extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function toSearchableArray()
+    {
+
+        return [
+            'cei' => $this->cei,
+            'name' => $this->name,
+            'lastname' => $this->lastname,
+            'address' => $this->address,
+        ];
     }
 }
