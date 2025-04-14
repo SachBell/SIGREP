@@ -3,33 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\InstitutesImport;
 use Illuminate\Http\Request;
 use App\Models\Institute;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InstitutesController extends Controller
 {
     public function index(Request $request)
     {
-
-        $search = $request->input('search');
-
-        // Consulta base para registros
-        $query = Institute::query();
-
-        if (!empty($search)) {
-            // Validar longitud mínima del término de búsqueda
-            if (strlen($search) < 3) {
-                return redirect()->back()->with('warning', 'Por favor, ingresa al menos 3 caracteres para realizar la búsqueda.');
-            }
-
-            // Filtrar registros por datos relacionados de `UserData`
-            $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('address', 'like', '%' . $search . '%');
-            });
-        }
-
-        $registros = $query->paginate(5);
+        $registros = Institute::orderBy('name', 'asc')->paginate(8);
 
         return view('admin.institutes.index', compact('registros'));
     }
@@ -59,6 +42,15 @@ class InstitutesController extends Controller
         Institute::create($request->all());
 
         return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Institución creada con éxito.');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('query');
+
+        $registros = Institute::search($search)->paginate(5);
+
+        return view('admin.institutes.index', compact('registros'));
     }
 
     public function destroy($id)
@@ -99,5 +91,35 @@ class InstitutesController extends Controller
         $registro->update($request->all());
 
         return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Institución actualizada con éxito');
+    }
+
+    public function massiveInstitutesImport(Request $request)
+    {
+        $errors = []; // Array para acumular los errores
+
+
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        // dd($request);
+
+        try {
+            Excel::import(new InstitutesImport, $request->file('file'));
+        } catch (\Exception $e) {
+            // Si hay algún error, lo agregamos al array
+            $errors[] = $e->getMessage();
+        }
+
+        // dd($errors);
+
+        if (count($errors) > 0) {
+
+            // dd($errors);
+
+            return redirect()->route('admin.dashboard.institutes.index')->with('error', 'Hubo algunos errores con la inserción, puede que haya valores repetidos.');
+        } else {
+            return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Usuarios cargados con éxito.');
+        }
     }
 }

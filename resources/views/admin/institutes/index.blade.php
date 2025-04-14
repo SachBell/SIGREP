@@ -1,4 +1,4 @@
-@section('title', 'Institutos')
+@section('title', 'Gestor de Institutos')
 <x-dashboard-layout>
 
     <x-slot name="header">
@@ -8,96 +8,112 @@
     </x-slot>
 
     <div class="py-12 space-y-5">
-        <div class="mx-auto">
-            <form action="{{ route('admin.dashboard.institutes.index') }}" method="GET"
-                class="flex flex-col justify-center space-y-5">
-                <x-input-search type="text" name="search" placeholder="Buscar..." class="mx-4"
-                    value="{{ request()->query('search') }}" required />
-                <div class="flex justify-center space-x-5">
-                    <x-custom-button
-                        class="px-4 py-2 font-bold text-md text-white bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">Buscar</x-custom-button>
-                    <x-custom-link-button link="{{ route('admin.dashboard.institutes.index') }}"
-                        class="px-4 py-2 font-bold text-md text-white bg-red-700 hover:bg-red-800 focus:bg-blue-800 active:bg-red-900">Resetear</x-custom-link-button>
+        <div class="flex px-5 gap-3">
+            <form class="w-full flex justify-end gap-4" action="{{ route('admin.dashboard.institutes.search') }}"
+                method="GET">
+                <input type="text" name="query" id="search" class="input ps-4 max-w-sm"
+                    placeholder="Buscar usuarios" value="{{ request('query') }}">
+
+                <div class="relative group">
+                    <div class="flex items-center gap-4">
+                        <a class="btn btn-md btn-error px-2" href="{{ route('admin.dashboard.institutes.index') }}">
+                            <span class="icon-[tabler--refresh] size-5"></span>
+                        </a>
+                    </div>
+                    <span
+                        class="absolute text-center left-1/2 -translate-x-1/2 -top-12 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                        Resetear Búsqueda
+                    </span>
                 </div>
             </form>
+            <div class="relative group">
+                <x-custom-link-button link="{{ route('admin.dashboard.institutes.create') }}"
+                    class="btn btn-md btn-accent px-2 bg-blue-800 hover:bg-blue-800 focus:bg-blue-700 active:bg-blue-800">
+                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <path d="M3 21h9"></path>
+                        <path d="M9 8h1"></path>
+                        <path d="M9 12h1"></path>
+                        <path d="M9 16h1"></path>
+                        <path d="M14 8h1"></path>
+                        <path d="M14 12h1"></path>
+                        <path
+                            d="M5 21v-16c0 -.53 .211 -1.039 .586 -1.414c.375 -.375 .884 -.586 1.414 -.586h10c.53 0 1.039 .211 1.414 .586c.375 .375 .586 .884 .586 1.414v7">
+                        </path>
+                        <path d="M16 19h6"></path>
+                        <path d="M19 16v6"></path>
+                    </svg>
+                </x-custom-link-button>
+                <span
+                    class="absolute text-center left-1/2 -translate-x-1/2 -top-12 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                    Añadir Institución
+                </span>
+            </div>
+            <div class="relative group">
+                <button type="button"
+                    class="btn btn-md px-2.5 font-bold text-sm text-white bg-cyan-800 hover:bg-cyan-900 focus:bg-cyan-700 active:bg-cyan-800"
+                    aria-haspopup="dialog" aria-expanded="false" aria-controls="form-modal" data-overlay="#form-modal">
+                    <span class="icon-[tabler--category-plus] size-5"></span>
+                </button>
+                <span
+                    class="absolute text-center left-1/2 -translate-x-1/2 -top-12 scale-0 group-hover:scale-100 transition-transform bg-gray-800 text-white text-xs px-2 py-1 rounded">
+                    Institutos por Lote
+                </span>
+            </div>
         </div>
 
         <div class="flex flex-col my-2">
             @if ($registros->isEmpty())
-                <span class="sm:mx-4 lg:mx-4 text-md">No se encontraron Registros.</span>
+                <div class="card min-h-60 w-full">
+                    <div class="card-body items-center justify-center">
+                        <span class="icon-[tabler--brand-google-drive] mb-2 size-[10rem] opacity-34"></span>
+                        <span class="mt-2 text-lg">Actualmente no hay instituciones que mostrar</span>
+                        <div class="mt-8 space-y-5 lg:space-x-5">
+                            <a href="{{ route('admin.dashboard.registers.create') }}"
+                                class="btn btn-md bg-blue-900 border-none text-white shadow-lg hover:bg-blue-950">
+                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2">
+                                    <path d="M3 21h9"></path>
+                                    <path d="M9 8h1"></path>
+                                    <path d="M9 12h1"></path>
+                                    <path d="M9 16h1"></path>
+                                    <path d="M14 8h1"></path>
+                                    <path d="M14 12h1"></path>
+                                    <path
+                                        d="M5 21v-16c0 -.53 .211 -1.039 .586 -1.414c.375 -.375 .884 -.586 1.414 -.586h10c.53 0 1.039 .211 1.414 .586c.375 .375 .586 .884 .586 1.414v7">
+                                    </path>
+                                    <path d="M16 19h6"></path>
+                                    <path d="M19 16v6"></path>
+                                </svg>
+                                {{ __('Crear Registro') }}
+                            </a>
+                            <button type="button"
+                                class="btn btn-md text-white shadow-lg border-none bg-cyan-800 hover:bg-cyan-900 focus:bg-cyan-700 active:bg-cyan-800"
+                                aria-haspopup="dialog" aria-expanded="false" aria-controls="form-modal"
+                                data-overlay="#form-modal">
+                                <span class="icon-[tabler--category-plus] size-5"></span>
+                                {{ __('Inserción Masiva') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             @else
-                <div class="overflow-auto rounded-lg shadow mx-4">
-                    <table class="w-full">
+                <div class="max-w-[105rem] overflow-auto h-fit bg-white mx-4 rounded-lg shadow">
+                    <table class="table">
                         <thead class="bg-gray-50 border-b-2 border-gray-200">
                             <tr>
-                                <th class="p-6 text-sm whitespace-nowrap">Nombre</th>
-                                <th class="p-6 text-sm whitespace-nowrap">Dirección</th>
-                                <th class="p-3 text-sm whitespace-nowrap">Límite de Usuarios</th>
-                                <th class="p-6 text-sm whitespace-nowrap">Registro</th>
-                                <th class="p-6 text-sm whitespace-nowrap">Modificación</th>
-                                <th class="p-6 text-sm whitespace-nowrap">Acciones</th>
+                                <th class="text-sm whitespace-nowrap font-semibold py-5">Nombre</th>
+                                <th class="text-sm whitespace-nowrap font-semibold py-5">Dirección</th>
+                                <th class="text-sm whitespace-nowrap font-semibold py-5">Límite de Usuarios</th>
+                                <th class="text-sm whitespace-nowrap font-semibold py-5">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-gray-100">
-                            @foreach ($registros as $registro)
-                                <tr>
-                                    <td class="p-3 align-middle text-center whitespace-nowrap">
-                                        {{ $registro->name }}</td>
-                                    <td class="p-3 align-middle text-center whitespace-nowrap">
-                                        {{ $registro->address }}</td>
-                                    <td class="p-3 align-middle text-center whitespace-nowrap">
-                                        {{ $registro->user_limit }}</td>
-                                    <td class="p-3 align-middle text-center whitespace-nowrap">
-                                        {{ $registro->created_at }}</td>
-                                    <td class="p-3 align-middle text-center whitespace-nowrap">
-                                        {{ $registro->updated_at }}</td>
-                                    <td class="p-3 align-middle text-center whitespace-nowrap space-y-2">
-                                        <form class="delete-form"
-                                            action="{{ route('admin.dashboard.institutes.destroy', $registro->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-custom-button type="submit"
-                                                class="inline-flex items-center px-3 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                                                <i class="bi bi-trash-fill text-lg mt-1"></i>
-                                            </x-custom-button>
-                                        </form>
-                                        @include('components.alert-confirm')
-                                        <x-custom-link-button
-                                            link="{{ route('admin.dashboard.institutes.edit', $registro->id) }}"
-                                            class="px-3 py-1 font-bold text-xs text-white uppercase bg-indigo-700 hover:bg-indigo-800 focus:bg-blue-200 active:bg-blue-500">
-                                            <i class="bi bi-pen text-lg"></i>
-                                        </x-custom-link-button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                        <x-custom-table :keys="$registros" />
                     </table>
                 </div>
             @endif
         </div>
-        <!-- Paginación -->
-        <div class="flex justify-center">
-            {{ $registros->links() }}
-        </div>
-
-        <div class="mx-w-7x1 mx-auto sm:px-4 lg:px-4 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-5">
-                <div>
-                    <h2 class="text-3xl font-medium text-gray-900">
-                        {{ __('Nueva Institución') }}
-                    </h2>
-                    <p class="mt-1 text-sm text-gray-600">
-                        {{ __('Añade nuevas instituciones en las cuales podras definir el número exacto de cupos que puede tener.') }}
-                    </p>
-                </div>
-                <div>
-                    <x-custom-link-button link="{{ route('admin.dashboard.institutes.create') }}"
-                        class="px-4 py-2 font-bold text-sm text-white bg-blue-800 hover:bg-blue-900 focus:bg-blue-700 active:bg-blue-800">
-                        {{ __('Añadir Institución') }}
-                    </x-custom-link-button>
-                </div>
-            </div>
-        </div>
+        <x-custom-pagination :key="$registros" />
     </div>
 </x-dashboard-layout>

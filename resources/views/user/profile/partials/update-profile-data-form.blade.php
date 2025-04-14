@@ -1,4 +1,4 @@
-<section>
+<section class="w-full">
     <header>
         <h2 class="text-lg font-semibold text-gray-900">
             {{ __('Información Personal') }}

@@ -5,6 +5,7 @@ use App\Http\Controllers\Users\ApplicationController as UserAppController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FormController as AdminController;
 use App\Http\Controllers\Admin\InstitutesController;
+use App\Http\Controllers\Admin\RolesPermissionsController;
 use App\Http\Controllers\Admin\UserManagerController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Users\FormController as UserController;
@@ -21,9 +22,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboar
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/registers/export', [AdminController::class, 'export'])->name('registers.export');
-    Route::post('/user/reset-password', [UserManagerController::class, 'sendResetPassword'])->name('user-manager.resetPassword');
+    Route::get('/user/{id}/reset-password', [UserManagerController::class, 'sendResetPassword'])->name('user-manager.resetPassword');
+    Route::get('/user/user-manager', [UserManagerController::class, 'search'])->name('user-manager.search');
+    Route::get('/user/registers', [AdminController::class, 'search'])->name('registers.search');
+    Route::get('/user/institutes', [InstitutesController::class, 'search'])->name('institutes.search');
+    Route::post('/user/user-manager', [UserManagerController::class, 'massiveUsersImport'])->name('user-manager.massive-users');
+    Route::post('/user/institutes', [InstitutesController::class, 'massiveInstitutesImport'])->name('institutes.massive-institutes');
 
+    Route::resource('admin.dashboard.', AdminController::class);
     Route::resource('user-manager', UserManagerController::class);
+    Route::resource('rolespermissions', RolesPermissionsController::class);
     Route::resource('registers', AdminController::class);
     Route::resource('institutes', InstitutesController::class);
     Route::resource('applications', AdminAppController::class);
@@ -33,6 +41,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboar
 
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.dashboard.')->group(function () {
 
+    Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -42,8 +51,6 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.dashboard.'
     Route::get('/forms/create/{id}', [UserAppController::class, 'create'])->name('forms.create');
     Route::post('/forms/create', [UserAppController::class, 'store'])->name('forms.store');
     Route::get('request/{id}', [PDFController::class, 'generatePDF'])->name('request.preview');
-
-    Route::resource('/', UserController::class);
 });
 
 require __DIR__ . '/auth.php';

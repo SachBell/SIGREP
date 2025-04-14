@@ -8,7 +8,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/views/partials/*.blade.php',
-        './node_modules/bootstrap/dist/js/**/*.js', // Asegura que Bootstrap se escanee
+        './node_modules/flyonui/dist/js/*.js' // Asegura que Bootstrap se escanee
     ],
 
     theme: {
@@ -19,5 +19,9 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        require("flyonui"),
+        require("flyonui/plugin")
+    ],
 };

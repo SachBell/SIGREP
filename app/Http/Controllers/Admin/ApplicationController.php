@@ -10,7 +10,7 @@ class ApplicationController extends Controller
 {
     public function index()
     {
-        $applications = ApplicationCalls::all();
+        $applications = ApplicationCalls::orderBy('created_at', 'desc')->get();
         return view('admin.application-calls.index', compact('applications'));
 
         if (!$applications->isActive()) {
@@ -27,11 +27,12 @@ class ApplicationController extends Controller
     {
 
         $request->validate([
-            'title',
-            'start_date',
-            'end_date',
-            'status'
+            'application_title' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ]);
+
+        // dd($request);
 
         ApplicationCalls::create($request->all());
 
@@ -74,6 +75,6 @@ class ApplicationController extends Controller
 
         $applications->delete();
 
-        return redirect()->route('admin.application-calls.index')->with('success', 'Periodo de postulación eliminado con éxito.');
+        return redirect()->route('admin.dashboard.applications.index')->with('success', 'Periodo de postulación eliminado con éxito.');
     }
 }

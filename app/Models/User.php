@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -59,7 +60,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new CustomResetPassword($token));
+        $email = $this->email;
+        
+        $this->notify(new CustomResetPassword($token, $email));
     }
 
     /**
@@ -85,5 +88,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userData()
     {
         return $this->hasOne(UserData::class, 'id_user');
+    }
+
+    public function toSearchableArray()
+    {
+
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
     }
 }

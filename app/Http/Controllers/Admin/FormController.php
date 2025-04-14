@@ -13,39 +13,16 @@ use App\Models\ApplicationDetails;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
-class   FormController extends Controller
+class FormController extends Controller
 {
-
-    public function dashboard()
-    {
-        return view('admin.index');
-    }
-
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
         // Consulta base para registros
-        $query = UserData::query();
-
-        // Si hay un término de búsqueda
-        if (!empty($search)) {
-            // Validar longitud mínima del término de búsqueda
-            if (strlen($search) < 3) {
-                return redirect()->back()->with('warning', 'Por favor, ingresa al menos 3 caracteres para realizar la búsqueda.');
-            }
-
-            // Filtrar registros por datos relacionados de `UserData`
-            $query->where(function ($query) use ($search) {
-                $query->where('cei', 'like', '%' . $search . '%')
-                    ->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('lastname', 'like', '%' . $search . '%')
-                    ->orWhere('phone_number', 'like', '%' . $search . '%');
-            });
-        }
-
-        // Cargar relaciones necesarias y paginar resultados
-        $registros = $query->with(['applicationDetails.institutes', 'semesters', 'grades'])->paginate(5);
+        $registros = ApplicationDetails::with(['userData', 'institutes', 'applicationCalls']) // Trae relaciones
+            ->join('user_data', 'application_details.id_user_data', '=', 'user_data.id') // Relaciona con UserData
+            ->orderBy('user_data.name', 'asc') // Ordena por el nombre del usuario
+            ->select('application_details.*') // Evita conflictos de columnas
+            ->paginate(8);
 
         // dd($registros);
         return view('admin.registers.index', compact('registros'));
@@ -53,49 +30,51 @@ class   FormController extends Controller
 
     public function create()
     {
-        $entidades = Institute::all();
+        $users = User::all();
+        $institutes = Institute::all();
         $grades = Grade::all();
         $semesters = Semester::all();
 
-        return view('welcome', compact('entidades', 'grades', 'semesters'));
+        return view('admin.registers.partials.create', compact('institutes', 'grades', 'semesters', 'users'));
     }
 
     public function store(Request $request)
     {
 
+        // dd($request->all());
+
         $request->validate([
+            'id_user' => 'required|exists:users,id',
             'cei' => 'required|numeric|digits_between:1,10',
-            'name' => 'required',
-            'lastname' => 'required',
-            'phone_number' => 'required',
-            'email' => 'required',
-            'address' => 'required',
-            'neighborhood' => 'required',
-            'id_semester' => 'required',
-            'id_grade' => 'required',
-            'daytrip' => 'required',
-            'id_institute' => 'required',
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'phone_number' => 'required|numeric|digits_between:1,10',
+            'address' => 'required|string|max:255',
+            'neighborhood' => 'required|string|max:255',
+            'id_semester' => 'required|exists:semesters,id',
+            'id_grade' => 'required|exists:grades,id',
+            'daytrip' => 'required|string',
+            'id_institute' => 'required|exists:institutes,id',
         ]);
 
         // dd($request);
-        $existente = UserData::where('cei', $request->cei)
-            ->orWhere('email', $request->email)
-            ->first();
-
+        $regExist = UserData::where('cei', $request->cei)->first();
 
         // dd($existente);
-        if ($existente) {
+        if ($regExist) {
             return redirect()->back()->with('error', 'Este usuario ya está registrado.');
         }
 
         // Validación de limite de usuarios
-        $institucion = Institute::findOrFail($request->id_institute);
+        $institutes = Institute::findOrFail($request->id_institute);
 
-        $currentUserCount = ApplicationDetails::where('id_institutes', $institucion->id)->count();
+        $currentUserCount = ApplicationDetails::where('id_institutes', $institutes->id)->count();
 
-        if ($currentUserCount >= $institucion->user_limit) {
+        if ($currentUserCount >= $institutes->user_limit) {
             return redirect()->back()->with('error', 'Límite de estudiantes alcanzado.');
         }
+
+
 
         // Crear y almacenar el formulario
         $userData = UserData::create($request->all());
@@ -103,11 +82,11 @@ class   FormController extends Controller
         ApplicationDetails::create([
             'id_application_calls' => null, // Define si hay una convocatoria activa
             'id_user_data' => $userData->id,
-            'id_institutes' => $institucion->id,
+            'id_institutes' => $institutes->id,
             'status_individual' => 'Pendiente', // O el estado inicial que prefieras
         ]);
 
-        return redirect('/')->with('success', 'Formulario enviado con éxito.');
+        return redirect()->route('admin.dashboard.registers.index')->with('success', 'Registro creado con éxito');
     }
 
     public function destroy($id)
@@ -117,6 +96,15 @@ class   FormController extends Controller
         $registro->delete();
 
         return redirect()->route('admin.dashboard.registers.index')->with('success', 'Registro eliminado con éxito.');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('query');
+
+        $registros = UserData::search($search)->paginate(5);
+
+        return view('admin.registers.index', compact('registros'));
     }
 
     public function edit($id)

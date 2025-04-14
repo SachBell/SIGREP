@@ -12,7 +12,7 @@ class UnauthorizedException extends HttpException
 
     public static function forRoles(array $roles): self
     {
-        $message = 'No tienes el role necesario para acceder a esta página';
+        $message = 'No tienes el permiso necesario para acceder a esta página';
 
         if (config('permission.display_role_in_exception')) {
             $message .= ' Los roles requeridos son: ' . implode(', ', $roles);
@@ -26,7 +26,7 @@ class UnauthorizedException extends HttpException
 
     public static function forPermissions(array $permissions): self
     {
-        $message = 'No tienes los permisos necesarios para acceder a esta página.';
+        $message = 'No tienes el permiso necesario para acceder a esta página.';
 
         if (config('permission.display_permission_in_exception')) {
             $message .= ' Los permisos requeridos son: ' . implode(', ', $permissions);

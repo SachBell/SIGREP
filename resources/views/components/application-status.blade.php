@@ -1,11 +1,17 @@
 @if ($application->status_call === 1)
-    <div class="flex justify-center items-center gap-1">
-        <i class="text-xl font-semibold bi bi-check-circle-fill"></i>
-        <span class="text-2xl text-gray-600 font-semibold fw-bold fs-5">Activo</span>
-    </div>
+    <svg class="size-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path
+            d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z">
+        </path>
+    </svg>
+    <span class="text-2xl text-gray-600 font-semibold fw-bold fs-5">Activo</span>
 @else
     <div class="flex justify-center items-center gap-1">
-        <i class="text-xl font-semibold bi bi-dash-circle-fill"></i>
+        <svg class="size-6 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="currentColor" />
+            <line x1="8" y1="12" x2="16" y2="12" stroke="#ffff" stroke-width="2"
+                stroke-linecap="round" />
+        </svg>
         <span class="text-2xl text-gray-600 font-base fs-5">Inactivo</span>
     </div>
 @endif

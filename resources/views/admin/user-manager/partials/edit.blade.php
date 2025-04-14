@@ -1,5 +1,5 @@
 @section('title', 'Editar Usuario')
-<x-crud-layout>
+<x-dashboard-layout>
     <div class="py-4 pb-1">
         <h2 class="font-semibold uppercase text-3xl text-gray-900 leading-tigth text-center">{{ __('Editar Usuario') }}</h2>
     </div>
@@ -27,8 +27,8 @@
             <x-input-label for="id_role" class="text-gray-900 text-xl font-semibold" :value="__('Role')" />
             <x-select-input name="id_role" id="id_role" class="text-gray-900 block mt-1 w-full text-lg">
                 @foreach ($roles as $role)
-                    <option value="{{ $role->id }}"
-                        {{ old('id', $registro->role) == $role->id ? 'selected' : '' }}>
+                    <option value="{{ $role->name }}"
+                        {{ old('id', $registro->role) == $role->name ? 'selected' : '' }}>
                         {{ $role->name }}
                     </option>
                 @endforeach
@@ -46,4 +46,4 @@
             </x-custom-link-button>
         </div>
     </form>
-</x-crud-layout>
+</x-dashboard-layout>

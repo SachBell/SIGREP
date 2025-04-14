@@ -91,8 +91,10 @@ class ApplicationController extends Controller
         $currentUserCount = ApplicationDetails::where('id_institutes', $institutes->id)->count();
 
         if ($currentUserCount >= $institutes->user_limit) {
+            // dd($currentUserCount);
             return redirect()->back()->with('error', 'Límite de estudiantes alcanzado.');
         }
+
 
         ApplicationDetails::create([
             'id_application_calls' => $applicationId,

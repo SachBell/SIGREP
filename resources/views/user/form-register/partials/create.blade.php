@@ -1,5 +1,5 @@
 @section('title', 'Postularse')
-<x-crud-layout>
+<x-dashboard-layout>
 
     <div class="py-4 pb-1">
         <h2 class="font-semibold uppercase text-3xl text-gray-900 leading-tigth text-center">
@@ -16,21 +16,31 @@
         <input type="hidden" name="id_application_calls" value="{{ $application->id }}">
 
         <div>
-            <x-input-label for="user_name" class="text-gray-900 text-xl" :value="__('Estudiante')" />
-            <x-text-input type="text" class="text-gray-900 block mt-1 w-full text-lg" id="user_name"
-                value="{{ $user->name ?? '' }}" readonly />
+            <x-input-label for="user_name" class="text-gray-900" :value="__('Estudiante')" />
+            <x-text-input type="text" class="text-gray-900 block mt-1 w-full" id="user_name"
+                value="{{ $user->name . ' ' . $user->lastname ?? '' }}" readonly />
         </div>
 
         <div class="mt-4">
-            <x-input-label class="text-gray-900 text-xl" for="id_institute" :value="__('Selecciona la institución')" />
-            <x-select-input name="id_institute" id="id_institute" class="text-gray-900 block mt-1 w-full text-lg"
-                required>
-                @foreach ($institutes as $institute)
-                    <option value="{{ $institute->id }}">
-                        {{ $institute->name }} - {{ $institute->address }}
-                    </option>
-                @endforeach
-            </x-select-input>
+            <div x-data="{
+                selectedInstitute: '',
+                institutes: {{ $institutes->toJson() }}
+            }" class="flex flex-col gap-5">
+                <x-input-label class="text-gray-900" for="id_institute" :value="__('Institución')" />
+                <x-select-input name="id_institute" id="id_institute" class="text-gray-900" x-model="selectedInstitute"
+                    required>
+                    <option value="" disabled selected>Seleccione una institución</option>
+                    @foreach ($institutes as $institute)
+                        <option value="{{ $institute->id }}">
+                            {{ $institute->name }}
+                        </option>
+                    @endforeach
+                </x-select-input>
+                <x-input-label class="text-gray-900" for="address" :value="__('Dirección')" />
+                <x-text-input class="w-full" id="address" name="address" :value="__($institute->address)"
+                    x-model="selectedInstitute ? (institutes.find(i => i.id == selectedInstitute)?.address || '') : ''"
+                    disabled />
+            </div>
         </div>
 
         <div class="flex justify-center align-middle mt-6 space-x-4">
@@ -44,4 +54,4 @@
             </x-custom-link-button>
         </div>
     </form>
-</x-crud-layout>
+</x-dashboard-layout>
