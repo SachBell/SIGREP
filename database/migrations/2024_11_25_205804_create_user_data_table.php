@@ -28,6 +28,10 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('grades')
                 ->nullOnDelete();
+            $table->foreignId('id_career')
+                ->nullable()
+                ->constrained('careers')
+                ->nullOnDelete();
             $table->string('daytrip');
             $table->timestamps();
         });
