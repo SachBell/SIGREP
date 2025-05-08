@@ -10,12 +10,17 @@ class ReceivinEntity extends Model
 {
     use HasFactory, Searchable;
 
-    protected $table = 'institutes';
+    protected $table = 'receiving_entites';
 
     protected $fillable = [
         'name',
         'address',
-        'user_limit'
+        'user_limit',
+        'productive_sector',
+        'id_pincipal',
+        'observations',
+        'convenant_start_date',
+        'convenant_end_date',
     ];
 
     public function applicatonDetails()
