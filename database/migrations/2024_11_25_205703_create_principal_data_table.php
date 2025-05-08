@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('lastname');
-            $table->string('id_card');
-            $table->string('email');
-            $table->number('phone_number');
+            $table->string('id_card', 10)->unique();
+            $table->string('email')->unique();
+            $table->string('phone_number', 10)->unique();
             $table->timestamps();
         });
     }

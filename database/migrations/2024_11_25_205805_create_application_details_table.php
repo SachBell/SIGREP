@@ -23,7 +23,7 @@ return new class extends Migration
                 ->nullOnDelete();
             $table->foreignId('id_institutes')
                 ->nullable()
-                ->constrained('receiving_entity')
+                ->constrained('receiving_entities')
                 ->nullOnDelete();
             $table->enum('status_individual', ['pendiente', 'activo', 'finalizado'])->default('pendiente');
             $table->timestamps();
