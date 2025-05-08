@@ -7,7 +7,7 @@ use App\Models\ApplicationCalls;
 use App\Models\ApplicationDetails;
 use App\Models\Grade;
 use App\Models\Semester;
-use App\Models\Institute;
+use App\Models\ReceivinEntity;
 use App\Models\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -32,7 +32,7 @@ class FormController extends Controller
 
     public function create()
     {
-        $entidades = Institute::all();
+        $entidades = ReceivinEntity::all();
         $grades = Grade::all();
         $semesters = Semester::all();
 

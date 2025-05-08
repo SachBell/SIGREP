@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Imports\InstitutesImport;
 use Illuminate\Http\Request;
-use App\Models\Institute;
+use App\Models\ReceivinEntity;
 use Maatwebsite\Excel\Facades\Excel;
 
 class InstitutesController extends Controller
 {
     public function index(Request $request)
     {
-        $registros = Institute::orderBy('name', 'asc')->paginate(8);
+        $registros = ReceivinEntity::orderBy('name', 'asc')->paginate(8);
 
         return view('admin.institutes.index', compact('registros'));
     }
@@ -31,7 +31,7 @@ class InstitutesController extends Controller
             'user_limit' => 'required',
         ]);
 
-        $existente = Institute::where('name', $request->name)
+        $existente = ReceivinEntity::where('name', $request->name)
             ->where('name', $request->name)
             ->first();
 
@@ -55,7 +55,7 @@ class InstitutesController extends Controller
 
     public function destroy($id)
     {
-        $registro = Institute::findOrFail($id);
+        $registro = ReceivinEntity::findOrFail($id);
         $registro->delete();
 
         return redirect()->route('admin.dashboard.institutes.index')->with('success', 'Institución eliminada con éxito.');
@@ -63,14 +63,14 @@ class InstitutesController extends Controller
 
     public function edit($id)
     {
-        $registro = Institute::findOrFail($id);
+        $registro = ReceivinEntity::findOrFail($id);
 
         return view('admin.institutes.partials.edit', compact('registro'));
     }
 
     public function update(Request $request, $id)
     {
-        $registro = Institute::findOrFail($id);
+        $registro = ReceivinEntity::findOrFail($id);
 
         $request->validate([
             'name' => 'required',
@@ -78,7 +78,7 @@ class InstitutesController extends Controller
             'user_limit' => 'required|integer|min:1',
         ]);
 
-        $existente = Institute::where(function ($query) use ($request) {
+        $existente = ReceivinEntity::where(function ($query) use ($request) {
             $query->where('name', $request->name);
         })
             ->where('id', '!=', $id)

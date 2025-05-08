@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserData;
-use App\Models\Institute;
+use App\Models\ReceivinEntity;
 use App\Models\Grade;
 use App\Models\Semester;
 use App\Exports\FormularioExport;
@@ -31,7 +31,7 @@ class FormController extends Controller
     public function create()
     {
         $users = User::all();
-        $institutes = Institute::all();
+        $institutes = ReceivinEntity::all();
         $grades = Grade::all();
         $semesters = Semester::all();
 
@@ -66,7 +66,7 @@ class FormController extends Controller
         }
 
         // Validación de limite de usuarios
-        $institutes = Institute::findOrFail($request->id_institute);
+        $institutes = ReceivinEntity::findOrFail($request->id_institute);
 
         $currentUserCount = ApplicationDetails::where('id_institutes', $institutes->id)->count();
 
@@ -113,7 +113,7 @@ class FormController extends Controller
         $applicationDetail = $registro->applicationDetails()->first();
         // dd($applicationDetail);
         $id_institute = $applicationDetail ? $applicationDetail->id_institutes : null;
-        $entidades = Institute::all();
+        $entidades = ReceivinEntity::all();
         $semesters = Semester::all();
         $grades = Grade::all();
         return view('admin.registers.partials.edit', compact('registro', 'entidades', 'grades', 'semesters', 'id_institute'));
@@ -166,7 +166,7 @@ class FormController extends Controller
         }
 
         // Validación de limite de usuarios
-        $institucion = Institute::findOrFail($request->id_institute);
+        $institucion = ReceivinEntity::findOrFail($request->id_institute);
 
         $currentUserCount = ApplicationDetails::where('id_institutes', $institucion->id)->count();
 
