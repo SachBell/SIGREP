@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Models\ApplicationCalls;
 use App\Models\ApplicationDetails;
-use App\Models\ReceivinEntity;
+use App\Models\ReceivingEntity;
 use App\Models\UserData;
 use Illuminate\Http\Request;
 
@@ -33,7 +33,7 @@ class ApplicationController extends Controller
     public function create($id)
     {
         $application = ApplicationCalls::findOrFail($id);
-        $institutes = ReceivinEntity::all();
+        $institutes = ReceivingEntity::all();
         $currentDate = now();
 
         $user = auth()->user()->userData;
@@ -67,7 +67,7 @@ class ApplicationController extends Controller
         // dd($request->all());
 
         $request->validate([
-            'id_institute' => 'required|exists:institutes,id',
+            'id_institute' => 'required|exists:receiving_entities,id',
         ]);
 
         $user = auth()->user()->userData;
@@ -86,7 +86,7 @@ class ApplicationController extends Controller
         }
 
         // Validación de limite de usuarios
-        $institutes = ReceivinEntity::findOrFail($instituteId);
+        $institutes = ReceivingEntity::findOrFail($instituteId);
 
         $currentUserCount = ApplicationDetails::where('id_institutes', $institutes->id)->count();
 

@@ -28,7 +28,7 @@ class UsersImport implements ToModel, WithHeadingRow
         $userExists = User::where('email', trim(strtolower($formattedRow['Correo'])))
             ->orWhere('name', trim(strtolower($formattedRow['Usuario'])))
             ->orWhereHas('userData', function ($query) use ($formattedRow) {
-                $query->where('cei', trim($formattedRow['Cedula']))
+                $query->where('id_card', trim($formattedRow['Cedula']))
                     ->orWhere('phone_number', trim($formattedRow['Telefono']));
             })
             ->exists();
@@ -52,7 +52,7 @@ class UsersImport implements ToModel, WithHeadingRow
 
         UserData::create([
             'id_user' => $user->id,
-            'cei' => $formattedRow['Cedula'],
+            'id_card' => $formattedRow['Cedula'],
             'name' => $formattedRow['Nombres'],
             'lastname' => $formattedRow['Apellidos'],
             'phone_number' => $formattedRow['Telefono'],

@@ -58,7 +58,7 @@ class ProfileController extends Controller
         // dd($request);
 
         $request->validate([
-            'cei' => 'required|numeric|digits_between:1,10',
+            'id_card' => 'required|numeric|digits_between:1,10',
             'name' => 'required',
             'lastname' => 'required',
             'phone_number' => 'required',

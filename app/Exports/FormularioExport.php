@@ -21,7 +21,7 @@ class FormularioExport implements FromCollection, WithHeadings, WithStyles
             $email = $registro->user->email ?? null;
             return [
                 'id' => $registro->id,
-                'cei' => $registro->cei,
+                'id_card' => $registro->id_card,
                 'nombres' => $registro->name,
                 'apellidos' => $registro->lastname,
                 'telefono' => $registro->phone_number,

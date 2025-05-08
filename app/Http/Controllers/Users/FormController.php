@@ -7,7 +7,7 @@ use App\Models\ApplicationCalls;
 use App\Models\ApplicationDetails;
 use App\Models\Grade;
 use App\Models\Semester;
-use App\Models\ReceivinEntity;
+use App\Models\ReceivingEntity;
 use App\Models\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -32,7 +32,7 @@ class FormController extends Controller
 
     public function create()
     {
-        $entidades = ReceivinEntity::all();
+        $entidades = ReceivingEntity::all();
         $grades = Grade::all();
         $semesters = Semester::all();
 
@@ -43,7 +43,7 @@ class FormController extends Controller
     {
 
         $request->validate([
-            'cei' => 'required|numeric|digits_between:1,10',
+            'id_card' => 'required|numeric|digits_between:1,10',
             'name' => 'required',
             'lastname' => 'required',
             'phone_number' => 'required',
@@ -55,7 +55,7 @@ class FormController extends Controller
         ]);
 
         // dd($request);
-        $existente = UserData::where('cei', $request->cei)
+        $existente = UserData::where('id_card', $request->id_card)
             ->first();
 
         if ($existente) {
