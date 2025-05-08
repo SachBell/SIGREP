@@ -14,7 +14,7 @@ class UserData extends Model
 
     protected $fillable = [
         'id_user',
-        'cei',
+        'id_card',
         'name',
         'lastname',
         'phone_number',
@@ -49,7 +49,7 @@ class UserData extends Model
     {
 
         return [
-            'cei' => $this->cei,
+            'id_card' => $this->id_card,
             'name' => $this->name,
             'lastname' => $this->lastname,
             'address' => $this->address,
