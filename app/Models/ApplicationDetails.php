@@ -28,7 +28,7 @@ class ApplicationDetails extends Model
 
     public function institutes()
     {
-        return $this->belongsTo(ReceivinEntity::class, 'id_institutes');
+        return $this->belongsTo(ReceivingEntity::class, 'id_institutes');
     }
 
     public function applicationCalls()

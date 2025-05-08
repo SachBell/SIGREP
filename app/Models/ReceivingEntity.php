@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
-class ReceivinEntity extends Model
+class ReceivingEntity extends Model
 {
     use HasFactory, Searchable;
 
-    protected $table = 'receiving_entites';
+    protected $table = 'receiving_entities';
 
     protected $fillable = [
         'name',
