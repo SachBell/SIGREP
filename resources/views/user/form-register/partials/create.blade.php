@@ -36,10 +36,12 @@
                         </option>
                     @endforeach
                 </x-select-input>
-                <x-input-label class="text-gray-900" for="address" :value="__('Dirección')" />
-                <x-text-input class="w-full" id="address" name="address" :value="__($institute->address)"
-                    x-model="selectedInstitute ? (institutes.find(i => i.id == selectedInstitute)?.address || '') : ''"
-                    disabled />
+                @if (!empty($institute))
+                    <x-input-label class="text-gray-900" for="address" :value="__('Dirección')" />
+                    <x-text-input class="w-full" id="address" name="address" :value="__($institute->address)"
+                        x-model="selectedInstitute ? (institutes.find(i => i.id == selectedInstitute)?.address || '') : ''"
+                        disabled />
+                @endif
             </div>
         </div>
 

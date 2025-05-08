@@ -21,9 +21,9 @@
 
                 <div class="w-full">
                     <div class="mt-4">
-                        <x-input-label for="cei" class="text-gray-900 text-lg" :value="__('CEI')" />
-                        <x-text-input type="text" name="cei" id="cei"
-                            class="text-gray-900 block mt-1 w-full" :value="old('cei', $registro->cei)" autocomplete="cei" />
+                        <x-input-label for="id_card" class="text-gray-900 text-lg" :value="__('id_card')" />
+                        <x-text-input type="text" name="id_card" id="id_card"
+                            class="text-gray-900 block mt-1 w-full" :value="old('id_card', $registro->id_card)" autocomplete="id_card" />
                     </div>
 
                     <div class="mt-4">

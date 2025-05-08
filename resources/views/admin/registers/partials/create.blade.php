@@ -36,11 +36,11 @@
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                                 <div class="mt-4">
-                                    <x-input-label for="cei" class="text-gray-900 font-semibold"
+                                    <x-input-label for="id_card" class="text-gray-900 font-semibold"
                                         :value="__('Cédula')" />
-                                    <x-text-input id="cei" name="cei" type="text"
+                                    <x-text-input id="id_card" name="id_card" type="text"
                                         class="text-gray-900 block mt-1 w-full" />
-                                    <x-input-error :messages="$errors->get('cei')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('id_card')" class="mt-2" />
                                 </div>
                                 <div class="mt-4">
                                     <x-input-label for="address" class="text-gray-900 font-semibold"
@@ -123,7 +123,8 @@
                             institutes: {{ $institutes->toJson() }}
                         }">
                             <div class="flex-1">
-                                <x-input-label class="text-gray-900 font-semibold" for="id_institute" :value="__('Institución')" />
+                                <x-input-label class="text-gray-900 font-semibold" for="id_institute"
+                                    :value="__('Institución')" />
                                 <x-select-input name="id_institute" id="id_institute" class="mt-1 w-full"
                                     x-model="selectedInstitute">
                                     <option value="" disabled selected>Seleccione una institución</option>
@@ -140,7 +141,8 @@
                                     :value="__('Dirección')" />
                                 <input
                                     class="text-gray-900 block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    id="institute_address" name="institute_address" :value="__($institute->address)"
+                                    id="institute_address" name="institute_address"
+                                    :value="__($institute - > address)"
                                     x-model="selectedInstitute ? (institutes.find(i => i.id == selectedInstitute)?.address || '') : ''"
                                     disabled />
                                 <x-input-error class="mt-2" :messages="$errors->get('institute_address')" />

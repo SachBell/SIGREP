@@ -97,7 +97,7 @@
         @foreach ($keys as $registro)
             <tr class="border-gray-200">
                 <td class="text-md whitespace-nowrap py-5">
-                    {{ $registro->userData->cei }}</td>
+                    {{ $registro->userData->id_card }}</td>
                 <td class="text-md whitespace-nowrap py-5">
                     {{ $registro->userData->name }}
                 </td>

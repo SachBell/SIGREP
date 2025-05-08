@@ -18,10 +18,10 @@
         </div>
 
         <div>
-            <x-input-label for="cei" :value="__('Cédula')" />
-            <x-text-input id="cei" name="cei" type="text" class="mt-1 block w-full" :value="old('cei', $userData->cei)"
-                required autofocus autocomplete="cei" />
-            <x-input-error class="mt-2" :messages="$errors->get('cei')" />
+            <x-input-label for="id_card" :value="__('Cédula')" />
+            <x-text-input id="id_card" name="id_card" type="text" class="mt-1 block w-full" :value="old('id_card', $userData->id_card)"
+                required autofocus autocomplete="id_card" />
+            <x-input-error class="mt-2" :messages="$errors->get('id_card')" />
         </div>
 
         <div>
@@ -114,10 +114,10 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-input-label for="cei" :value="__('Cédula')" />
-                    <x-text-input id="cei" name="cei" type="text" class="mt-1 block w-full"
-                        :value="old('cei')" required autofocus autocomplete="cei" />
-                    <x-input-error class="mt-2" :messages="$errors->get('cei')" />
+                    <x-input-label for="id_card" :value="__('Cédula')" />
+                    <x-text-input id="id_card" name="id_card" type="text" class="mt-1 block w-full"
+                        :value="old('id_card')" required autofocus autocomplete="id_card" />
+                    <x-input-error class="mt-2" :messages="$errors->get('id_card')" />
                 </div>
 
                 <div class="mt-4">

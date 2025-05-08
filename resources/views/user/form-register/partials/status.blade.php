@@ -36,9 +36,9 @@
             <div class="flex space-x-5">
                 <div class="w-full">
                     <div>
-                        <x-input-label class="text-gray-900 text-xl" for="cei" :value="__('Cédula')" />
-                        <x-text-input type="text" name="cei" id="cei" class="w-full opacity-75"
-                            value="{{ $applicationDetails->userData->cei }}" disabled readonly />
+                        <x-input-label class="text-gray-900 text-xl" for="id_card" :value="__('Cédula')" />
+                        <x-text-input type="text" name="id_card" id="id_card" class="w-full opacity-75"
+                            value="{{ $applicationDetails->userData->id_card }}" disabled readonly />
                     </div>
                     <div class="mt-4">
                         <x-input-label class="text-gray-900 text-xl" for="name" :value="__('Nombres')" />

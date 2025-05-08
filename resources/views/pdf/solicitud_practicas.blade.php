@@ -45,7 +45,7 @@
         <br>
         <p>
             Yo, <strong>{{ $usuario->userData->name }} {{ $usuario->userData->lastname }}</strong> con número de cédula
-            <strong>{{ $usuario->userData->cei ?? 'No Registrada' }}</strong>, estudiante de
+            <strong>{{ $usuario->userData->id_card ?? 'No Registrada' }}</strong>, estudiante de
             <strong style="text-transform: uppercase">{{ $usuario->semestre_ordinal }}</strong> semestre,
             de la carrera <strong>DESARROLLO DE SOFTWARE</strong> sección
             <strong style="text-transform: uppercase">{{ $usuario->userData->daytrip }}</strong> periodo académico 2025-I
@@ -80,7 +80,7 @@
             <td style="text-align: center; width: 50%;">
                 <p>____________________________</p>
                 <p>{{ $usuario->userData->name }} {{ $usuario->userData->lastname }}</p>
-                <p>C.I: {{ $usuario->userData->cei ?? 'No registrada' }}</p>
+                <p>C.I: {{ $usuario->userData->id_card ?? 'No registrada' }}</p>
             </td>
             <td style="text-align: center; width: 50%;">
                 <p>____________________________</p>
