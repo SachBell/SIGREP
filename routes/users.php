@@ -12,7 +12,31 @@ use App\Http\Controllers\Users\FormController as UserController;
 use App\Http\Controllers\ProfileController;
 
 // ADMIN ROUTES
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    });
 
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/registers/export', [AdminController::class, 'export'])->name('registers.export');
+    Route::get('/user/{id}/reset-password', [UserManagerController::class, 'sendResetPassword'])->name('user-manager.resetPassword');
+    Route::get('/user/user-manager', [UserManagerController::class, 'search'])->name('user-manager.search');
+    Route::get('/user/registers', [AdminController::class, 'search'])->name('registers.search');
+    Route::get('/user/institutes', [InstitutesController::class, 'search'])->name('institutes.search');
+    Route::post('/user/user-manager', [UserManagerController::class, 'massiveUsersImport'])->name('user-manager.massive-users');
+    Route::post('/user/institutes', [InstitutesController::class, 'massiveInstitutesImport'])->name('institutes.massive-institutes');
+
+    Route::resource('admin.dashboard.', AdminController::class);
+    Route::resource('user-manager', UserManagerController::class);
+    Route::resource('rolespermissions', RolesPermissionsController::class);
+    Route::resource('registers', AdminController::class);
+    Route::resource('institutes', InstitutesController::class);
+    Route::resource('applications', AdminAppController::class);
+});
+
+//DOCENTE ENCARGADO
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
     Route::get('/', function () {
         return view('admin.index');
@@ -38,7 +62,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboar
 });
 
 // USER ROUTES
-
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.dashboard.')->group(function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');

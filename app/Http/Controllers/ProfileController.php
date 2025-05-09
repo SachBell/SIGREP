@@ -28,7 +28,7 @@ class ProfileController extends Controller
         if ($user->hasRole('admin')) {
             return view('admin.profile.edit', compact('user'));
         } else {
-            return view('user.profile.edit', compact('user', 'userData', 'semesters', 'grades'));
+            return view('dashboards.user.profile.edit', compact('user', 'userData', 'semesters', 'grades'));
         }
     }
 
