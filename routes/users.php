@@ -36,10 +36,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboar
     Route::resource('applications', AdminAppController::class);
 });
 
-//DOCENTE ENCARGADO
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
+//Headteacher
+Route::middleware(['auth', 'role:headteacher'])->prefix('headteacher')->name('headteacher.dashboard.')->group(function () {
     Route::get('/', function () {
-        return view('admin.index');
+        return view('dashboard.headteacher.index');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
