@@ -33,9 +33,14 @@ class PDFController extends Controller
         $usuario->semestre_ordinal = $conversionSemestres[$semestreNombre] ?? $semestreNombre;
 
         // Generar el PDF con la vista
-        $pdf = Pdf::loadView('pdf.solicitud_practicas', compact('usuario'));
+        $pdf = Pdf::loadView('pdf.solicitud_practicas', compact('usuario'))
+            ->setPaper('a4')
+            ->setOption('isPhpEnabled', true)
+            ->setOption('header-right', 'Página {PAGE_NUM} de {PAGE_COUNT}');
 
-        return $pdf->stream('Solicitud_Practicas'. '_' . $usuario->userData->name .  '_' . $usuario->userData->lastname .'.pdf');
+        $pdf->getCanvas()->page_text(437, 79.8, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 8, [0, 0, 0]);
+
+        return $pdf->stream('Solicitud_Practicas' . '_' . $usuario->userData->name .  '_' . $usuario->userData->lastname . '.pdf');
         // return $pdf->download('Solicitud_Practicas.pdf');
     }
 }
