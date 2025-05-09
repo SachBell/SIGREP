@@ -39,7 +39,7 @@
                             <li>
                                 <a class="sidebar-link text-white"
                                     href="{{ route('admin.dashboard.rolespermissions.index') }}">
-                                    <span class="icon-[tabler--user-check] size-5"></span>
+                                    <span class="icon-[tabler--clipboard-text] size-5"></span>
                                     Roles & Permissions
                                 </a>
                             </li>

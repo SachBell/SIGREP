@@ -138,4 +138,42 @@
             </tr>
         @endforeach
     @endif
+    @if (Request::routeIs('admin.dashboard.rolespermissions.*'))
+        @foreach ($keys as $role)
+            <tr>
+                <td class="text-center">
+                    @if ($role->name == 'admin')
+                        <span class="badge badge-soft badge-error">
+                            {{ $role->name ?? 'Sin Role' }}
+                        </span>
+                    @elseif ($role->name == 'user')
+                        <span class="badge badge-soft badge-success">
+                            {{ $role->name ?? 'Sin Role' }}
+                        </span>
+                    @else
+                        <span class="badge badge-soft badge-default">
+                            {{ $role->name ?? 'Sin Role' }}
+                        </span>
+                    @endif
+                </td>
+                <td class="text-center">
+                    {{ $role->permissions->pluck('name')->implode(', ') ?: 'No tiene permisos asignados.' }}
+                </td>
+                <td class="flex py-5 justify-center">
+                    <a href="{{ route('admin.dashboard.rolespermissions.edit', $role->id) }}"
+                        class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                            class="icon-[tabler--pencil] size-6"></span>
+                    </a>
+                    <form class="delete-form"
+                        action="{{ route('admin.dashboard.rolespermissions.destroy', $role->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                class="icon-[tabler--trash] size-6"></span></button>
+                    </form>
+                    @include('components.alert-confirm')
+                </td>
+            </tr>
+        @endforeach
+    @endif
 </tbody>
