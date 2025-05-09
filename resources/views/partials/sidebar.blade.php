@@ -11,7 +11,7 @@
 
         <div class="drawer-body px-2 pt-4">
             <ul class="bg-transparent menu space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0">
-                @if (Auth::user()->hasRole('admin'))
+                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('headteacher'))
                     <li>
                         <a class="text-white sidebar-link" href="{{ route('admin.dashboard.') }}">
                             <span class="icon-[tabler--home] size-5"></span>

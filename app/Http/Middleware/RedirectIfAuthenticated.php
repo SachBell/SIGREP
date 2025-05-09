@@ -33,7 +33,9 @@ class RedirectIfAuthenticated
     {
         if ($user->hasRole('admin')) {
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-        } elseif ($user->hasRole('user')) {
+        } elseif ($user->hasRole('headteacher')) {
+            return redirect()->intended(RouteServiceProvider::HEADTECHER_HOME);
+        } else {
             return redirect()->intended(RouteServiceProvider::USER_HOME);
         }
     }
