@@ -70,9 +70,7 @@ class UserManagerController extends Controller
 
         return redirect()->route('admin.dashboard.user-manager.index')->with('success', 'Usuario eliminado con éxito.');
     }
-
-    public function show() {}
-
+    
     public function edit($id)
     {
         $registro = User::findOrFail($id);
