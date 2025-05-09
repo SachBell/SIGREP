@@ -47,6 +47,16 @@ Breadcrumbs::for('admin.dashboard.rolespermissions.index', function (BreadcrumbT
     $trail->push(__('Roles y Permisos'), route('admin.dashboard.rolespermissions.index'));
 });
 
+Breadcrumbs::for('admin.dashboard.rolespermissions.edit', function (BreadcrumbTrail $trail, $rolespermission) {
+    $trail->parent('admin.dashboard.user-manager.index');
+    $trail->push(__('Editar Role'), route('admin.dashboard.rolespermissions.edit', $rolespermission));
+});
+
+Breadcrumbs::for('admin.dashboard.rolespermissions.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard.user-manager.index');
+    $trail->push(__('Crear Role'), route('admin.dashboard.rolespermissions.create'));
+});
+
 Breadcrumbs::for('admin.dashboard.institutes.edit', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard.institutes.index');
     $trail->push(__('Editar Instituto'), route('admin.dashboard.institutes.index'));
