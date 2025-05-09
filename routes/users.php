@@ -39,7 +39,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboar
 //Headteacher
 Route::middleware(['auth', 'role:headteacher'])->prefix('headteacher')->name('headteacher.dashboard.')->group(function () {
     Route::get('/', function () {
-        return view('dashboard.headteacher.index');
+        return view('dashboards.headteacher.index');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
