@@ -29,7 +29,7 @@ class UpdateApplicationCallStatus extends Command
     {
         $now = Carbon::now();
 
-        ApplicationCall::all()->each(function ($app) use ($now){
+        ApplicationCall::all()->each(function ($app) use ($now) {
             if ($app->start_date <= $now && $app->end_date >= $now) {
                 $app->status = 'Activo';
             } elseif ($app->end_date < $now) {
