@@ -111,28 +111,28 @@
                 <div>
                     <x-input-label for="name" :value="__('Nombres')" />
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                        :value="old('name', $userData->name)" required autofocus autocomplete="name" />
+                        :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                 </div>
 
                 <div>
                     <x-input-label for="id_card" :value="__('Cédula')" />
                     <x-text-input id="id_card" name="id_card" type="text" class="mt-1 block w-full"
-                        :value="old('id_card', $userData->id_card)" required autofocus autocomplete="id_card" />
+                        :value="old('id_card')" required autofocus autocomplete="id_card" />
                     <x-input-error class="mt-2" :messages="$errors->get('id_card')" />
                 </div>
 
                 <div>
                     <x-input-label for="address" :value="__('Dirección')" />
                     <x-text-input id="address" name="address" type="text" class="mt-1 block w-full"
-                        :value="old('address', $userData->address)" required autofocus autocomplete="address" />
+                        :value="old('address')" required autofocus autocomplete="address" />
                     <x-input-error class="mt-2" :messages="$errors->get('address')" />
                 </div>
 
                 <div>
                     <x-input-label for="phone_number" :value="__('Celular')" />
                     <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
-                        :value="old('phone_number', $userData->phone_number)" required autofocus autocomplete="phone_number" />
+                        :value="old('phone_number')" required autofocus autocomplete="phone_number" />
                     <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
                 </div>
 
@@ -147,14 +147,14 @@
                 <div>
                     <x-input-label for="lastname" :value="__('Apellidos')" />
                     <x-text-input id="lastname" name="lastname" type="text" class="mt-1 block w-full"
-                        :value="old('lastname', $userData->lastname)" required autofocus autocomplete="lastname" />
+                        :value="old('lastname')" required autofocus autocomplete="lastname" />
                     <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
                 </div>
 
                 <div>
                     <x-input-label for="neighborhood" :value="__('Barrio')" />
                     <x-text-input id="neighborhood" name="neighborhood" type="text" class="mt-1 block w-full"
-                        :value="old('neighborhood', $userData->neighborhood)" required autofocus autocomplete="neighborhood" />
+                        :value="old('neighborhood')" required autofocus autocomplete="neighborhood" />
                     <x-input-error class="mt-2" :messages="$errors->get('neighborhood')" />
                 </div>
 
@@ -164,7 +164,7 @@
                         autocomplete>
                         @foreach ($semesters as $semester)
                             <option value="{{ $semester->id }}"
-                                {{ old('id_semester', $userData->id_semester) == $semester->id ? 'selected' : '' }}>
+                                {{ old('id_semester') == $semester->id ? 'selected' : '' }}>
                                 {{ $semester->semester }}
                             </option>
                         @endforeach
@@ -178,7 +178,7 @@
                         autocomplete>
                         @foreach ($grades as $grade)
                             <option value="{{ $grade->id }}"
-                                {{ old('id_grade', $userData->id_grade) == $grade->id ? 'selected' : '' }}>
+                                {{ old('id_grade') == $grade->id ? 'selected' : '' }}>
                                 {{ $grade->grade }}
                             </option>
                         @endforeach
@@ -191,11 +191,11 @@
                     <x-select-input id="daytrip" name="daytrip" class="mt-1 block w-full" required autofocus
                         autocomplete>
                         <option value="Vespertina"
-                            {{ old('daytrip', $userData->daytrip) == 'Vespertina' ? 'selected' : '' }}>
+                            {{ old('daytrip') == 'Vespertina' ? 'selected' : '' }}>
                             Vespertina
                         </option>
                         <option value="Nocturna"
-                            {{ old('daytrip', $userData->daytrip) == 'Nocturna' ? 'selected' : '' }}>
+                            {{ old('daytrip') == 'Nocturna' ? 'selected' : '' }}>
                             Nocturna
                         </option>
                     </x-select-input>

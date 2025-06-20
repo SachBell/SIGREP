@@ -12,7 +12,7 @@ class UserObserver
     public function created(User $user): void
     {
         if ($user->roles->isEmpty()) {
-            $user->assignRole('user');
+            $user->assignRole('student');
         }
     }
 

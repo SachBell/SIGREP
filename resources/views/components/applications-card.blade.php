@@ -1,4 +1,4 @@
-@if (Auth::user()->hasRole('admin'))
+@if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('headteacher'))
     <div class="flex flex-col gap-8">
         @forelse ($applications as $application)
             <div class="w-full rounded-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 sm:p-10 lg:rounded-3xl">
@@ -57,8 +57,7 @@
     </div>
 @else
     @forelse ($applications as $application)
-        <div
-            class="w-full max-w-xs rounded-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 lg:rounded-3xl">
+        <div class="w-full max-w-xs rounded-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 lg:rounded-3xl">
             <h3 id="tier-hobby" class="text-2xl font-semibold text-blue-600">
                 {{ $application->application_title }}</h3>
             <div class="flex items-center justify-center gap-1 mt-4">

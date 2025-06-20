@@ -27,7 +27,7 @@ class FormController extends Controller
 
         $userExist = ApplicationDetails::where('id_user_data', $user->id)->exists();
 
-        return view('dashboards.user.index', compact('applications', 'userExist'));
+        return view('user.index', compact('applications', 'userExist'));
     }
 
     public function create()
