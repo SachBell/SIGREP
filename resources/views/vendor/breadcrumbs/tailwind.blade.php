@@ -1,13 +1,21 @@
 <div class="w-full flex justify-end items-center py-3 md:py-0">
     @unless ($breadcrumbs->isEmpty())
-        <nav class="container mx-auto">
+        <nav class="w-full">
             <ol class="p-4 rounded flex flex-wrap text-lg text-gray-800">
                 @foreach ($breadcrumbs as $breadcrumb)
-                    @if ($breadcrumb->url && !$loop->last)
-                        <li>
+                    @if ($breadcrumb->url)
+                        <li class="inline-flex items-center gap-3">
                             <a href="{{ $breadcrumb->url }}"
-                                class="text-blue-600 hover:text-blue-900 hover:underline focus:text-blue-900 focus:underline">
-                                {{ $breadcrumb->title }}
+                                class="text-gray-600 hover:text-gray-700 hover:underline focus:text-gray-600 focus:transition-colors duration-300">
+                                @if ($loop->first)
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                    </svg>
+                                @else
+                                    {{ $breadcrumb->title }}
+                                @endif
                             </a>
                         </li>
                     @else
@@ -20,12 +28,12 @@
                         <li class="text-gray-500 px-2">
                             /
                         </li>
-                    @endif
-                    @endforeach
-                </ol>
-            </nav>
+                    @endunless
+                @endforeach
+            </ol>
+        </nav>
     @endunless
-    <button type="button" class="btn btn-lg btn-text max-md:btn-square md:hidden" aria-haspopup="dialog"
+    <button type="button" class="btn btn-lg btn-text max-md:btn-square lg:hidden" aria-haspopup="dialog"
         aria-expanded="false" aria-controls="multilevel-with-separator" data-overlay="#multilevel-with-separator">
         <span class="icon-[tabler--menu-2] size-7 text-gray-800"></span>
     </button>

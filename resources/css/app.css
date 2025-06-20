@@ -1,5 +1,39 @@
-@import 'dashboard.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --dark-background: #1f2937;
+    --light-background: #d0dbe7;
+    --scrollbar-background: #eaeef4;
+    --scrollbar-thumb: #557ca2;
+}
+
+::after,
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-background);
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background: var(--scrollbar-thumb);
+}
+
+.menu li:not(.disabled, :disabled, [disabled])> :not(ul, .menu-title, .collapse, .btn):active,
+.menu li:not(.disabled, :disabled, [disabled])> :not(ul, .menu-title, .collapse, .btn).active {
+    background-color: rgba(193, 223, 246, 0.184) !important;
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, 0.658) !important;
+}

@@ -2,57 +2,59 @@
 
 namespace App\Models;
 
+use App\Traits\HasCareerScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 
 class UserData extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, HasCareerScope;
 
     protected $table = 'user_data';
 
     protected $fillable = [
-        'id_user',
+        'profile_id',
+        'career_id',
         'id_card',
-        'name',
-        'lastname',
-        'phone_number',
-        'address',
-        'neighborhood',
-        'id_semester',
-        'id_grade',
+        'semester_id',
+        'grade_id',
         'daytrip',
     ];
 
-    public function applicationDetails()
+    public function profiles()
     {
-        return $this->hasMany(ApplicationDetails::class, 'id_user_data');
-    }
-
-    public function grades()
-    {
-        return $this->belongsTo(Grade::class, 'id_grade');
+        return $this->belongsTo(UserProfile::class, 'profile_id');
     }
 
     public function semesters()
     {
-        return $this->belongsTo(Semester::class, 'id_semester');
+        return $this->belongsTo(Semester::class, 'semester_id');
     }
 
-    public function user()
+    public function grades()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(Grade::class, 'grade_id');
     }
 
-    public function toSearchableArray()
+    public function careers()
     {
+        return $this->belongsTo(Career::class, 'career_id');
+    }
 
-        return [
-            'id_card' => $this->id_card,
-            'name' => $this->name,
-            'lastname' => $this->lastname,
-            'address' => $this->address,
-        ];
+    public function applicationDetail()
+    {
+        return $this->hasOne(ApplicationDetail::class, 'user_data_id');
+    }
+
+    public function receivingEntity()
+    {
+        return $this->hasOneThrough(
+            ReceivingEntity::class,
+            ApplicationDetail::class,
+            'user_data_id',
+            'id',
+            'id',
+            'receiving_entity_id'
+        );
     }
 }
