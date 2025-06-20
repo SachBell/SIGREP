@@ -9,7 +9,7 @@
     <div class="py-5 space-y-5">
         @if ($userExist)
             <div class="flex items-middle justify-center">
-                @include('dashboards.user.form-register.partials.status')
+                @include('user.form-register.partials.status')
             </div>
         @else
             <div class="grid grid-cols-1 gap-8 justify-items-center lg:grid-cols-3">

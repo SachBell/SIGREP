@@ -31,12 +31,10 @@ class RedirectIfAuthenticated
 
     private function redirectByRole($user): RedirectResponse
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasAnyRole(['admin', 'headteacher'])) {
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-        } elseif ($user->hasRole('headteacher')) {
-            return redirect()->intended(RouteServiceProvider::HEADTECHER_HOME);
         } else {
-            return redirect()->intended(RouteServiceProvider::USER_HOME);
+            return redirect()->intended(RouteServiceProvider::DASHBOARD_HOME);
         }
     }
 }

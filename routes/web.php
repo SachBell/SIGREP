@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'auth.login')->name('login');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 require __DIR__.'/users.php';
 

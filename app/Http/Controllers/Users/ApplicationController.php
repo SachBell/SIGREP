@@ -27,7 +27,7 @@ class ApplicationController extends Controller
 
         $applicationDetails = auth()->user()->status();
 
-        return view('dashboards.user.form-register.index', compact('applications', 'userExist', 'applicationDetails'));
+        return view('user.form-register.index', compact('applications', 'userExist', 'applicationDetails'));
     }
 
     public function create($id)
@@ -58,7 +58,7 @@ class ApplicationController extends Controller
         if ($appExist) {
             return redirect()->back()->with('error', 'Ya estas inscrito en este periodo.');
         } else {
-            return view('dashboards.user.form-register.partials.create', compact('application', 'user', 'institutes'));
+            return view('user.form-register.partials.create', compact('application', 'user', 'institutes'));
         }
     }
 

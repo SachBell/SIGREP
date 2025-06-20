@@ -21,7 +21,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('principal_data')
                 ->nullOnDelete();
-            $table->string('observations');
+            $table->string('convenant_type');
             $table->date('convenant_start_date');
             $table->date('convenant_end_date');
             $table->timestamps();

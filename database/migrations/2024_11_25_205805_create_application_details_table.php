@@ -25,7 +25,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('receiving_entities')
                 ->nullOnDelete();
-            $table->enum('status_individual', ['pendiente', 'activo', 'finalizado'])->default('pendiente');
+            $table->enum('status_individual', ['Pendiente', 'En Proceso', 'Finalizado', 'Retirado'])->default('Pendiente');
             $table->timestamps();
         });
     }

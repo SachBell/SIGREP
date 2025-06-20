@@ -11,7 +11,7 @@
 
         <div class="drawer-body px-2 pt-4">
             <ul class="bg-transparent menu space-y-0.5 [&_.nested-collapse-wrapper]:space-y-0.5 [&_ul]:space-y-0.5 p-0">
-                @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('headteacher'))
+                @role('admin')
                     <li>
                         <a class="text-white sidebar-link" href="{{ route('admin.dashboard.') }}">
                             <span class="icon-[tabler--home] size-5"></span>
@@ -30,8 +30,7 @@
                             class="collapse w-auto overflow-hidden transition-[height] duration-300 open"
                             aria-labelledby="menu-app">
                             <li>
-                                <a class="sidebar-link text-white"
-                                    href="{{ route('admin.dashboard.user-manager.index') }}">
+                                <a class="sidebar-link text-white" href="{{ route('admin.dashboard.user-manager.index') }}">
                                     <span class="icon-[tabler--user-cog] size-5"></span>
                                     User Manager
                                 </a>
@@ -87,7 +86,76 @@
                             Support
                         </a>
                     </li>
-                @else
+                    @elserole('headteacher')
+                    <li>
+                        <a class="text-white sidebar-link" href="{{ route('admin.dashboard.') }}">
+                            <span class="icon-[tabler--home] size-5"></span>
+                            {{ __('Inicio') }}
+                        </a>
+                    </li>
+                    <li class="text-white space-y-0.5">
+                        <a class="sidebar-link collapse-toggle collapse-open:bg-base-content/10 open" id="menu-app"
+                            data-collapse="#menu-app-collapse">
+                            <span class="icon-[tabler--users] size-5"></span>
+                            {{ __('Usuarios') }}
+                            <span
+                                class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
+                        </a>
+                        <ul id="menu-app-collapse"
+                            class="collapse w-auto overflow-hidden transition-[height] duration-300 open"
+                            aria-labelledby="menu-app">
+                            <li>
+                                <a class="sidebar-link text-white"
+                                    href="{{ route('admin.dashboard.user-manager.index') }}">
+                                    <span class="icon-[tabler--user-cog] size-5"></span>
+                                    User Manager
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.dashboard.institutes.index') }}" class="text-white sidebar-link">
+                            <span class="icon-[tabler--school] size-5"></span>
+                            {{ __('Institutos') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.dashboard.registers.index') }}" class="text-white sidebar-link">
+                            <span class="icon-[tabler--clipboard-data] size-5"></span>
+                            {{ __('Registros') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.dashboard.applications.index') }}" class="text-white sidebar-link">
+                            <span class="icon-[tabler--apps] size-5"></span>
+                            {{ __('Postulaciones') }}
+                        </a>
+                    </li>
+                    <div class="text-white divider py-6 divider-neutral">Account</div>
+                    <li>
+                        <a class="text-white" href="{{ route('admin.dashboard.profile.edit') }}">
+                            <span class="icon-[tabler--user] size-5"></span>
+                            {{ __('Perfil') }}
+                        </a>
+                    </li>
+                    <li>
+                        <form class="hidden" id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
+                        <a class="text-white" href=""
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <span class="icon-[tabler--logout-2] size-5"></span>
+                            {{ __('Sign Out') }}
+                        </a>
+                    </li>
+                    <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
+                    <li>
+                        <a class="text-white" href="#">
+                            <span class="icon-[tabler--users-group] size-5"></span>
+                            Support
+                        </a>
+                    </li>
+                    @elserole('student')
                     <li class="text-white">
                         <a href="{{ route('user.dashboard.index') }}">
                             <span class="icon-[tabler--home] size-5"></span>
@@ -125,7 +193,7 @@
                             Support
                         </a>
                     </li>
-                @endif
+                @endrole
             </ul>
         </div>
     </aside>

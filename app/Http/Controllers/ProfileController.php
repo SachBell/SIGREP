@@ -25,11 +25,11 @@ class ProfileController extends Controller
         $semesters = Semester::all();
         $grades = Grade::all();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasAnyRole(['admin', 'headteacher'])) {
             return view('admin.profile.edit', compact('user'));
-        } else {
-            return view('dashboards.user.profile.edit', compact('user', 'userData', 'semesters', 'grades'));
         }
+
+        return view('user.profile.edit', compact('user', 'userData', 'semesters', 'grades'));
     }
 
     /**
@@ -45,40 +45,11 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        if (Auth::user()->hasRole('admin')) {
+        if (Auth::user()->hasAnyRole(['admin', 'headteacher'])) {
             return Redirect::route('admin.dashboard.profile.edit')->with('status', 'profile-updated');
-        } else {
-            return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
         }
-    }
 
-    public function dataUpdate(Request $request)
-    {
-
-        // dd($request);
-
-        $request->validate([
-            'id_card' => 'required|numeric|digits_between:1,10',
-            'name' => 'required',
-            'lastname' => 'required',
-            'phone_number' => 'required',
-            'address' => 'required',
-            'neighborhood' => 'required',
-            'id_semester' => 'required',
-            'id_grade' => 'required',
-            'daytrip' => 'required',
-        ]);
-
-        $user = auth()->user();
-        $userData = $user->userData;
-
-        $userData->update($request->all());
-
-        if (Auth::user()->id_role === 1) {
-            return Redirect::route('admin.profile.edit')->with('status', 'data-updated');
-        } else {
-            return Redirect::route('user.profile.edit')->with('status', 'data-updated');
-        }
+        return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
     }
 
     /**
