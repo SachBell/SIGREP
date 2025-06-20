@@ -7,16 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model
 {
-
     use HasFactory;
 
     protected $table = 'grades';
 
     protected $fillable = [
-        'grade',
+        'name'
     ];
 
-    public function userData() {
-        return $this->hasMany(UserData::class, 'id_grade');
+    public function userData(){
+        return $this->hasMany(UserData::class, 'grade_id');
     }
 }

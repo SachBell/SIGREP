@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasCareerScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 
 class ReceivingEntity extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, HasCareerScope;
 
     protected $table = 'receiving_entities';
 
@@ -17,24 +17,24 @@ class ReceivingEntity extends Model
         'address',
         'user_limit',
         'productive_sector',
-        'id_pincipal',
+        'principal_id',
         'observations',
         'convenant_start_date',
         'convenant_end_date',
     ];
 
-    public function applicatonDetails()
+    public function applicationDetail()
     {
-        return $this->hasMany(ApplicationDetails::class, 'id_institute');
+        return $this->hasMany(ApplicationDetail::class, 'receiving_entity_id');
     }
 
-    public function toSearchableArray()
+    public function principalData()
     {
+        return $this->belongsTo(PrincipalData::class, 'principal_data_id');
+    }
 
-        return [
-            'name' => $this->name,
-            'address' => $this->address,
-            'user_limit' => $this->address,
-        ];
+    public function careers()
+    {
+        return $this->belongsToMany(Career::class, 'career_entities', 'entity_id', 'career_id');
     }
 }

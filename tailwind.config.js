@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import plugin from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,7 +9,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/views/partials/*.blade.php',
-        './node_modules/flyonui/dist/js/*.js' // Asegura que Bootstrap se escanee
+        './node_modules/flyonui/dist/js/*.js'
     ],
 
     theme: {
@@ -22,6 +23,6 @@ export default {
     plugins: [
         forms,
         require("flyonui"),
-        require("flyonui/plugin")
+        require("flyonui/plugin"),
     ],
 };

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('partials.swa')
+    {{-- @include('partials.swa') --}}
     <div class="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0">
         <div class="px-4">
             <img src="{{ asset('img/logo.png') }}" alt="logo.png" class="w-50 h-50 fill-current bg-white rounded"

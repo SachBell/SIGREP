@@ -29,11 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->hasAnyRole(['admin', 'headteacher'])) {
-            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        $user = $request->user();
+
+        if($user->hasRole('student')){
+            return redirect()->route('dashboard.index');
         }
 
-        return redirect()->intended(RouteServiceProvider::DASHBOARD_HOME);
+        return redirect()->route('admin.dashboard');
     }
 
     /**
@@ -47,6 +49,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

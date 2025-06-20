@@ -12,11 +12,11 @@ class Semester extends Model
     protected $table = 'semesters';
 
     protected $fillable = [
-        'semester'
+        'name'
     ];
 
-    // Relación con UserData
-    public function userData() {
-        return $this->hasMany(UserData::class, 'id_semester');
+    public function userData()
+    {
+        return $this->hasMany(UserData::class, 'semester_id');
     }
 }

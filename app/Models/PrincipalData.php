@@ -16,6 +16,11 @@ class PrincipalData extends Model
         'lastname',
         'id_card',
         'email',
-        'phone_number'
+        'phone_number',
     ];
+
+    public function receivingEntities()
+    {
+        return $this->hasMany(ReceivingEntity::class, 'principal_data_id');
+    }
 }
