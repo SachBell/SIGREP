@@ -259,4 +259,4 @@
         </form>
     </div>
 </div>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/posts-modal.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/modals/posts-modal.blade.php ENDPATH**/ ?>

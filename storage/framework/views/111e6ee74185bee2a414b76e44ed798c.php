@@ -19,16 +19,16 @@
 
     <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('users-filter')->html();
-} elseif ($_instance->childHasBeenRendered('8vuvQ63')) {
-    $componentId = $_instance->getRenderedChildComponentId('8vuvQ63');
-    $componentTag = $_instance->getRenderedChildComponentTagName('8vuvQ63');
+    $html = \Livewire\Livewire::mount('filters.users-filter')->html();
+} elseif ($_instance->childHasBeenRendered('iFospJo')) {
+    $componentId = $_instance->getRenderedChildComponentId('iFospJo');
+    $componentTag = $_instance->getRenderedChildComponentTagName('iFospJo');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('8vuvQ63');
+    $_instance->preserveRenderedChild('iFospJo');
 } else {
-    $response = \Livewire\Livewire::mount('users-filter');
+    $response = \Livewire\Livewire::mount('filters.users-filter');
     $html = $response->html();
-    $_instance->logRenderedChild('8vuvQ63', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('iFospJo', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

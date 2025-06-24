@@ -1,16 +1,16 @@
 <div class="space-y-4">
     <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('posts-modal')->html();
-} elseif ($_instance->childHasBeenRendered('l2892552842-0')) {
-    $componentId = $_instance->getRenderedChildComponentId('l2892552842-0');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l2892552842-0');
+    $html = \Livewire\Livewire::mount('modals.posts-modal')->html();
+} elseif ($_instance->childHasBeenRendered('l3692960448-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l3692960448-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l3692960448-0');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l2892552842-0');
+    $_instance->preserveRenderedChild('l3692960448-0');
 } else {
-    $response = \Livewire\Livewire::mount('posts-modal');
+    $response = \Livewire\Livewire::mount('modals.posts-modal');
     $html = $response->html();
-    $_instance->logRenderedChild('l2892552842-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('l3692960448-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -167,4 +167,4 @@ echo $html;
         <?php endif; ?>
     </div>
 </div>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/posts-filter.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/filters/posts-filter.blade.php ENDPATH**/ ?>

@@ -3,15 +3,15 @@
         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('tutor.assign-students-modal')->html();
-} elseif ($_instance->childHasBeenRendered('l2115319582-0')) {
-    $componentId = $_instance->getRenderedChildComponentId('l2115319582-0');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l2115319582-0');
+} elseif ($_instance->childHasBeenRendered('l3184403315-0')) {
+    $componentId = $_instance->getRenderedChildComponentId('l3184403315-0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('l3184403315-0');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l2115319582-0');
+    $_instance->preserveRenderedChild('l3184403315-0');
 } else {
     $response = \Livewire\Livewire::mount('tutor.assign-students-modal');
     $html = $response->html();
-    $_instance->logRenderedChild('l2115319582-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('l3184403315-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -141,4 +141,4 @@ echo $html;
     <?php endif; ?>
 
 </div>
-<?php /**PATH C:\laragon\www\practicasisusGlobal\resources\views/livewire/tutor/tutor-filter.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/filters/tutor-filter.blade.php ENDPATH**/ ?>

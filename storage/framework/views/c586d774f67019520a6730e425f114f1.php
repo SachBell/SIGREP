@@ -1151,4 +1151,4 @@
         </form>
     </div>
 </div>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/users-modal.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/modals/users-modal.blade.php ENDPATH**/ ?>

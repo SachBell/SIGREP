@@ -37,16 +37,16 @@
 
     <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('tutor.tutor-filter')->html();
-} elseif ($_instance->childHasBeenRendered('8TQSeH1')) {
-    $componentId = $_instance->getRenderedChildComponentId('8TQSeH1');
-    $componentTag = $_instance->getRenderedChildComponentTagName('8TQSeH1');
+    $html = \Livewire\Livewire::mount('filters.tutor-filter')->html();
+} elseif ($_instance->childHasBeenRendered('cGETJwE')) {
+    $componentId = $_instance->getRenderedChildComponentId('cGETJwE');
+    $componentTag = $_instance->getRenderedChildComponentTagName('cGETJwE');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('8TQSeH1');
+    $_instance->preserveRenderedChild('cGETJwE');
 } else {
-    $response = \Livewire\Livewire::mount('tutor.tutor-filter');
+    $response = \Livewire\Livewire::mount('filters.tutor-filter');
     $html = $response->html();
-    $_instance->logRenderedChild('8TQSeH1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('cGETJwE', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

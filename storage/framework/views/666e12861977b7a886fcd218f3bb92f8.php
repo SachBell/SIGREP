@@ -283,4 +283,4 @@
         </form>
     </div>
 </div>
-<?php /**PATH C:\laragon\www\practicasisusGlobal\resources\views/livewire/call-modal.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/livewire/modals/call-modal.blade.php ENDPATH**/ ?>
