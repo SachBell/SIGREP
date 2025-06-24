@@ -6,5 +6,5 @@
         </h2>
     </x-slot>
 
-    @livewire('posts-filter')
+    @livewire('filters.posts-filter')
 </x-app-layout>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Filters;
 
 use App\Models\User;
 use Livewire\Component;
@@ -29,7 +29,7 @@ class UsersFilter extends Component
             })
             ->get();
 
-        return view('livewire.users-filter', [
+        return view('livewire.filters.users-filter', [
             'users' => $users,
         ]);
     }

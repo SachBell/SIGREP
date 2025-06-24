@@ -7,6 +7,6 @@
         </h2>
     </x-slot>
 
-    @livewire('users-filter')
+    @livewire('filters.users-filter')
 
 </x-app-layout>

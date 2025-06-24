@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Filters;
 
 use App\Models\ApplicationDetail;
 use Livewire\Component;
@@ -41,6 +41,6 @@ class PostsFilter extends Component
                     });
             })->get();
 
-        return view('livewire.posts-filter', compact('appDetail'));
+        return view('livewire.filters.posts-filter', compact('appDetail'));
     }
 }

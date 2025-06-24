@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Livewire\Tutor;
+namespace App\Http\Livewire\Modals;
 
-use App\Http\Livewire\GlobalModal;
 use App\Models\TeacherProfile;
 use App\Models\UserData;
 use App\Models\UserProfile;
@@ -191,6 +190,6 @@ class AssignStudentsModal extends GlobalModal
 
     public function render()
     {
-        return view('livewire.tutor.assign-students-modal');
+        return view('livewire.modals.assign-students-modal');
     }
 }

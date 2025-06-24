@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Filters;
 
 use App\Models\Career;
 use App\Models\ReceivingEntity;
@@ -49,6 +49,6 @@ class ConvenantFilter extends Component
                     $q->where('careers.id', $this->career);
                 });
             })->get();
-        return view('livewire.convenant-filter', compact('convenants'));
+        return view('livewire.filters.convenant-filter', compact('convenants'));
     }
 }

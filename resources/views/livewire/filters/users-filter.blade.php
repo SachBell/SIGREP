@@ -1,5 +1,5 @@
 <div class="space-y-4">
-    @livewire('users-modal')
+    @livewire('modals.users-modal')
     <div class="flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between" wire:ignore>
         <div class="dropdown relative inline-flex">
             <button id="dropdown-default" type="button" class="dropdown-toggle btn btn-outline btn-secondary font-normal"

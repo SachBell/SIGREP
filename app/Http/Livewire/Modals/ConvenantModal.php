@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modals;
 
 use App\Models\Career;
 use App\Models\PrincipalData;
@@ -243,6 +243,6 @@ class ConvenantModal extends GlobalModal
 
     public function render()
     {
-        return view('livewire.convenant-modal');
+        return view('livewire.modals.convenant-modal');
     }
 }

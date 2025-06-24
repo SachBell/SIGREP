@@ -6,5 +6,5 @@
         </h2>
     </x-slot>
 
-    @livewire('career-filter')
+    @livewire('filters.career-filter')
 </x-app-layout>

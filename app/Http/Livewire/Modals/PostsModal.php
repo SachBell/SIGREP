@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modals;
 
 use App\Models\ApplicationCall;
 use App\Models\ApplicationDetail;
@@ -339,6 +339,6 @@ class PostsModal extends GlobalModal
     public function render()
     {
         $this->calculateAvailableSlots();
-        return view('livewire.posts-modal');
+        return view('livewire.modals.posts-modal');
     }
 }

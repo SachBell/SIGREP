@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Tutor;
+namespace App\Http\Livewire\Filters;
 
 use App\Models\TeacherProfile;
 use App\Models\TutorStudent;
@@ -86,7 +86,7 @@ class TutorFilter extends Component
 
         $hasStudents = $studentTutor->pluck('students_list')->flatten();
 
-        return view('livewire.tutor.tutor-filter', [
+        return view('livewire.filters.tutor-filter', [
             'studentTutor' => $studentTutor,
             'hasStudents' => $hasStudents,
         ]);

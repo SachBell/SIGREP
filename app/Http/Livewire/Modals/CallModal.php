@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modals;
 
 use App\Models\ApplicationCall;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -84,6 +84,6 @@ class CallModal extends GlobalModal
 
     public function render()
     {
-        return view('livewire.call-modal');
+        return view('livewire.modals.call-modal');
     }
 }

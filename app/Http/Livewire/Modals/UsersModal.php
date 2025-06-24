@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modals;
 
 use App\Models\Career;
 use App\Models\Grade;
@@ -320,6 +320,6 @@ class UsersModal extends GlobalModal
 
     public function render()
     {
-        return view('livewire.users-modal');
+        return view('livewire.modals.users-modal');
     }
 }

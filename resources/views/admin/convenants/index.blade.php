@@ -6,5 +6,5 @@
         </h2>
     </x-slot>
 
-    @livewire('convenant-filter')
+    @livewire('filters.convenant-filter')
 </x-app-layout>

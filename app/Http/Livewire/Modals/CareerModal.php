@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modals;
 
 use App\Models\Career;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -67,6 +67,6 @@ class CareerModal extends GlobalModal
 
     public function render()
     {
-        return view('livewire.career-modal');
+        return view('livewire.modals.career-modal');
     }
 }

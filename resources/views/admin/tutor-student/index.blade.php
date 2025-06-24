@@ -23,5 +23,5 @@
         </h2>
     </x-slot>
 
-    @livewire('tutor.tutor-filter')
+    @livewire('filters.tutor-filter')
 </x-app-layout>

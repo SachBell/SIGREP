@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    @livewire('call-modal')
+    @livewire('modals.call-modal')
 
     <div class="flex flex-col gap-8">
         <div class="flex justify-end">

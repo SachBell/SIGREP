@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Filters;
 
 use App\Models\Career;
 use Livewire\Component;
@@ -27,6 +27,6 @@ class CareerFilter extends Component
                 $query->where('is_dual', $this->selectedType);
             })->get();
 
-        return view('livewire.career-filter', compact('careers'));
+        return view('livewire.filters.career-filter', compact('careers'));
     }
 }
