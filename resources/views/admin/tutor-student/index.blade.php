@@ -11,6 +11,10 @@
 @endphp
 @section('title', $pageTitle)
 <x-app-layout>
+    @role('tutor')
+        @livewire('modals.visits-modal')
+        @livewire('modals.visit-details-modal')
+    @endrole
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
             @role('admin')

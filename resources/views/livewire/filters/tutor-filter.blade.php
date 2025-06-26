@@ -1,6 +1,6 @@
 <div class="space-y-4">
     @hasanyrole(['admin', 'gestor-teacher'])
-        @livewire('tutor.assign-students-modal')
+        @livewire('modals.assign-students-modal')
     @endhasanyrole
     <div class="w-full px-2 md:px-8" wire:ignore>
         <!-- Buscador y botón Nuevo Tutor (común) -->
@@ -87,29 +87,54 @@
                         <div class="container px-6 py-10 mx-auto shadow rounded-box">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <div>
-                                    <h1 class="text-xl font-semibold mb-4">{{ $student['name'] }}</h1>
+                                    <h1 class="text-xl mb-4">
+                                        <span class="font-medium">Estudiante ·</span>
+                                        {{ $student['name'] }}
+                                    </h1>
                                     <div class="inline-flex flex-col gap-1">
                                         <span class="text-gray-400">
                                             <span class="font-medium">Institución ·</span>
                                             {{ $student['institution'] }}
                                         </span>
                                         <span class="text-gray-400">
-                                            {{ $student['visits_made'] }} de {{ $student['required_visits'] }} Visitas
+                                            <span class="font-medium">Fecha de Visita ·</span>
+                                            {{ $student['date'] }}
+                                        </span>
+                                        <span class="text-gray-400">
+                                            <span class="font-medium">Hora de Visita ·</span>
+                                            {{ $student['time'] }}
+                                        </span>
+                                        <span class="text-gray-400">
+                                            <span class="font-medium">Visita ·</span>
+                                            {{ $student['visits_made'] }} de {{ $student['required_visits'] }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="md:col-span-2 md:col-start-3 lg:col-span-2 lg:col-start-4">
                                     <div class="inline-flex flex-col items-center gap-4">
-                                        <div>
-                                            <button type="button" class="btn btn-primary"
-                                                wire:click="$emit('openVisitModal', {{ $student['tutor_student_id'] }})">
-                                                <span class="icon-[tabler--calendar-plus] size-6"></span>
-                                                {{ __('Agendar Visita') }}
-                                            </button>
-                                        </div>
-                                        <a href="" class="text-blue-500 underline">
-                                            Ver Detalles
-                                        </a>
+                                        @if (!$student['is_dual'] && $student['visits_made'] >= $student['required_visits'])
+                                            <div class="badge badge-soft badge-success h-auto py-2 text-[1rem]">Visita
+                                                completada</div>
+                                        @elseif ($student['is_dual'] && $student['visits_made'] >= $student['required_visits'])
+                                            <div class="badge badge-soft badge-success">Visitas completadas</div>
+                                        @else
+                                            @if ($student['visit_action'] === 'edit')
+                                                <button type="button" class="btn btn-primary"
+                                                    wire:click="$emit('openEdit', {{ $student['visit_id'] }})">
+                                                    <span class="icon-[tabler--calendar-plus] size-6"></span>
+                                                    {{ $student['visit_button_text'] }}
+                                                </button>
+                                                <button wire:click="$emit('openEditVisit', {{ $student['visit_id'] }})">
+                                                    Ver detalles
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn btn-primary"
+                                                    wire:click="$emit('openCreate', {{ $student['tutor_students_id'] }})">
+                                                    <span class="icon-[tabler--calendar-plus] size-6"></span>
+                                                    {{ $student['visit_button_text'] }}
+                                                </button>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
                             </div>

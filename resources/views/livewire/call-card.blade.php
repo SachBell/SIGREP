@@ -9,39 +9,41 @@
                     @elseif ($call->status === 'Finalizado') bg-red-400 @endif">
                 </div>
             </div>
-            <div class="absolute right-2 top-2">
-                <div class="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
-                    <button id="dropdown-scrollable" type="button"
-                        class="dropdown-toggle btn btn-text btn-circle dropdown-open:bg-base-content/10 size-10"
-                        aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                        <div class="indicator">
-                            <span class="icon-[tabler--dots-vertical] text-base-content size-6"></span>
-                        </div>
-                    </button>
-                    <div class="dropdown-menu dropdown-open:opacity-100 hidden p-0" role="menu"
-                        aria-orientation="horizontal" aria-labelledby="dropdown-scrollable">
-                        <div class="overflow-auto text-base-content/80 max-h-56 max-md:max-w-30">
-                            <div class="flex flex-col">
-                                <button onclick="Livewire.emit('openEdit', {{ $call->id }})"
-                                    class="dropdown-item inline-flex items-center gap-2">
-                                    <span class="icon-[tabler--pencil] size-5"></span>
-                                    {{ __('Editar') }}
-                                </button>
-                                <form class="dropdown-item" action="{{ route('app-calls.destroy', $call->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" class="inline-flex items-center gap-2">
-                                        <span class="icon-[tabler--trash] size-5"></span>
-                                        {{ __('Elimar') }}
+            @hasanyrole(['admin', 'gestor-teacher'])
+                <div class="absolute right-2 top-2">
+                    <div class="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
+                        <button id="dropdown-scrollable" type="button"
+                            class="dropdown-toggle btn btn-text btn-circle dropdown-open:bg-base-content/10 size-10"
+                            aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                            <div class="indicator">
+                                <span class="icon-[tabler--dots-vertical] text-base-content size-6"></span>
+                            </div>
+                        </button>
+                        <div class="dropdown-menu dropdown-open:opacity-100 hidden p-0" role="menu"
+                            aria-orientation="horizontal" aria-labelledby="dropdown-scrollable">
+                            <div class="overflow-auto text-base-content/80 max-h-56 max-md:max-w-30">
+                                <div class="flex flex-col">
+                                    <button onclick="Livewire.emit('openEdit', {{ $call->id }})"
+                                        class="dropdown-item inline-flex items-center gap-2">
+                                        <span class="icon-[tabler--pencil] size-5"></span>
+                                        {{ __('Editar') }}
                                     </button>
-                                </form>
+                                    <form class="dropdown-item" action="{{ route('app-calls.destroy', $call->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="inline-flex items-center gap-2">
+                                            <span class="icon-[tabler--trash] size-5"></span>
+                                            {{ __('Elimar') }}
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endhasallroles
             <div class="flex justify-center">
                 <figure
                     class="max-w-fit inline-flex mb-2 p-3 rounded-full @if ($call->status === 'Activo') bg-green-100 @elseif ($call->status === 'Finalizado') bg-red-100 @else bg-gray-100 @endif">
@@ -114,7 +116,7 @@
                         </button>
                     @endif
                 </div>
-                @livewire('application-modal')
+                @livewire('modals.application-modal')
             @endrole
         </div>
     @endforeach
