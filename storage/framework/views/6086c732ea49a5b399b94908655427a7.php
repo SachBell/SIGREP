@@ -30,7 +30,7 @@ unset($__errorArgs, $__bag); ?>
 
                 <div>
                     <label class="block font-medium mb-1">Hora</label>
-                    <input type="time" wire:model.defer="formData.time" class="input w-full">
+                    <input type="time" step="1" wire:model.defer="formData.time" class="input w-full">
                     <?php $__errorArgs = ['formData.time'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

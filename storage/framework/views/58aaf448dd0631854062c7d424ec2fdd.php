@@ -314,14 +314,12 @@
             <?php endif; ?>
         </ul>
     </div>
-
     <div class="divider divider-neutral"></div>
-    <div class="drawer-bottom">
+    <div class="drawer-footer">
         <div class="w-full flex flex-col items-center">
             <span class="-ms-1 text-white/50 text-sm font-medium">Desarrollado por <a href=""
                     class="nav-link text-white hover:text-white/75 transition-colors">YggdrasilCode</a></span>
         </div>
     </div>
-
 </aside>
 <?php /**PATH C:\laragon\www\practicasisus\resources\views/partials/sidebar.blade.php ENDPATH**/ ?>
