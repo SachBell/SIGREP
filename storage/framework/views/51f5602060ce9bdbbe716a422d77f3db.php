@@ -1,4 +1,4 @@
-<?php $__env->startSection('title', 'Administrador de Usuarios'); ?>
+<?php $__env->startSection('title', 'Inicio'); ?>
 <?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
 <?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -9,30 +9,12 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-
      <?php $__env->slot('header', null, []); ?> 
         <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
-            <?php echo e(__('Administrador de Usuarios')); ?>
+            <?php echo e(__('Bienvenido de nuevo ' . auth()->user()->name)); ?>
 
         </h2>
      <?php $__env->endSlot(); ?>
-
-    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('filters.users-filter')->html();
-} elseif ($_instance->childHasBeenRendered('jWthBdp')) {
-    $componentId = $_instance->getRenderedChildComponentId('jWthBdp');
-    $componentTag = $_instance->getRenderedChildComponentTagName('jWthBdp');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('jWthBdp');
-} else {
-    $response = \Livewire\Livewire::mount('filters.users-filter');
-    $html = $response->html();
-    $_instance->logRenderedChild('jWthBdp', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
@@ -43,4 +25,4 @@ echo $html;
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/admin/manage-users/index.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/dashboard/index.blade.php ENDPATH**/ ?>

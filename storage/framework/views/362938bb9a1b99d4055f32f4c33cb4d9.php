@@ -19,15 +19,15 @@
     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('filters.posts-filter')->html();
-} elseif ($_instance->childHasBeenRendered('2QP26Zv')) {
-    $componentId = $_instance->getRenderedChildComponentId('2QP26Zv');
-    $componentTag = $_instance->getRenderedChildComponentTagName('2QP26Zv');
+} elseif ($_instance->childHasBeenRendered('Ir0e2na')) {
+    $componentId = $_instance->getRenderedChildComponentId('Ir0e2na');
+    $componentTag = $_instance->getRenderedChildComponentTagName('Ir0e2na');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('2QP26Zv');
+    $_instance->preserveRenderedChild('Ir0e2na');
 } else {
     $response = \Livewire\Livewire::mount('filters.posts-filter');
     $html = $response->html();
-    $_instance->logRenderedChild('2QP26Zv', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('Ir0e2na', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

@@ -16,30 +16,7 @@
         </h2>
      <?php $__env->endSlot(); ?>
 
-    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('modals.call-modal')->html();
-} elseif ($_instance->childHasBeenRendered('pMH2Ck3')) {
-    $componentId = $_instance->getRenderedChildComponentId('pMH2Ck3');
-    $componentTag = $_instance->getRenderedChildComponentTagName('pMH2Ck3');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('pMH2Ck3');
-} else {
-    $response = \Livewire\Livewire::mount('modals.call-modal');
-    $html = $response->html();
-    $_instance->logRenderedChild('pMH2Ck3', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-
     <div class="flex flex-col gap-8">
-        <div class="flex justify-end">
-            <button onclick="Livewire.emit('openCreate')" class="btn btn-primary bg-blue-800 hover:bg-blue-900">
-                <span class="icon-[tabler--apps] size-5"></span>
-                <?php echo e(__('Nueva Convocatoria')); ?>
-
-            </button>
-        </div>
         <div>
             <?php if($calls->isEmpty()): ?>
                 <span>No hay datos</span>
@@ -47,15 +24,15 @@ echo $html;
                 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('call-card')->html();
-} elseif ($_instance->childHasBeenRendered('mbAufgv')) {
-    $componentId = $_instance->getRenderedChildComponentId('mbAufgv');
-    $componentTag = $_instance->getRenderedChildComponentTagName('mbAufgv');
+} elseif ($_instance->childHasBeenRendered('AC4pfPo')) {
+    $componentId = $_instance->getRenderedChildComponentId('AC4pfPo');
+    $componentTag = $_instance->getRenderedChildComponentTagName('AC4pfPo');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('mbAufgv');
+    $_instance->preserveRenderedChild('AC4pfPo');
 } else {
     $response = \Livewire\Livewire::mount('call-card');
     $html = $response->html();
-    $_instance->logRenderedChild('mbAufgv', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('AC4pfPo', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -72,4 +49,4 @@ echo $html;
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
 <?php endif; ?>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/admin/app-calls/index.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\practicasisus\resources\views/dashboard/app-calls/index.blade.php ENDPATH**/ ?>

@@ -20,6 +20,38 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
+    <?php if (\Illuminate\Support\Facades\Blade::check('role', 'tutor')): ?>
+        <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('modals.visits-modal')->html();
+} elseif ($_instance->childHasBeenRendered('sV8h7xo')) {
+    $componentId = $_instance->getRenderedChildComponentId('sV8h7xo');
+    $componentTag = $_instance->getRenderedChildComponentTagName('sV8h7xo');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('sV8h7xo');
+} else {
+    $response = \Livewire\Livewire::mount('modals.visits-modal');
+    $html = $response->html();
+    $_instance->logRenderedChild('sV8h7xo', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+        <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('modals.visit-details-modal')->html();
+} elseif ($_instance->childHasBeenRendered('cmzHWPy')) {
+    $componentId = $_instance->getRenderedChildComponentId('cmzHWPy');
+    $componentTag = $_instance->getRenderedChildComponentTagName('cmzHWPy');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('cmzHWPy');
+} else {
+    $response = \Livewire\Livewire::mount('modals.visit-details-modal');
+    $html = $response->html();
+    $_instance->logRenderedChild('cmzHWPy', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
+    <?php endif; ?>
      <?php $__env->slot('header', null, []); ?> 
         <h2 class="font-semibold text-xl text-gray-800 leading-tigth">
             <?php if (\Illuminate\Support\Facades\Blade::check('role', 'admin')): ?>
@@ -38,15 +70,15 @@
     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('filters.tutor-filter')->html();
-} elseif ($_instance->childHasBeenRendered('cGETJwE')) {
-    $componentId = $_instance->getRenderedChildComponentId('cGETJwE');
-    $componentTag = $_instance->getRenderedChildComponentTagName('cGETJwE');
+} elseif ($_instance->childHasBeenRendered('Pf6qf5V')) {
+    $componentId = $_instance->getRenderedChildComponentId('Pf6qf5V');
+    $componentTag = $_instance->getRenderedChildComponentTagName('Pf6qf5V');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('cGETJwE');
+    $_instance->preserveRenderedChild('Pf6qf5V');
 } else {
     $response = \Livewire\Livewire::mount('filters.tutor-filter');
     $html = $response->html();
-    $_instance->logRenderedChild('cGETJwE', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('Pf6qf5V', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
