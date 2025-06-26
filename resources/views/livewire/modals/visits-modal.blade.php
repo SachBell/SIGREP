@@ -22,7 +22,7 @@
 
                 <div>
                     <label class="block font-medium mb-1">Hora</label>
-                    <input type="time" wire:model.defer="formData.time" class="input w-full">
+                    <input type="time" step="1" wire:model.defer="formData.time" class="input w-full">
                     @error('formData.time')
                         <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror

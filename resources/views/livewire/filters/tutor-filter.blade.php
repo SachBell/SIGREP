@@ -115,12 +115,12 @@
                                         @if (!$student['is_dual'] && $student['visits_made'] >= $student['required_visits'])
                                             <div class="badge badge-soft badge-success h-auto py-2 text-[1rem]">Visita
                                                 completada</div>
-                                        @elseif ($student['is_dual'] && $student['visits_made'] >= $student['required_visits'])
+                                        @elseif ($student['is_dual'] && $student['visits_made'] >= $student['required_visits'] && $student['second_visit_completed'])
                                             <div class="badge badge-soft badge-success">Visitas completadas</div>
                                         @else
                                             @if ($student['visit_action'] === 'edit')
                                                 <button type="button" class="btn btn-primary"
-                                                    wire:click="$emit('openEdit', {{ $student['visit_id'] }})">
+                                                    wire:click="$emit('openEdit', {{ $student['visit_id'] }}, {{ $student['tutor_students_id'] }})">
                                                     <span class="icon-[tabler--calendar-plus] size-6"></span>
                                                     {{ $student['visit_button_text'] }}
                                                 </button>

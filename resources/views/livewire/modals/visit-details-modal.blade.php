@@ -28,7 +28,6 @@
                 <input type="checkbox" wire:model.defer="formData.is_complete" id="completed" class="checkbox checkbox-sm checkbox-primary" />
                 <x-input-label for="complete" :value="__('Visita completada')"/>
                 <x-input-error :messages="$errors->get('formData.is_complete')" class="mt-2" />
-
             </div>
         </div>
 
