@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('tutor_visits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tutor_student_id')
+            $table->foreignId('tutor_students_id')
             ->nullable()
             ->constrained('tutor_students')
             ->nullOnDelete();
             $table->date('date');
+            $table->time('time');
+            $table->boolean('is_complete')->default(false);
             $table->text('observation');
             $table->timestamps();
         });
