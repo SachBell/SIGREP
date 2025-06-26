@@ -14,7 +14,13 @@ class TutorVisits extends Model
     protected $fillable = [
         'tutor_students_id',
         'date',
-        'observations'
+        'time',
+        'is_complete',
+        'observation'
+    ];
+
+    protected $casts = [
+        'is_complete' => 'boolean'
     ];
 
     public function tutors()
