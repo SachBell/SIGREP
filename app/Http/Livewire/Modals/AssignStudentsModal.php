@@ -61,11 +61,6 @@ class AssignStudentsModal extends GlobalModal
             'selectedStudents' => [
                 'sometimes',
                 'array',
-                function ($attribute, $value, $fail) {
-                    if (empty($value)) {
-                        $fail('Debe seleccionar al menos un estudiante.');
-                    }
-                }
             ],
             'selectedStudents.*' => [
                 'integer',
@@ -123,11 +118,6 @@ class AssignStudentsModal extends GlobalModal
     {
         $this->validate();
 
-        if (empty($this->selectedStudents)) {
-            $this->addError('selectedStudents', 'Debe seleccionar al menos un estudiante.');
-            return;
-        }
-
         $studentsWithoutApplications = UserData::whereIn('id', $this->selectedStudents)
             ->whereDoesntHave('applicationDetail')
             ->count();
@@ -162,16 +152,13 @@ class AssignStudentsModal extends GlobalModal
     public function getShouldDisableSaveButtonProperty()
     {
 
-        if (empty($this->selectedStudents)) {
-            return true;
-        }
-
         if ($this->entityID) {
             $currentStudents = $this->model->students->pluck('id')->toArray();
             sort($currentStudents);
-            sort($this->selectedStudents);
+            $selected = $this->selectedStudents;
+            sort($selected);
 
-            if ($currentStudents == $this->selectedStudents) {
+            if ($currentStudents == $selected) {
                 return true;
             }
         }

@@ -34,6 +34,14 @@ class VisitsModal extends GlobalModal
         $this->isOpen = true;
     }
 
+    public function openEdit($visitID, $tutorStudentID = null)
+    {
+        $this->entityID = $visitID;
+        $this->tutorStudentID = $tutorStudentID;
+        $this->loadEditData($visitID);
+        $this->isOpen = true;
+    }
+
     public function loadCreateData($tutorStudentID)
     {
         $this->tutorStudentID = $tutorStudentID;
@@ -71,6 +79,7 @@ class VisitsModal extends GlobalModal
 
         $this->tutorStudentID = $this->model->tutor_students_id;
         $this->formData = [
+            'tutor_student_id' => $this->tutorStudentID,
             'date' => $this->model->date,
             'time' => $this->model->time,
             'observation' => $this->model->observation,
@@ -83,7 +92,7 @@ class VisitsModal extends GlobalModal
     {
         return [
             'formData.date' => ['required', 'date'],
-            'formData.time' => ['required', 'date_format:H:i'],
+            'formData.time' => ['required', 'date_format:H:i:s'],
             'formData.observation' => ['nullable', 'string', 'max:1000'],
         ];
     }
@@ -103,8 +112,26 @@ class VisitsModal extends GlobalModal
             return;
         }
 
-        parent::save();
+        $time = $this->formData['time'];
+        if (strlen($time) === 5) {
+            $time .= ':00';
+        }
 
+        $data = [
+            'date' => $this->formData['date'],
+            'time' => $time,
+            'observation' => $this->formData['observation'],
+            'tutor_students_id' => $this->tutorStudentID,
+        ];
+
+        if ($this->entityID && $this->model) {
+            $this->model->update($data);
+        } else {
+            TutorVisits::create($data);
+        }
+
+        $this->closeModal();
+        $this->redirectAfterSave();
         $this->dispatchBrowserEvent('notify', [
             'type' => 'success',
             'message' => $this->entityID ? 'Visita actualizada.' : 'Visita registrada exitosamente.'
@@ -113,7 +140,7 @@ class VisitsModal extends GlobalModal
 
     public function redirectAfterSave(): ?string
     {
-        return null;
+        return $this->redirectRoute('tutor-student.index');
     }
 
     public function authorizeAction($action, $model = null)

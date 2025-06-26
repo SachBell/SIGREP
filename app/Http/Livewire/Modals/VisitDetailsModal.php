@@ -18,6 +18,7 @@ class VisitDetailsModal extends GlobalModal
 
     public function mount($visitID = null, $tutorStudentID = null)
     {
+        $this->resetForm();
         $this->visitID = $visitID;
         $this->tutorStudentID = $tutorStudentID;
 
@@ -30,6 +31,7 @@ class VisitDetailsModal extends GlobalModal
     {
         $this->resetForm();
         $this->visitID = $visitID;
+        $this->model = TutorVisits::findOrFail($visitID);
         $this->loadEditData($visitID);
         $this->isOpen = true;
     }
@@ -76,16 +78,17 @@ class VisitDetailsModal extends GlobalModal
             ]);
         }
 
+        $this->closeModal();
+        $this->redirectAfterSave();
         $this->dispatchBrowserEvent('notify', [
             'type' => 'success',
             'message' => 'Visita actualizada correctamente.'
         ]);
-        $this->closeModal();
     }
 
     public function redirectAfterSave(): ?string
     {
-        return null;
+        return $this->redirectRoute('tutor-student.index');
     }
 
     public function authorizeAction($action, $model = null)

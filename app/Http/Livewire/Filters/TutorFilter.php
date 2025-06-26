@@ -7,6 +7,8 @@ use App\Models\TutorStudent;
 use App\Models\TutorVisits;
 use Livewire\Component;
 
+use function Psy\debug;
+
 class TutorFilter extends Component
 {
     public $search = '';
@@ -57,37 +59,47 @@ class TutorFilter extends Component
                 $tutorStudentId = optional($relation)->id;
 
                 $visits = TutorVisits::where('tutor_students_id', $tutorStudentId)
-                    ->orderBy('date')
+                    ->orderBy('created_at', 'asc')
+                    ->orderBy('id', 'asc')
                     ->get();
-
-                $visit = TutorVisits::where('tutor_students_id', $tutorStudentId)->get();
 
                 $firstVisit = $visits->get(0);
                 $secondVisit = $visits->get(1);
+
+                $visitToShow = null;
+
+                $secondVisitCompleted = $secondVisit ? (bool)$secondVisit->is_complete : false;
 
                 $isDual = $student->userData->careers->is_dual ?? false;
                 $requiredVisits = $isDual ? 2 : 1;
                 $visitsMade = $visits->count();
 
-                $visitButtonText = 'Agendar visita';
-                $visitAction = 'create';
-                $visitId = null;
-
-                if (!$isDual && $firstVisit) {
-                    $visitButtonText = 'Editar visita';
-                    $visitAction = 'edit';
-                    $visitId = $firstVisit->id;
-                } elseif ($isDual && $firstVisit && !$firstVisit->is_completed) {
-                    $visitButtonText = 'Editar primera visita';
-                    $visitAction = 'edit';
-                    $visitId = $firstVisit->id;
-                } elseif ($isDual && $firstVisit && $firstVisit->is_completed && !$secondVisit) {
-                    $visitButtonText = 'Asignar segunda visita';
-                    $visitAction = 'create';
-                } elseif ($isDual && $secondVisit) {
+                if ($isDual && $secondVisit) {
                     $visitButtonText = 'Editar segunda visita';
                     $visitAction = 'edit';
                     $visitId = $secondVisit->id;
+                } elseif ($isDual && $firstVisit && $firstVisit->is_complete && !$secondVisit) {
+                    $visitButtonText = 'Asignar segunda visita';
+                    $visitAction = 'create';
+                    $visitId = null;
+                } elseif ($isDual && $firstVisit && !$firstVisit->is_complete) {
+                    $visitButtonText = 'Editar primera visita';
+                    $visitAction = 'edit';
+                    $visitId = $firstVisit->id;
+                } elseif (!$isDual && $firstVisit) {
+                    $visitButtonText = 'Editar visita';
+                    $visitAction = 'edit';
+                    $visitId = $firstVisit->id;
+                } else {
+                    $visitButtonText = 'Agendar visita';
+                    $visitAction = 'create';
+                    $visitId = null;
+                }
+
+                if (isset($visitId) && $visitId !== null) {
+                    $visitToShow = $visits->firstWhere('id', $visitId);
+                } else {
+                    $visitToShow = $firstVisit;
                 }
 
                 return [
@@ -97,17 +109,18 @@ class TutorFilter extends Component
                     'career' => $student->userData->careers->name ?? 'Sin carrera',
                     'semester' => $student->userData->semesters->semester ?? 'Sin semestre',
                     'grade' => $student->userData->grades->grade ?? 'Sin grado',
-                    'date' => $visit->first()->date ?? 'Sin Fecha',
-                    'time' => $visit->first()->time ?? 'Sin Hora',
+                    'date' => $visitToShow->date ?? 'Sin Fecha',
+                    'time' => $visitToShow->time ?? 'Sin Hora',
                     'visits_made' => $visitsMade,
                     'required_visits' => $requiredVisits,
                     'tutor_students_id' => $tutorStudentId,
                     'visit_action' => $visitAction,
                     'visit_button_text' => $visitButtonText,
+                    'second_visit_completed' => $secondVisitCompleted,
                     'visit_id' => $visitId,
                     'is_dual' => $isDual
                 ];
-            });
+            })->filter()->values(); // para quitar nulls
 
             // Para admin/gestor mostrar lista simple
             if ($authUser->hasAnyRole(['admin', 'gestor-teacher'])) {
