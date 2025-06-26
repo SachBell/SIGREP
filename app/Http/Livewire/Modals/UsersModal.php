@@ -92,7 +92,7 @@ class UsersModal extends GlobalModal
 
         $this->formData = array_merge($this->formData, [
             'name' => $teacherProfile->name ?? '',
-            'lastnames' => $teacherProfile->lastname ?? '',
+            'lastnames' => $teacherProfile->lastnames ?? '',
             'career' => $teacherProfile->career_id ?? '',
         ]);
     }
@@ -297,7 +297,7 @@ class UsersModal extends GlobalModal
     {
         $teacherData = [
             'name' => $this->formData['name'],
-            'lastname' => $this->formData['lastnames'],
+            'lastnames' => $this->formData['lastnames'],
             'career_id' => $this->formData['career'],
             'users_id' => $this->model->id,
         ];

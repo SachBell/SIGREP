@@ -26,6 +26,7 @@ abstract class GlobalModal extends Component
 
     public function openEdit($id)
     {
+        $this->resetForm();
         $this->entityID = $id;
         $model = $this->modelClass()::findOrFail($id);
         $this->authorizeAction('update', $model);

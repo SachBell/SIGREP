@@ -17,7 +17,7 @@ class ApplicationModal extends GlobalModal
 
     public function mount()
     {
-        $this->institutes = ReceivingEntity::all();
+        $this->institutes = ReceivingEntity::byEntityCareer(auth()->user())->get();
         $this->userFullname = auth()->user()->profile->name . ' ' . auth()->user()->profile->lastnames;
     }
 

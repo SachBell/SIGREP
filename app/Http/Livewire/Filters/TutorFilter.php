@@ -50,13 +50,45 @@ class TutorFilter extends Component
         // Obtener resultados y procesar
         $studentTutor = $query->get()->map(function ($teacher) use ($authUser) {
             $studentsData = $teacher->students->map(function ($student) use ($teacher) {
-                // Obtener visitas para este estudiante y tutor
-                $visits = TutorVisits::where(
-                    'tutor_student_id',
-                    TutorStudent::where('teacher_profile_id', $teacher->id)
-                        ->where('user_profile_id', $student->id)
-                        ->first()->id ?? null
-                )->count();
+                $relation = TutorStudent::where('teacher_profile_id', $teacher->id)
+                    ->where('user_profile_id', $student->id)
+                    ->first();
+
+                $tutorStudentId = optional($relation)->id;
+
+                $visits = TutorVisits::where('tutor_students_id', $tutorStudentId)
+                    ->orderBy('date')
+                    ->get();
+
+                $visit = TutorVisits::where('tutor_students_id', $tutorStudentId)->get();
+
+                $firstVisit = $visits->get(0);
+                $secondVisit = $visits->get(1);
+
+                $isDual = $student->userData->careers->is_dual ?? false;
+                $requiredVisits = $isDual ? 2 : 1;
+                $visitsMade = $visits->count();
+
+                $visitButtonText = 'Agendar visita';
+                $visitAction = 'create';
+                $visitId = null;
+
+                if (!$isDual && $firstVisit) {
+                    $visitButtonText = 'Editar visita';
+                    $visitAction = 'edit';
+                    $visitId = $firstVisit->id;
+                } elseif ($isDual && $firstVisit && !$firstVisit->is_completed) {
+                    $visitButtonText = 'Editar primera visita';
+                    $visitAction = 'edit';
+                    $visitId = $firstVisit->id;
+                } elseif ($isDual && $firstVisit && $firstVisit->is_completed && !$secondVisit) {
+                    $visitButtonText = 'Asignar segunda visita';
+                    $visitAction = 'create';
+                } elseif ($isDual && $secondVisit) {
+                    $visitButtonText = 'Editar segunda visita';
+                    $visitAction = 'edit';
+                    $visitId = $secondVisit->id;
+                }
 
                 return [
                     'id' => $student->id,
@@ -65,11 +97,15 @@ class TutorFilter extends Component
                     'career' => $student->userData->careers->name ?? 'Sin carrera',
                     'semester' => $student->userData->semesters->semester ?? 'Sin semestre',
                     'grade' => $student->userData->grades->grade ?? 'Sin grado',
-                    'visits_made' => $visits,
-                    'required_visits' => $student->userData->careers->is_dual ? 2 : 1,
-                    'tutor_student_id' => TutorStudent::where('teacher_profile_id', $teacher->id)
-                        ->where('user_profile_id', $student->id)
-                        ->first()->id ?? null
+                    'date' => $visit->first()->date ?? 'Sin Fecha',
+                    'time' => $visit->first()->time ?? 'Sin Hora',
+                    'visits_made' => $visitsMade,
+                    'required_visits' => $requiredVisits,
+                    'tutor_students_id' => $tutorStudentId,
+                    'visit_action' => $visitAction,
+                    'visit_button_text' => $visitButtonText,
+                    'visit_id' => $visitId,
+                    'is_dual' => $isDual
                 ];
             });
 
