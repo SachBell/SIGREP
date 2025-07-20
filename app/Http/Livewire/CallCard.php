@@ -42,7 +42,7 @@ class CallCard extends Component
         return view('livewire.call-card', [
             'appCalls' => $this->appCalls,
             'careers' => $this->careers,
-            'registrationCounts' => $this->registrationCounts // Pasamos los conteos a la vista
+            'registrationCounts' => $this->registrationCounts
         ]);
     }
 }
