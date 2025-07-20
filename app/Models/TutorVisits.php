@@ -25,6 +25,6 @@ class TutorVisits extends Model
 
     public function tutors()
     {
-        return $this->belongsTo(TutorStudent::class);
+        return $this->belongsTo(TutorStudent::class, 'tutor_students_id');
     }
 }
