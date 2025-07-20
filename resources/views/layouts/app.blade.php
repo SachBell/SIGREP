@@ -33,6 +33,7 @@
             @endif
 
             <div class="px-8 py-12">
+                @livewire('notification-banner')
                 <div>
                     {{ $slot }}
                 </div>
