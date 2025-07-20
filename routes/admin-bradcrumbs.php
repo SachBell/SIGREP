@@ -35,3 +35,8 @@ Breadcrumbs::for('careers.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push(__('Gestor de Carreras'), route('careers.index'));
 });
+
+Breadcrumbs::for('settings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Settings'), route('settings.index'));
+});

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\ConvenantController;
 use App\Http\Controllers\Admin\ManageUsersController;
 use App\Http\Controllers\Admin\StudentPostController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Tutor\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,7 @@ Route::middleware(['role:admin|gestor-teacher|tutor'])->group(function () {
     Route::resource('careers', CareerController::class);
     Route::resource('student-posts', StudentPostController::class);
     Route::resource('tutor-student', StudentController::class);
+
+    Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::put('settings', [SettingsController::class, 'emailsUpdate'])->name('settings.emailsUpdate');
 });
