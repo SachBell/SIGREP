@@ -9,7 +9,14 @@ class CareerModal extends GlobalModal
 {
     use AuthorizesRequests;
 
+    public $entityID;
     public $is_dual = false;
+
+    protected $listeners = [
+        'openCreate',
+        'openEdit',
+        'delete',
+    ];
 
     public function mount($entityID = null)
     {
@@ -52,7 +59,20 @@ class CareerModal extends GlobalModal
         // Validación personalizada
         $this->validate();
 
-        parent::save(); // Usa la lógica del GlobalFormModal
+        if ($this->entityID) {
+            $career = Career::findOrFail($this->entityID);
+            $career->update($this->formData);
+        } else {
+            Career::create($this->formData);
+        }
+
+        $this->closeModal();
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'success',
+            'message' => $this->entityID ? 'Carrera actualizada exitosamente.' : 'Carrera creada exitosamente.'
+        ]);
+
+        $this->emit('refreshTutorFilter');
     }
 
     public function authorizeAction($action, $model = null)
@@ -63,6 +83,22 @@ class CareerModal extends GlobalModal
     public function redirectAfterSave(): ?string
     {
         return $this->redirectRoute('careers.index');
+    }
+
+    public function delete($id)
+    {
+        $career = Career::findOrFail($id);
+
+        // $this->authorize('delete', $call);
+
+        $career->delete();
+
+        $this->emit('refreshTutorFilter');
+
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'error',
+            'message' => 'Carrera eliminada exitosamente'
+        ]);
     }
 
     public function render()

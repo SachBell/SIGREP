@@ -13,7 +13,7 @@ class VisitDetailsModal extends GlobalModal
     public $formData = [];
 
     protected $listeners = [
-        'openEditVisit' => 'openEdit', // para editar visita con visit_id
+        'openEditVisit' => 'openEdit',
     ];
 
     public function mount($visitID = null, $tutorStudentID = null)
@@ -45,7 +45,7 @@ class VisitDetailsModal extends GlobalModal
             'date' => $this->model->date,
             'time' => $this->model->time,
             'observation' => $this->model->observation,
-            'is_completed' => $this->model->is_completed,
+            'is_complete' => $this->model->is_complete,
         ];
 
         $this->tutorStudentID = $this->model->tutor_students_id;
@@ -79,11 +79,11 @@ class VisitDetailsModal extends GlobalModal
         }
 
         $this->closeModal();
-        $this->redirectAfterSave();
         $this->dispatchBrowserEvent('notify', [
             'type' => 'success',
-            'message' => 'Visita actualizada correctamente.'
+            'message' => $this->visitID ? 'Visita asignada exitosamente.' : 'Visita actualizada exitosamente.'
         ]);
+        $this->emit('refreshTutorFilter');
     }
 
     public function redirectAfterSave(): ?string

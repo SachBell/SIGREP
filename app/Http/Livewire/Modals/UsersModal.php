@@ -21,6 +21,12 @@ class UsersModal extends GlobalModal
     public $grades = [];
     public $selectedRole = null;
 
+    protected $listeners = [
+        'openCreate',
+        'openEdit',
+        'delete',
+    ];
+
     public function mount($entityID = null)
     {
         $this->entityID = $entityID;
@@ -250,7 +256,11 @@ class UsersModal extends GlobalModal
         $this->handleRoleSpecificData();
 
         $this->closeModal();
-        $this->redirectAfterSave();
+        $this->emit('refreshTutorFilter');
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'success',
+            'message' => $this->entityID ? 'Usuario actualizado exitosamente.' : 'Usuario creado exitosamente.'
+        ]);
     }
 
     protected function handleRoleSpecificData()
@@ -316,6 +326,34 @@ class UsersModal extends GlobalModal
     public function redirectAfterSave(): ?string
     {
         return $this->redirectRoute('manage-users.index');
+    }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $this->authorize('delete', $user);
+
+        if ($user->profile) {
+            if ($user->profile) {
+                if ($user->profile->userData) {
+                    $user->profile->userData->delete();
+                }
+                $user->profile->delete();
+            }
+        }
+
+        if ($user->teacherProfile) {
+            $user->teacherProfile->delete();
+        }
+
+        $user->delete();
+
+        $this->emit('refreshTutorFilter');
+
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'error',
+            'message' => 'Usuario eliminado correctamente'
+        ]);
     }
 
     public function render()

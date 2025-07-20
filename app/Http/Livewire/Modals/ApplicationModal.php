@@ -13,7 +13,9 @@ class ApplicationModal extends GlobalModal
     public $selectedInstitute;
     public $userFullname;
 
-    protected $listeners = ['openApplicationModal' => 'openApplication'];
+    protected $listeners = [
+        'openApplicationModal' => 'openApplication',
+    ];
 
     public function mount()
     {

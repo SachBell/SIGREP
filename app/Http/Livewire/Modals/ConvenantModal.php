@@ -19,6 +19,12 @@ class ConvenantModal extends GlobalModal
     public $careers = [];
     public $principalId = null;
 
+    protected $listeners = [
+        'openCreate',
+        'openEdit',
+        'delete',
+    ];
+
     public function mount($entityID = null)
     {
         $this->entityID = $entityID;
@@ -148,9 +154,6 @@ class ConvenantModal extends GlobalModal
             $this->principalId = optional($entity->principalData)->id;
         }
 
-        // logger('Error con principal: ' . $this->principalId);
-
-        // Validación personalizada
         $this->validate();
 
         try {
@@ -216,8 +219,13 @@ class ConvenantModal extends GlobalModal
                 }
             });
 
-            session()->flash('success', $this->entityID ? 'Convenio actualizado exitosamente' : 'Convenio creado exitosamente');
-            return redirect()->route('convenants.index');
+            $this->closeModal();
+            $this->dispatchBrowserEvent('notify', [
+                'type' => 'success',
+                'message' => $this->entityID ? 'Convenio actualizado exitosamente.' : 'Convenio creado exitosamente.'
+            ]);
+
+            $this->emit('refreshTutorFilter');
         } catch (\Throwable $e) {
             logger()->error('Error al cargar el convenio: ' . $e->getMessage());
 
@@ -239,6 +247,25 @@ class ConvenantModal extends GlobalModal
     public function redirectAfterSave(): ?string
     {
         return $this->redirectRoute('convenants.index');
+    }
+
+    public function delete($id)
+    {
+        $convenant = ReceivingEntity::findOrFail($id);
+        $this->authorize('delete', $convenant);
+
+        $convenant->delete();
+
+        if ($convenant->principalData) {
+            $convenant->principalData->delete();
+        }
+
+        $this->emit('refreshTutorFilter');
+
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'error',
+            'message' => 'Convenio eliminado correctamente'
+        ]);
     }
 
     public function render()

@@ -25,6 +25,12 @@ class PostsModal extends GlobalModal
     public $currentAssignment = null;
     public bool $isEditMode = false;
 
+    protected $listeners = [
+        'openCreate',
+        'openEdit',
+        'delete',
+    ];
+
     public function mount($entityID = null)
     {
         $this->entityID = $entityID;
@@ -112,7 +118,7 @@ class PostsModal extends GlobalModal
     {
         $this->calculateAvailableSlots();
 
-        $entity = ReceivingEntity::with('careers')->find($entityId);
+        $entity = ReceivingEntity::with(['careers'])->find($entityId);
         $this->maxStudents = $entity->user_limit;
 
         $careerIds = $entity->careers->pluck('id');
@@ -242,9 +248,12 @@ class PostsModal extends GlobalModal
             }
         }
 
-        $this->emit('showToast', 'success', $this->isEditMode ? 'Postulación actualizada' : 'Asignaciones guardadas');
         $this->closeModal();
-        $this->redirectAfterSave();
+        $this->emit('refreshTutorFilter');
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'success',
+            'message' => 'Postulación creada exitosamente'
+        ]);
     }
 
     public function closeModal()
@@ -334,6 +343,23 @@ class PostsModal extends GlobalModal
         return $this->selectedEntity
             ? optional($this->entities->firstWhere('id', $this->selectedEntity))->address
             : '';
+    }
+
+    public function delete($id)
+    {
+        $call = ApplicationDetail::findOrFail($id);
+
+        // $this->authorize('delete', $call);
+
+        $call->delete();
+
+        $this->emit('refreshTutorFilter');
+
+        $this->dispatchBrowserEvent('notify', [
+        'type' => 'error',
+            'message' => 'Postulación eliminada exitosamente'
+        ]);
+
     }
 
     public function render()

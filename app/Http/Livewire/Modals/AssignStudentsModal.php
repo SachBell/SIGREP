@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Modals;
 
+use App\Helpers\EmailTemplateHelper;
+use App\Mail\TutorAssignmentMail;
 use App\Models\TeacherProfile;
 use App\Models\UserData;
 use App\Models\UserProfile;
+use Illuminate\Support\Facades\Mail;
 
 class AssignStudentsModal extends GlobalModal
 {
@@ -12,6 +15,12 @@ class AssignStudentsModal extends GlobalModal
     public $selectedStudents = [];
     public $students = [];
     public $selectAll = false;
+
+    protected $listeners = [
+        'openCreate',
+        'openEdit',
+        'delete',
+    ];
 
     public function mount()
     {
@@ -129,9 +138,19 @@ class AssignStudentsModal extends GlobalModal
 
         if ($this->entityID) {
             $this->model->students()->sync($this->selectedStudents);
+
+            $tutor = $this->model;
+            $assignedStudents = UserProfile::whereIn('id', $this->selectedStudents)->get();
+
+            $this->notifyStudentsOfTutorAssignment($tutor, $assignedStudents);
         }
 
-        parent::save();
+        $this->closeModal();
+        $this->emit('refreshTutorFilter');
+        $this->dispatchBrowserEvent('notify', [
+            'type' => 'success',
+            'message' => 'Estudiantes actualizados exitosamente.'
+        ]);
     }
 
     public function updatedSelectAll($value)
@@ -178,5 +197,75 @@ class AssignStudentsModal extends GlobalModal
     public function render()
     {
         return view('livewire.modals.assign-students-modal');
+    }
+
+    protected function notifyStudentsOfTutorAssignment(TeacherProfile $tutor, $students)
+    {
+        if ($students->isEmpty()) {
+            return;
+        }
+
+        $template = EmailTemplateHelper::get('tutor_assignment_student');
+        if (!$template) {
+            return;
+        }
+
+        foreach ($students as $student) {
+            $subject = EmailTemplateHelper::renderSubject('tutor_assignment_student', [
+                'student_name' => $student->name,
+                'tutor_name' => $tutor->user->name,
+            ]);
+
+            $body = EmailTemplateHelper::renderBody('tutor_assignment_student', [
+                'student_name' => $student->name,
+                'tutor_name' => $tutor->user->name,
+                'career' => $tutor->career->name,
+            ]);
+
+            $actionText = EmailTemplateHelper::renderAction('tutor_assignment_student', [
+                'student_name' => $student->name,
+                'tutor_name' => $tutor->user->name,
+            ]);
+
+            Mail::to($student->user->email)->send(
+                new TutorAssignmentMail(
+                    $subject,
+                    $body,
+                    route('progres.index'),
+                    $actionText,
+                    $student->name
+                )
+            );
+        }
+
+        $studentListHtml = '<ul>' . collect($students)
+            ->map(function ($student) {
+                return "<li>{$student->id_card} - {$student->name} {$student->lastnames}</li>";
+            })
+            ->join('') . '</ul>';
+
+        $tutorSubject = EmailTemplateHelper::renderSubject('tutor_assignment_teacher', [
+            'tutor_name' => $tutor->user->name,
+        ]);
+
+        $tutorBody = EmailTemplateHelper::renderBody('tutor_assignment_teacher', [
+            'tutor_name' => $tutor->user->name,
+            'students_list' => $studentListHtml,
+            'career' => $tutor->career->name,
+        ]);
+
+        $tutorAction = EmailTemplateHelper::renderAction('tutor_assignment_teacher', [
+            'tutor_name' => $tutor->user->name,
+        ]);
+
+        Mail::to($tutor->user->email)->send(
+            new TutorAssignmentMail(
+                $tutorSubject,
+                $tutorBody,
+                route('tutor-student.index'),
+                $tutorAction,
+                $tutor->user->name
+            )
+        );
     }
 }

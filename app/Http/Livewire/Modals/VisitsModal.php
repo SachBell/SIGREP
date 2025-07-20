@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Modals;
 
+use App\Helpers\EmailTemplateHelper;
+use App\Mail\VisitAssignmentMail;
 use App\Models\TutorStudent;
 use App\Models\TutorVisits;
+use Illuminate\Support\Facades\Mail;
 
 class VisitsModal extends GlobalModal
 {
@@ -127,15 +130,16 @@ class VisitsModal extends GlobalModal
         if ($this->entityID && $this->model) {
             $this->model->update($data);
         } else {
-            TutorVisits::create($data);
+            $visit = TutorVisits::create($data);
+            $this->sendVisitAssignmentEmail($visit);
         }
 
         $this->closeModal();
-        $this->redirectAfterSave();
         $this->dispatchBrowserEvent('notify', [
             'type' => 'success',
             'message' => $this->entityID ? 'Visita actualizada.' : 'Visita registrada exitosamente.'
         ]);
+        $this->emit('refreshTutorFilter');
     }
 
     public function redirectAfterSave(): ?string
@@ -158,5 +162,45 @@ class VisitsModal extends GlobalModal
     public function render()
     {
         return view('livewire.modals.visits-modal');
+    }
+
+    public function sendVisitAssignmentEmail(TutorVisits $visit)
+    {
+        $visit = TutorVisits::with('tutors.userData')->find($visit->id);
+        $user = $visit->tutors->userData;
+
+        $visitNumber = $this->visitsMade + 1;
+        $visitDateFormatted = \Carbon\Carbon::parse($visit->date)->format('d/m/Y');
+        $visitTimeFormatted = \Carbon\Carbon::parse($visit->time)->format('H:i');
+
+        $template = EmailTemplateHelper::get('visit_assignment');
+        if (!$template) {
+            return;
+        }
+
+        $subject = EmailTemplateHelper::renderSubject('visit_assignment', [
+            'visit_number' => $visitNumber,
+            'visit_date' => $visitDateFormatted,
+        ]);
+
+        $body = EmailTemplateHelper::renderBody('visit_assignment', [
+            'visit_number' => $visitNumber,
+            'visit_date' => $visitDateFormatted,
+            'visit_time' => $visitTimeFormatted
+        ]);
+
+        $actionText = EmailTemplateHelper::renderAction('visit_assignment', [
+            'student_name' => $user->name,
+        ]);
+
+        Mail::to($user->user->email)->send(
+            new VisitAssignmentMail(
+                $subject,
+                $body,
+                route('progres.index'),
+                $actionText,
+                $user->name
+            )
+        );
     }
 }
