@@ -72,19 +72,15 @@
                                         class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
                                             class="icon-[tabler--pencil] size-6"></span>
                                     </button>
-                                    <form action="{{ route('careers.destroy', $career->id) }}" class="delete-form"
-                                        action="" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-circle btn-text btn-sm"
-                                            aria-label="Action button"><span
-                                                class="icon-[tabler--trash] size-6"></span></button>
-                                    </form>
+                                    <button onclick="Livewire.emit('delete', {{ $career->id }})" type="button"
+                                        class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                            class="icon-[tabler--trash] size-6"></span></button>
                                 </th>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $careers->links() }}
             </div>
         @endif
     </div>

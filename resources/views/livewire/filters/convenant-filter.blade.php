@@ -104,7 +104,8 @@
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
                                     {{ $convenant->convenant_end_date }}
                                 </th>
-                                <th class="text-md normal-case font-normal whitespace-nowrap py-5">
+                                <th
+                                    class="text-md normal-case font-normal whitespace-nowrap max-w-[450px] text-ellipsis overflow-hidden py-5">
                                     {{ $convenant->observations ?: 'N/A' }}
                                 </th>
                                 <th class="flex py-5">
@@ -112,20 +113,16 @@
                                         class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
                                             class="icon-[tabler--pencil] size-6"></span>
                                     </button>
-                                    <form class="delete-form"
-                                        action="{{ route('convenants.destroy', $convenant->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-circle btn-text btn-sm"
-                                            aria-label="Action button"><span
-                                                class="icon-[tabler--trash] size-6"></span></button>
-                                    </form>
+                                    <button onclick="Livewire.emit('delete', {{ $convenant->id }})" type="button"
+                                        class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                            class="icon-[tabler--trash] size-6"></span></button>
                                 </th>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+            {{ $convenants->links() }}
         @endif
     </div>
 </div>

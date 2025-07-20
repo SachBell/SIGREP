@@ -1,6 +1,6 @@
 <div class="space-y-4">
     @hasanyrole(['admin', 'gestor-teacher'])
-        @livewire('modals.assign-students-modal')
+        @livewire('modals.assign-students-modal', [], key('assign-students'))
     @endhasanyrole
     <div class="w-full px-2 md:px-8" wire:ignore>
         <!-- Buscador y botón Nuevo Tutor (común) -->
@@ -112,18 +112,25 @@
                                 </div>
                                 <div class="md:col-span-2 md:col-start-3 lg:col-span-2 lg:col-start-4">
                                     <div class="inline-flex flex-col items-center gap-4">
-                                        @if (!$student['is_dual'] && $student['visits_made'] >= $student['required_visits'])
-                                            <div class="badge badge-soft badge-success h-auto py-2 text-[1rem]">Visita
-                                                completada</div>
+                                        @if ($student['visits_made'] >= $student['required_visits'] && $student['is_complete'])
+                                            {{-- Mostrar badge cuando visita convencional completada --}}
+                                            <div class="badge badge-soft badge-success h-auto py-2 text-[1rem]">
+                                                Visita completada
+                                            </div>
                                         @elseif ($student['is_dual'] && $student['visits_made'] >= $student['required_visits'] && $student['second_visit_completed'])
-                                            <div class="badge badge-soft badge-success">Visitas completadas</div>
+                                            {{-- Mostrar badge cuando dual tiene ambas visitas completas --}}
+                                            <div class="badge badge-soft badge-success">
+                                                Visitas completadas
+                                            </div>
                                         @else
+                                            {{-- Si no está completada, mostrar botones --}}
                                             @if ($student['visit_action'] === 'edit')
                                                 <button type="button" class="btn btn-primary"
                                                     wire:click="$emit('openEdit', {{ $student['visit_id'] }}, {{ $student['tutor_students_id'] }})">
                                                     <span class="icon-[tabler--calendar-plus] size-6"></span>
                                                     {{ $student['visit_button_text'] }}
                                                 </button>
+
                                                 <button wire:click="$emit('openEditVisit', {{ $student['visit_id'] }})">
                                                     Ver detalles
                                                 </button>
@@ -135,6 +142,7 @@
                                                 </button>
                                             @endif
                                         @endif
+
                                     </div>
                                 </div>
                             </div>

@@ -93,19 +93,15 @@
                                         class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
                                             class="icon-[tabler--pencil] size-6"></span>
                                     </button>
-                                    <form class="delete-form" action="{{ route('manage-users.destroy', $user->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-circle btn-text btn-sm"
-                                            aria-label="Action button"><span
-                                                class="icon-[tabler--trash] size-6"></span></button>
-                                    </form>
+                                    <button onclick="Livewire.emit('delete', {{ $user->id }})"
+                                        class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                            class="icon-[tabler--trash] size-6"></span></button>
                                 </th>
                             </tr>
                         </tbody>
                     @endforeach
                 </table>
+                {{ $users->links() }}
             @endif
         </div>
     </div>

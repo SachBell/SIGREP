@@ -82,8 +82,8 @@
                                                 wire:model="selectedStudents" value="{{ $student->id }}"
                                                 @if (count($selectedStudents) >= $maxStudents && !in_array($student->id, $selectedStudents)) disabled @endif>
                                         </td>
-                                        <td class="px-4 py-2">{{ $student->profiles->name }}
-                                            {{ $student->profiles->lastnames }}</td>
+                                        <td class="px-4 py-2">{{ $student->profiles->name ?? '' }}
+                                            {{ $student->profiles->lastnames ?? '' }}</td>
                                         @role('admin')
                                             <td class="px-4 py-2">{{ $student->careers->name ?? 'N/A' }}</td>
                                         @endrole

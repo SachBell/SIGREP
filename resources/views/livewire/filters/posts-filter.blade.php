@@ -78,34 +78,34 @@
                                     @endswitch
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->profiles->name . ' ' . $detail->userData->profiles->lastnames }}
+                                    {{ ($detail->userData->profiles->name ?? 'N/A') . ' ' . ($detail->userData->profiles->lastnames ?? 'N/A') }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->profiles->id_card }}
+                                    {{ $detail->userData->profiles->id_card ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->profiles->phone_number }}
+                                    {{ $detail->userData->profiles->phone_number ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->profiles->address }}
+                                    {{ $detail->userData->profiles->address ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->profiles->neighborhood }}
+                                    {{ $detail->userData->profiles->neighborhood ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->careers->name }}
+                                    {{ $detail->userData->careers->name ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->semesters->semester }}
+                                    {{ $detail->userData->semesters->semester ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->grades->grade }}
+                                    {{ $detail->userData->grades->grade ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->userData->daytrip }}
+                                    {{ $detail->userData->daytrip ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
-                                    {{ $detail->applicationCalls->name }}
+                                    {{ $detail->applicationCalls->name ?? 'N/A' }}
                                 </th>
                                 <th class="text-md normal-case font-normal whitespace-nowrap py-5">
                                     {{ $detail->receivingEntities->name ?? 'N/A' }}
@@ -121,19 +121,15 @@
                                         class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
                                             class="icon-[tabler--pencil] size-6"></span>
                                     </button>
-                                    <form class="delete-form"
-                                        action="{{ route('student-posts.destroy', $detail->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-circle btn-text btn-sm"
-                                            aria-label="Action button"><span
-                                                class="icon-[tabler--trash] size-6"></span></button>
-                                    </form>
+                                    <button onclick="Livewire.emit('delete', {{ $detail->id }})" type="button"
+                                        class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                            class="icon-[tabler--trash] size-6"></span></button>
                                 </th>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $appDetail->links() }}
             </div>
         @endif
     </div>
