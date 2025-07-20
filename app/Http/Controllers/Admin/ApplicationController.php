@@ -11,19 +11,6 @@ class ApplicationController extends Controller
     {
         $this->authorize('viewAny', $applicationCall);
 
-        $calls = $applicationCall->byUserCareer(auth()->user())->get();
-
-        return view('admin.app-calls.index', compact('calls'));
-    }
-
-    public function destroy($id)
-    {
-        $call = ApplicationCall::findOrFail($id);
-
-        $this->authorize('delete', $call);
-
-        $call->delete();
-
-        return redirect()->back()->with('success', 'Convocatoria eliminada con éxito.');
+        return view('admin.app-calls.index');
     }
 }

@@ -23,6 +23,11 @@ class ManageUsersController extends Controller
 
         $call->delete();
 
+        session()->flash('notification', [
+            'type' => 'error',
+            'message' => 'Usuario eliminado correctamente'
+        ]);
+
         return redirect()->back()->with('success', 'Convocatoria eliminada con éxito.');
     }
 }
