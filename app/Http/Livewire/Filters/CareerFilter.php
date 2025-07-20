@@ -11,6 +11,8 @@ class CareerFilter extends Component
     public $selectedType;
     public $types = [];
 
+    protected $listeners = ['refreshTutorFilter' => '$refresh'];
+
     public function mount()
     {
         $this->types = Career::pluck('is_dual')->unique()->values()->toArray();
@@ -25,7 +27,7 @@ class CareerFilter extends Component
             })
             ->when(!is_null($this->selectedType), function ($query){
                 $query->where('is_dual', $this->selectedType);
-            })->get();
+            })->paginate(10);
 
         return view('livewire.filters.career-filter', compact('careers'));
     }

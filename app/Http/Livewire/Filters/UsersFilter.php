@@ -12,6 +12,8 @@ class UsersFilter extends Component
     public $role = '';
     public $roles = [];
 
+    protected $listeners = ['refreshTutorFilter' => '$refresh'];
+
     public function mount()
     {
         $this->roles = Role::pluck('name')->toArray();
@@ -27,7 +29,7 @@ class UsersFilter extends Component
             ->when($this->role, function ($query) {
                 $query->role($this->role);
             })
-            ->get();
+            ->paginate(10);
 
         return view('livewire.filters.users-filter', [
             'users' => $users,

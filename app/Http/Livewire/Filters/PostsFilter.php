@@ -11,12 +11,14 @@ class PostsFilter extends Component
     public $search = '';
     // public $userData;
 
+    protected $listeners = ['refreshTutorFilter' => '$refresh'];
+
     public function render()
     {
         $user = auth()->user();
         $careerId = $user->getCareerIdForScope();
 
-        $appDetail = ApplicationDetail::with('receivingEntities')
+        $appDetail = ApplicationDetail::with(['receivingEntities', 'userData.profiles'])
             ->when($careerId, function ($q) use ($careerId) {
                 $q->whereHas('userData', function ($q) use ($careerId) {
                     $q->where('career_id', $careerId);
@@ -39,7 +41,7 @@ class PostsFilter extends Component
                     ->orWhereHas('UserData.semesters', function ($semester) {
                         $semester->where('semester', 'like', '%' . $this->search . '%');
                     });
-            })->get();
+            })->paginate(10);
 
         return view('livewire.filters.posts-filter', compact('appDetail'));
     }

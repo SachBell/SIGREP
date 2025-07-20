@@ -18,6 +18,8 @@ class ConvenantFilter extends Component
     public $career = '';
     public $careers = [];
 
+    protected $listeners = ['refreshTutorFilter' => '$refresh'];
+
     public function mount()
     {
         $this->careers = Career::pluck('name', 'id')->toArray();
@@ -48,7 +50,7 @@ class ConvenantFilter extends Component
                 $query->whereHas('careers', function ($q) {
                     $q->where('careers.id', $this->career);
                 });
-            })->get();
+            })->paginate(10);
         return view('livewire.filters.convenant-filter', compact('convenants'));
     }
 }

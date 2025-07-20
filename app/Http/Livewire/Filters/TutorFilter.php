@@ -13,6 +13,8 @@ class TutorFilter extends Component
 {
     public $search = '';
 
+    protected $listeners = ['refreshTutorFilter' => '$refresh'];
+
     public function render()
     {
         $authUser = auth()->user();
@@ -118,7 +120,8 @@ class TutorFilter extends Component
                     'visit_button_text' => $visitButtonText,
                     'second_visit_completed' => $secondVisitCompleted,
                     'visit_id' => $visitId,
-                    'is_dual' => $isDual
+                    'is_dual' => $isDual,
+                    'is_complete' => $visitToShow ? (bool) $visitToShow->is_complete : false
                 ];
             })->filter()->values(); // para quitar nulls
 
