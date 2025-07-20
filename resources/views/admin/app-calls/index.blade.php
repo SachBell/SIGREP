@@ -16,11 +16,7 @@
             </button>
         </div>
         <div>
-            @if ($calls->isEmpty())
-                <span>No hay datos</span>
-            @else
-                @livewire('call-card')
-            @endif
+            @livewire('filters.call-card-filter')
         </div>
     </div>
 </x-app-layout>

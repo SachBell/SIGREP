@@ -11,7 +11,7 @@
             @if ($calls->isEmpty())
                 <span>No hay datos</span>
             @else
-                @livewire('call-card')
+                @livewire('filters.call-card-filter')
             @endif
         </div>
     </div>
