@@ -85,14 +85,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="text-white sidebar-link">
+                    <a href="{{ route('settings.index') }}" class="text-white sidebar-link">
                         <span class="icon-[tabler--settings] size-5"></span>
                         {{ __('Configuraciones') }}
                     </a>
                 </li>
                 <div class="text-white divider py-6 divider-neutral">Account</div>
                 <li>
-                    <a class="text-white" href="">
+                    <a class="text-white" href="{{ route('profile.edit') }}">
                         <span class="icon-[tabler--user] size-5"></span>
                         {{ __('Perfil') }}
                     </a>
@@ -155,7 +155,7 @@
                 </li>
                 <div class="text-white divider py-6 divider-neutral">Account</div>
                 <li>
-                    <a class="text-white" href="">
+                    <a class="text-white" href="{{ route('profile.edit') }}">
                         <span class="icon-[tabler--user] size-5"></span>
                         {{ __('Perfil') }}
                     </a>
@@ -199,7 +199,7 @@
                 </li>
                 <div class="text-white divider py-6 divider-neutral">Account</div>
                 <li>
-                    <a class="text-white" href="">
+                    <a class="text-white" href="{{ route('profile.edit') }}">
                         <span class="icon-[tabler--user] size-5"></span>
                         {{ __('Perfil') }}
                     </a>
@@ -256,8 +256,8 @@
                     </a>
                 </li>
                 <div class="text-white divider py-6 divider-neutral">Account</div>
-                <li class="text-white">
-                    <a href="">
+                <li>
+                    <a class="text-white" href="{{ route('profile.edit') }}">
                         <span class="icon-[tabler--user] size-5"></span>
                         {{ __('Perfil') }}
                     </a>
