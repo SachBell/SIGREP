@@ -2,16 +2,16 @@
     <?php if (\Illuminate\Support\Facades\Blade::check('hasanyrole', ['admin', 'gestor-teacher'])): ?>
         <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('modals.assign-students-modal')->html();
-} elseif ($_instance->childHasBeenRendered('l3184403315-0')) {
-    $componentId = $_instance->getRenderedChildComponentId('l3184403315-0');
-    $componentTag = $_instance->getRenderedChildComponentTagName('l3184403315-0');
+    $html = \Livewire\Livewire::mount('modals.assign-students-modal', [])->html();
+} elseif ($_instance->childHasBeenRendered('assign-students')) {
+    $componentId = $_instance->getRenderedChildComponentId('assign-students');
+    $componentTag = $_instance->getRenderedChildComponentTagName('assign-students');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('l3184403315-0');
+    $_instance->preserveRenderedChild('assign-students');
 } else {
-    $response = \Livewire\Livewire::mount('modals.assign-students-modal');
+    $response = \Livewire\Livewire::mount('modals.assign-students-modal', []);
     $html = $response->html();
-    $_instance->logRenderedChild('l3184403315-0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('assign-students', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -135,12 +135,18 @@ echo $html;
                                 </div>
                                 <div class="md:col-span-2 md:col-start-3 lg:col-span-2 lg:col-start-4">
                                     <div class="inline-flex flex-col items-center gap-4">
-                                        <?php if(!$student['is_dual'] && $student['visits_made'] >= $student['required_visits']): ?>
-                                            <div class="badge badge-soft badge-success h-auto py-2 text-[1rem]">Visita
-                                                completada</div>
+                                        <?php if($student['visits_made'] >= $student['required_visits'] && $student['is_complete']): ?>
+                                            
+                                            <div class="badge badge-soft badge-success h-auto py-2 text-[1rem]">
+                                                Visita completada
+                                            </div>
                                         <?php elseif($student['is_dual'] && $student['visits_made'] >= $student['required_visits'] && $student['second_visit_completed']): ?>
-                                            <div class="badge badge-soft badge-success">Visitas completadas</div>
+                                            
+                                            <div class="badge badge-soft badge-success">
+                                                Visitas completadas
+                                            </div>
                                         <?php else: ?>
+                                            
                                             <?php if($student['visit_action'] === 'edit'): ?>
                                                 <button type="button" class="btn btn-primary"
                                                     wire:click="$emit('openEdit', <?php echo e($student['visit_id']); ?>, <?php echo e($student['tutor_students_id']); ?>)">
@@ -148,6 +154,7 @@ echo $html;
                                                     <?php echo e($student['visit_button_text']); ?>
 
                                                 </button>
+
                                                 <button wire:click="$emit('openEditVisit', <?php echo e($student['visit_id']); ?>)">
                                                     Ver detalles
                                                 </button>
@@ -160,6 +167,7 @@ echo $html;
                                                 </button>
                                             <?php endif; ?>
                                         <?php endif; ?>
+
                                     </div>
                                 </div>
                             </div>

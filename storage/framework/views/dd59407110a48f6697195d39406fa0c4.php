@@ -115,19 +115,16 @@ echo $html;
                                         class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
                                             class="icon-[tabler--pencil] size-6"></span>
                                     </button>
-                                    <form class="delete-form" action="<?php echo e(route('manage-users.destroy', $user->id)); ?>"
-                                        method="POST">
-                                        <?php echo csrf_field(); ?>
-                                        <?php echo method_field('DELETE'); ?>
-                                        <button type="submit" class="btn btn-circle btn-text btn-sm"
-                                            aria-label="Action button"><span
-                                                class="icon-[tabler--trash] size-6"></span></button>
-                                    </form>
+                                    <button onclick="Livewire.emit('delete', <?php echo e($user->id); ?>)"
+                                        class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                            class="icon-[tabler--trash] size-6"></span></button>
                                 </th>
                             </tr>
                         </tbody>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </table>
+                <?php echo e($users->links()); ?>
+
             <?php endif; ?>
         </div>
     </div>

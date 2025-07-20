@@ -36,6 +36,21 @@
             <?php endif; ?>
 
             <div class="px-8 py-12">
+                <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('notification-banner')->html();
+} elseif ($_instance->childHasBeenRendered('CQTKes7')) {
+    $componentId = $_instance->getRenderedChildComponentId('CQTKes7');
+    $componentTag = $_instance->getRenderedChildComponentTagName('CQTKes7');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('CQTKes7');
+} else {
+    $response = \Livewire\Livewire::mount('notification-banner');
+    $html = $response->html();
+    $_instance->logRenderedChild('CQTKes7', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
                 <div>
                     <?php echo e($slot); ?>
 

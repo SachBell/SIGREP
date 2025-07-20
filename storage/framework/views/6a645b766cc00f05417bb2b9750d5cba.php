@@ -19,15 +19,15 @@
     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('modals.call-modal')->html();
-} elseif ($_instance->childHasBeenRendered('pMH2Ck3')) {
-    $componentId = $_instance->getRenderedChildComponentId('pMH2Ck3');
-    $componentTag = $_instance->getRenderedChildComponentTagName('pMH2Ck3');
+} elseif ($_instance->childHasBeenRendered('oH8Pqdt')) {
+    $componentId = $_instance->getRenderedChildComponentId('oH8Pqdt');
+    $componentTag = $_instance->getRenderedChildComponentTagName('oH8Pqdt');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('pMH2Ck3');
+    $_instance->preserveRenderedChild('oH8Pqdt');
 } else {
     $response = \Livewire\Livewire::mount('modals.call-modal');
     $html = $response->html();
-    $_instance->logRenderedChild('pMH2Ck3', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('oH8Pqdt', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -41,25 +41,21 @@ echo $html;
             </button>
         </div>
         <div>
-            <?php if($calls->isEmpty()): ?>
-                <span>No hay datos</span>
-            <?php else: ?>
-                <?php
+            <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('call-card')->html();
-} elseif ($_instance->childHasBeenRendered('mbAufgv')) {
-    $componentId = $_instance->getRenderedChildComponentId('mbAufgv');
-    $componentTag = $_instance->getRenderedChildComponentTagName('mbAufgv');
+    $html = \Livewire\Livewire::mount('filters.call-card-filter')->html();
+} elseif ($_instance->childHasBeenRendered('m7KZvRQ')) {
+    $componentId = $_instance->getRenderedChildComponentId('m7KZvRQ');
+    $componentTag = $_instance->getRenderedChildComponentTagName('m7KZvRQ');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('mbAufgv');
+    $_instance->preserveRenderedChild('m7KZvRQ');
 } else {
-    $response = \Livewire\Livewire::mount('call-card');
+    $response = \Livewire\Livewire::mount('filters.call-card-filter');
     $html = $response->html();
-    $_instance->logRenderedChild('mbAufgv', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('m7KZvRQ', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
-            <?php endif; ?>
         </div>
     </div>
  <?php echo $__env->renderComponent(); ?>
