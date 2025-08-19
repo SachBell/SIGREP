@@ -13,11 +13,11 @@
             <div class="bg-slate-100 py-6 px-5 flex flex-col sm:flex-row justify-between rounded-box gap-5">
                 <div class="inline-flex flex-col justify-center gap-2">
                     <span class="font-bold text-xl">¡Nueva versión disponible!</span>
-                    <span class="text-md text-gray-500">Actual: v{{ $currentVersion }} | Nueva: v{{ $latestVersion }}</span>
+                    <span class="text-md text-gray-500">Actual: v{{ $currentVersion }} | Nueva:
+                        v{{ $latestVersion }}</span>
                 </div>
                 <div class="inline-flex flex-col gap-2">
-                    <a href="{{ $changelogUrl }}" target="_blank"
-                        class="btn btn-sm">Ver
+                    <a href="{{ $changelogUrl }}" target="_blank" class="btn btn-sm">Ver
                         cambios</a>
                     <a href="{{ $changelogUrl }}" target="_blank"
                         class="btn btn-sm text-gray-100 bg-blue-600 hover:bg-blue-700 border-none">Actualizar</a>
