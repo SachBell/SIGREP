@@ -156,6 +156,20 @@ class ConvenantModal extends GlobalModal
 
         $this->validate();
 
+        $careerId = auth()->user()->hasRole('admin')
+            ? $this->formData['career_id'] ?? null
+            : auth()->user()->getCareerIdForScope();
+
+        if ($careerId) {
+            $career = Career::find($careerId);
+
+            if ($career && $career->is_dual && (empty($this->formData['user_limit']) || intval($this->formData['user_limit']) <= 0)) {
+                throw ValidationException::withMessages([
+                    'formData.user_limit' => 'Para carreras duales debe establecer un límite mayor a 0.',
+                ]);
+            }
+        }
+
         try {
             DB::transaction(function () {
 

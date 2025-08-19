@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Modals;
 
 use App\Helpers\EmailTemplateHelper;
+use App\Helpers\SettingsHelper;
 use App\Mail\VisitAssignmentMail;
 use App\Models\TutorStudent;
 use App\Models\TutorVisits;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class VisitsModal extends GlobalModal
@@ -15,6 +17,8 @@ class VisitsModal extends GlobalModal
     public $modality;
     public $visitsMade = 0;
     public $requiredVisits = 1;
+
+    public $lastVisitDate;
 
     public function mount($entityID = null, $tutorStudentID = null)
     {
@@ -52,9 +56,16 @@ class VisitsModal extends GlobalModal
         $tutorStudent = TutorStudent::with(['userData.userData.careers'])->withCount('visits')->findOrFail($tutorStudentID);
 
         $isDual = (bool) optional(optional($tutorStudent->userData)->userData?->careers)->is_dual;
+
+        $requiredVisitsDual = SettingsHelper::get('dual_visit_count', 2);
+        $requiredVisitsConv = SettingsHelper::get('conv_visits_count', 1);
+
         $this->modality = $isDual ? 'dual' : 'convencional';
-        $this->requiredVisits = $isDual ? 2 : 1;
+        $this->requiredVisits = $isDual ? (int)$requiredVisitsDual : (int)$requiredVisitsConv;
         $this->visitsMade = $tutorStudent->visits_count;
+
+        $lastVisit = $tutorStudent->visits->sortByDesc('date')->first();
+        $this->lastVisitDate = $lastVisit ? Carbon::parse($lastVisit->date)->format('Y-m-d') : null;
 
         if ($this->visitsMade >= $this->requiredVisits) {
             $this->dispatchBrowserEvent('notify', [
@@ -93,11 +104,17 @@ class VisitsModal extends GlobalModal
 
     public function rules()
     {
-        return [
+        $rules = [
             'formData.date' => ['required', 'date'],
             'formData.time' => ['required', 'date_format:H:i:s'],
             'formData.observation' => ['nullable', 'string', 'max:1000'],
         ];
+
+        if ($this->lastVisitDate) {
+            $rules['formData.date'][] = 'after:' . $this->lastVisitDate;
+        }
+
+        return $rules;
     }
 
     public function save()
@@ -169,7 +186,7 @@ class VisitsModal extends GlobalModal
         $visit = TutorVisits::with('tutors.userData')->find($visit->id);
         $user = $visit->tutors->userData;
 
-        $visitNumber = $this->visitsMade + 1;
+        $visitNumber = $visit->tutors->visits()->count();
         $visitDateFormatted = \Carbon\Carbon::parse($visit->date)->format('d/m/Y');
         $visitTimeFormatted = \Carbon\Carbon::parse($visit->time)->format('H:i');
 

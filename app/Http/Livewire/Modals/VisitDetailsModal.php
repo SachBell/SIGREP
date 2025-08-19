@@ -78,6 +78,10 @@ class VisitDetailsModal extends GlobalModal
             ]);
         }
 
+        if ($this->formData['is_complete']) {
+            $this->emit('checkStudentEligibilityForFinalGrade', $this->tutorStudentID);
+        }
+
         $this->closeModal();
         $this->dispatchBrowserEvent('notify', [
             'type' => 'success',

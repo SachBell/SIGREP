@@ -306,8 +306,18 @@ class PostsModal extends GlobalModal
             return false;
         }
 
-        // En modo creación
-        return count($this->selectedStudents) === 0 || $this->availableSlots <= 0;
+        if (count($this->selectedStudents) === 0) {
+            return true;
+        }
+
+        $students = UserData::with('careers')->whereIn('id', $this->selectedStudents)->get();
+        $hasDual = $students->contains(fn($student) => $student->careers->is_dual);
+
+        if ($hasDual && $this->availableSlots <= 0) {
+            return true;
+        }
+
+        return false;
     }
 
     public function redirectAfterSave(): ?string
@@ -356,10 +366,9 @@ class PostsModal extends GlobalModal
         $this->emit('refreshTutorFilter');
 
         $this->dispatchBrowserEvent('notify', [
-        'type' => 'error',
+            'type' => 'error',
             'message' => 'Postulación eliminada exitosamente'
         ]);
-
     }
 
     public function render()

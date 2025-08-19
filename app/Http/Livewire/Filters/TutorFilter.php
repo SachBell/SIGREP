@@ -2,12 +2,11 @@
 
 namespace App\Http\Livewire\Filters;
 
+use App\Helpers\SettingsHelper;
 use App\Models\TeacherProfile;
 use App\Models\TutorStudent;
 use App\Models\TutorVisits;
 use Livewire\Component;
-
-use function Psy\debug;
 
 class TutorFilter extends Component
 {
@@ -18,6 +17,9 @@ class TutorFilter extends Component
     public function render()
     {
         $authUser = auth()->user();
+
+        $dualVisitCount = (int) SettingsHelper::get('dual_visit_count', 2);
+        $convVisitCount = (int) SettingsHelper::get('conv_visits_count', 1);
 
         // Consulta base modificada para la nueva estructura
         $query = TeacherProfile::with([
@@ -52,8 +54,8 @@ class TutorFilter extends Component
         }
 
         // Obtener resultados y procesar
-        $studentTutor = $query->get()->map(function ($teacher) use ($authUser) {
-            $studentsData = $teacher->students->map(function ($student) use ($teacher) {
+        $studentTutor = $query->get()->map(function ($teacher) use ($authUser, $convVisitCount, $dualVisitCount) {
+            $studentsData = $teacher->students->map(function ($student) use ($teacher, $convVisitCount, $dualVisitCount) {
                 $relation = TutorStudent::where('teacher_profile_id', $teacher->id)
                     ->where('user_profile_id', $student->id)
                     ->first();
@@ -73,29 +75,38 @@ class TutorFilter extends Component
                 $secondVisitCompleted = $secondVisit ? (bool)$secondVisit->is_complete : false;
 
                 $isDual = $student->userData->careers->is_dual ?? false;
-                $requiredVisits = $isDual ? 2 : 1;
+                $requiredVisits = $isDual ? $dualVisitCount : $convVisitCount;
                 $visitsMade = $visits->count();
 
-                if ($isDual && $secondVisit) {
-                    $visitButtonText = 'Editar segunda visita';
-                    $visitAction = 'edit';
-                    $visitId = $secondVisit->id;
-                } elseif ($isDual && $firstVisit && $firstVisit->is_complete && !$secondVisit) {
-                    $visitButtonText = 'Asignar segunda visita';
-                    $visitAction = 'create';
-                    $visitId = null;
-                } elseif ($isDual && $firstVisit && !$firstVisit->is_complete) {
-                    $visitButtonText = 'Editar primera visita';
-                    $visitAction = 'edit';
-                    $visitId = $firstVisit->id;
-                } elseif (!$isDual && $firstVisit) {
-                    $visitButtonText = 'Editar visita';
-                    $visitAction = 'edit';
-                    $visitId = $firstVisit->id;
+                if ($visitsMade >= $requiredVisits) {
+                    // Revisar si la última visita está completada
+                    $lastVisit = $visits->last();
+                    if ($lastVisit && !(bool) $lastVisit->is_complete) {
+                        // Última visita incompleta => permitir editarla
+                        $visitButtonText = 'Editar visita ' . $visitsMade;
+                        $visitAction = 'edit';
+                        $visitId = $lastVisit->id;
+                    } else {
+                        // Todas las visitas completadas => no mostrar botón
+                        $visitButtonText = 'Visitas completas';
+                        $visitAction = 'none';
+                        $visitId = $lastVisit ? $lastVisit->id : null;
+                    }
                 } else {
-                    $visitButtonText = 'Agendar visita';
-                    $visitAction = 'create';
-                    $visitId = null;
+                    // Si no has completado las visitas necesarias
+                    $lastVisit = $visits->last();
+
+                    if ($lastVisit && !$lastVisit->is_complete) {
+                        // Todavía hay una visita pendiente de completar
+                        $visitButtonText = 'Editar visita ' . $visitsMade;
+                        $visitAction = 'edit';
+                        $visitId = $lastVisit->id;
+                    } else {
+                        // La última está completa, se puede crear la siguiente
+                        $visitButtonText = 'Agendar visita ' . ($visitsMade + 1);
+                        $visitAction = 'create';
+                        $visitId = null;
+                    }
                 }
 
                 if (isset($visitId) && $visitId !== null) {

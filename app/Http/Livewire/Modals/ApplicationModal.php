@@ -67,6 +67,29 @@ class ApplicationModal extends GlobalModal
             return;
         }
 
+        $userData = auth()->user()->profile->userData;
+        $career = $userData->careers;
+
+        if (!$career) {
+            $this->addError('selectedInstitute', 'No se pudo determinar tu carrera.');
+            return;
+        }
+
+        if ($career->is_dual) {
+            $currentCount = ApplicationDetail::where('receiving_entity_id', $this->selectedInstitute)
+                ->whereHas('userData.careers', function ($q) use ($career) {
+                    $q->where('id', $career->id);
+                })
+                ->count();
+
+            $entityLimit = ReceivingEntity::find($this->selectedInstitute)?->user_limit ?? null;
+
+            if ($entityLimit !== null && $currentCount >= $entityLimit) {
+                $this->addError('selectedInstitute', 'Esta entidad ha alcanzado el número máximo de estudiantes permitidos para esta carrera.');
+                return;
+            }
+        }
+
         ApplicationDetail::create([
             'user_data_id' => auth()->user()->profile->userData->id,
             'application_calls_id' => $this->selectedCall->id,
