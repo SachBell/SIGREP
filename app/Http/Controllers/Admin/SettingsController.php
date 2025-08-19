@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\SettingsHelper;
 use App\Http\Controllers\Controller;
 use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
@@ -27,5 +28,18 @@ class SettingsController extends Controller
         $template->save();
 
         return back()->with('success_' . $validated['key'], 'Plantilla actualizada correctamente.');
+    }
+
+    public function generalUpdate(Request $request)
+    {
+        $data = $request->validate([
+            'settings' => 'required|array',
+        ]);
+
+        foreach ($data['settings'] as $key => $value) {
+            SettingsHelper::set($key, is_bool($value) ? (int) $value : $value);
+        }
+
+        return back()->with('success', 'Configuraciones guardadas correctamente.');
     }
 }

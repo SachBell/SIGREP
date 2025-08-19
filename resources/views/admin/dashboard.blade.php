@@ -45,7 +45,7 @@
                     <div class="stat-figure text-base-content/75 flex p-2 bg-slate-300/20 rounded-full">
                         <span class="icon-[tabler--users] size-9"></span>
                     </div>
-                    <div class="stat-value text-blue-600">4</div>
+                    <div class="stat-value text-blue-600">0</div>
                     <div class="stat-title font-medium text-lg">Solicitudes</div>
                     <div class="stat-desc">Total de solicitudes</div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="stat-figure text-base-content/75 flex p-2 bg-slate-300/20 rounded-full">
                         <span class="icon-[tabler--users] size-9"></span>
                     </div>
-                    <div class="stat-value text-blue-600">4</div>
+                    <div class="stat-value text-blue-600">0</div>
                     <div class="stat-title font-medium text-lg">Solicitudes</div>
                     <div class="stat-desc">Total de solicitudes</div>
                 </div>
@@ -75,7 +75,7 @@
                     <div class="stat-figure text-base-content/75 flex p-2 bg-slate-300/20 rounded-full">
                         <span class="icon-[tabler--building] size-9"></span>
                     </div>
-                    <div class="stat-value text-blue-600">12</div>
+                    <div class="stat-value text-blue-600">0</div>
                     <div class="stat-title font-medium text-lg">Tickets Activos</div>
                     <div class="stat-desc">Total de tickets activos</div>
                 </div>
