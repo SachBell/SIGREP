@@ -30,3 +30,10 @@ Route::middleware(['role:admin|gestor-teacher'])->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::post('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
 });
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/app/update', function () {
+        \Illuminate\Support\Facades\Artisan::call('app:update');
+        return redirect()->back()->with('status', 'Actualización completada ✅');
+    })->name('app.update');
+});
