@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
 
+use function Laravel\Prompts\error;
+
 class UpdateApplication extends Command
 {
     /**
@@ -32,7 +34,7 @@ class UpdateApplication extends Command
         Artisan::call('backup:run', ['--only-db' => true]);
         $this->info("Respaldo completado ✅");
 
-        $zipUrl = 'https://github.com/SachBell/SIGREP/releases/latest';
+        $zipUrl = 'https://github.com/SachBell/SIGREP/archive/refs/tags/SGPP-v3.5.4-alpha.zip';
         $tempZip = storage_path('app/update.zip');
         $tempDir = storage_path('app/update-temp');
 

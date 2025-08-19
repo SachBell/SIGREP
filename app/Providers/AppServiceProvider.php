@@ -93,7 +93,7 @@ class AppServiceProvider extends ServiceProvider
     private function checkForUpdates()
     {
 
-        return Cache::remember('latest_version_info', now()->addMinutes(10), function () {
+        return Cache::remember('latest_version_info', now()->addMinute(1), function () {
             $currentVersion = config('app.version');
 
             try {

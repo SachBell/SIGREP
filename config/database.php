@@ -68,8 +68,9 @@ return [
             'dump' => [
                 'dump_binary_path' => env('DB_DUMP_PATH', ''),
                 'use_single_transaction' => true,
-                'add_extra_option' => '--skip-ssl'
-            ],
+            ] + (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN'
+                ? ['add_extra_option' => '--skip-ssl']
+                : [])
         ],
 
         'pgsql' => [
