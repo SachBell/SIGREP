@@ -305,4 +305,4 @@
         </div>
     </div>
 </aside>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/partials/sidebar.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/html/resources/views/partials/sidebar.blade.php ENDPATH**/ ?>

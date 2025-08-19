@@ -13,4 +13,4 @@
 <?php unset($__defined_vars); ?>
 
 <input <?php echo e($disabled ? 'disabled' : ''); ?> <?php echo $attributes->merge(['class' => 'input py-2 px-3 h-auto border border-gray-300 focus:border-1 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm']); ?>>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/components/text-input.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/html/resources/views/components/text-input.blade.php ENDPATH**/ ?>

@@ -39,15 +39,15 @@
                 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('notification-banner')->html();
-} elseif ($_instance->childHasBeenRendered('aZJRH7r')) {
-    $componentId = $_instance->getRenderedChildComponentId('aZJRH7r');
-    $componentTag = $_instance->getRenderedChildComponentTagName('aZJRH7r');
+} elseif ($_instance->childHasBeenRendered('U6dm07m')) {
+    $componentId = $_instance->getRenderedChildComponentId('U6dm07m');
+    $componentTag = $_instance->getRenderedChildComponentTagName('U6dm07m');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('aZJRH7r');
+    $_instance->preserveRenderedChild('U6dm07m');
 } else {
     $response = \Livewire\Livewire::mount('notification-banner');
     $html = $response->html();
-    $_instance->logRenderedChild('aZJRH7r', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('U6dm07m', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -64,4 +64,4 @@ echo $html;
 </body>
 
 </html>
-<?php /**PATH C:\laragon\www\practicasisus\resources\views/layouts/app.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/html/resources/views/layouts/app.blade.php ENDPATH**/ ?>
