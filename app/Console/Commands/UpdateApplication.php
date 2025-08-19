@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
-
-use function Laravel\Prompts\error;
 
 class UpdateApplication extends Command
 {
@@ -54,7 +53,13 @@ class UpdateApplication extends Command
         }
 
         $this->info("Actualizando archivos...");
-        $source = $tempDir . '/repositorio-main';
+        $folders = glob($tempDir . '/*', GLOB_ONLYDIR);
+        $source = $folders[0] ?? null;
+
+        if (!$source) {
+            throw new Exception("No se encontró la carpeta dentro del ZIP");
+        }
+        
         File::copyDirectory($source, base_path(), true);
         $this->info("Archivos actualizados ✅");
 
