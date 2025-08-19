@@ -27,6 +27,11 @@ class TutorStudent extends Model
         return $this->belongsTo(TeacherProfile::class, 'teacher_profile_id');
     }
 
+    public function finalGrade()
+    {
+        return $this->hasOne(FinalGrade::class, 'tutor_student_id');
+    }
+
     public function visits()
     {
         return $this->hasMany(TutorVisits::class, 'tutor_students_id');

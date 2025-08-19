@@ -34,4 +34,9 @@ class UserProfile extends Model
     {
         return $this->belongsToMany(TeacherProfile::class, 'tutor_students', 'user_profile_id', 'teacher_profile_id');
     }
+
+    public function tutorStudents()
+    {
+        return $this->hasMany(TutorStudent::class, 'user_profile_id');
+    }
 }

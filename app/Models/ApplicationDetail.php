@@ -33,4 +33,16 @@ class ApplicationDetail extends Model
     {
         return $this->belongsTo(ReceivingEntity::class, 'receiving_entity_id');
     }
+
+    public function tutorStudent()
+    {
+        return $this->hasOneThrough(
+            TutorStudent::class,
+            UserData::class,
+            'id',            // Foreign key on user_data table...
+            'user_profile_id', // Foreign key on tutor_students table...
+            'user_data_id',   // Local key on application_details table...
+            'profile_id'      // Local key on user_data table...
+        );
+    }
 }
