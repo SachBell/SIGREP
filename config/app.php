@@ -3,6 +3,19 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application version
+    |--------------------------------------------------------------------------
+    |
+    | This value is the version of your application. This value is used when the
+    | application needs to update a new version.
+    |
+    */
+
+    'version' => '1.0.0',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
