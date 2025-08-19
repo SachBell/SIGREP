@@ -9,6 +9,7 @@
 /vendor
 docker-compose.yml
 dockerfile
+/nginx
 .env
 .env.backup
 .env.production
