@@ -80,7 +80,10 @@
                                         <td class="px-4 py-2">
                                             <input type="checkbox" class="checkbox checkbox-sm"
                                                 wire:model="selectedStudents" value="{{ $student->id }}"
-                                                @if (count($selectedStudents) >= $maxStudents && !in_array($student->id, $selectedStudents)) disabled @endif>
+                                                @if (
+                                                    $student->careers->is_dual &&
+                                                        count($selectedStudents) >= $maxStudents &&
+                                                        !in_array($student->id, $selectedStudents)) disabled @endif>
                                         </td>
                                         <td class="px-4 py-2">{{ $student->profiles->name ?? '' }}
                                             {{ $student->profiles->lastnames ?? '' }}</td>

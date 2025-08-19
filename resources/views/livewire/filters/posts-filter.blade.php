@@ -1,5 +1,8 @@
 <div class="space-y-4">
-    @livewire('modals.posts-modal')
+    <div>
+        @livewire('modals.posts-modal')
+        @livewire('modals.final-grade-modal')
+    </div>
     <div class="flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between" wire:ignore>
         <div class="dropdown relative inline-flex">
             <button id="dropdown-default" type="button" class="dropdown-toggle btn btn-outline btn-secondary font-normal"
@@ -124,6 +127,14 @@
                                     <button onclick="Livewire.emit('delete', {{ $detail->id }})" type="button"
                                         class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
                                             class="icon-[tabler--trash] size-6"></span></button>
+                                    @if ($detail->status_individual != 'Finalizado')
+                                        <button
+                                            wire:click="$emit('openFinalGradeModal', {{ $detail->tutorStudent?->id ?? 'null' }})"
+                                            type="button" class="btn btn-circle btn-text btn-sm"
+                                            aria-label="Action button">
+                                            <span class="icon-[tabler--book] size-6"></span>
+                                        </button>
+                                    @endif
                                 </th>
                             </tr>
                         @endforeach

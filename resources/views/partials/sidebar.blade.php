@@ -33,12 +33,12 @@
                                 User Manager
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="sidebar-link text-white" href="">
                                 <span class="icon-[tabler--shield-check] size-5"></span>
                                 Roles & Permissions
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="text-white space-y-0.5">
@@ -82,6 +82,12 @@
                     <a href="{{ route('tutor-student.index') }}" class="text-white sidebar-link">
                         <span class="icon-[tabler--file-certificate] size-5"></span>
                         {{ __('Tutores') }}
+                    </a>
+                </li>
+                <li>
+                    <a class="text-white" href="{{ route('reports.index') }}">
+                        <span class="icon-[tabler--files] size-5"></span>
+                        Informes
                     </a>
                 </li>
                 <li>
@@ -146,10 +152,16 @@
                         {{ __('Convenios') }}
                     </a>
                 </li>
+                <li>
+                    <a class="text-white" href="{{ route('reports.index') }}">
+                        <span class="icon-[tabler--files] size-5"></span>
+                        Informes
+                    </a>
+                </li>
                 <div class="text-white divider py-6 divider-neutral">Estudiantes</div>
                 <li>
                     <a href="{{ route('tutor-student.index') }}" class="text-white sidebar-link">
-                        <span class="icon-[tabler--file-certificate] size-5"></span>
+                        <span class="icon-[tabler--school] size-5"></span>
                         {{ __('Tutores') }}
                     </a>
                 </li>
@@ -170,13 +182,13 @@
                         {{ __('Sign Out') }}
                     </a>
                 </li>
-                <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
+                {{-- <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
                 <li>
                     <a class="text-white" href="#">
                         <span class="icon-[tabler--users-group] size-5"></span>
                         Support
                     </a>
-                </li>
+                </li> --}}
                 @elserole('tutor')
                 <li>
                     <a class="text-white sidebar-link" href="{{ route('admin.dashboard') }}">
@@ -214,13 +226,13 @@
                         {{ __('Sign Out') }}
                     </a>
                 </li>
-                <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
+                {{-- <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
                 <li>
                     <a class="text-white" href="#">
                         <span class="icon-[tabler--users-group] size-5"></span>
                         Support
                     </a>
-                </li>
+                </li> --}}
                 @elserole('student')
                 <li>
                     <a class="text-white sidebar-link" href="{{ route('dashboard.index') }}">
@@ -249,12 +261,12 @@
                         {{ __('Convocatorias') }}
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="" class="text-white sidebar-link">
                         <span class="icon-[tabler--writing] size-5"></span>
                         {{ __('Enviar Solicitud') }}
                     </a>
-                </li>
+                </li> --}}
                 <div class="text-white divider py-6 divider-neutral">Account</div>
                 <li>
                     <a class="text-white" href="{{ route('profile.edit') }}">
@@ -262,32 +274,32 @@
                         {{ __('Perfil') }}
                     </a>
                 </li>
-                <li class="text-white">
-                    <form class="flex items-center w-full" id="logout-form" action="{{ route('logout') }}"
-                        method="POST">
+                <li>
+                    <form class="hidden" id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <a class="flex items-center gap-2" href="#"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <span class="icon-[tabler--logout-2] size-5"></span>
-                            {{ __('Sign Out') }}
-                        </a>
                     </form>
+                    <a class="text-white" href=""
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="icon-[tabler--logout-2] size-5"></span>
+                        {{ __('Sign Out') }}
+                    </a>
                 </li>
-                <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
+                {{-- <div class="text-white divider py-6 divider-neutral">Miscellaneous</div>
                 <li class="text-white">
                     <a href="#">
                         <span class="icon-[tabler--users-group] size-5"></span>
                         Support
                     </a>
-                </li>
+                </li> --}}
             @endrole
         </ul>
     </div>
     <div class="divider divider-neutral"></div>
     <div class="drawer-footer">
         <div class="w-full flex flex-col items-center">
-            <span class="-ms-1 text-white/50 text-sm font-medium">Desarrollado por <a href=""
+            <span class="-ms-1 text-white/50 text-sm font-medium mb-1">Desarrollado por <a href=""
                     class="nav-link text-white hover:text-white/75 transition-colors">YggdrasilCode</a></span>
+            <span class="-ms-1 text-gray-400 text-sm">v{{ $currentVersion }}</span>
         </div>
     </div>
 </aside>

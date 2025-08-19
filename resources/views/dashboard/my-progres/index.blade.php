@@ -14,20 +14,31 @@
             <p><strong>Estudiante:</strong> {{ $user->name . ' ' . $user->lastnames ?? 'N/A' }}</p>
             <p><strong>Carrera:</strong> {{ $user->userData->careers->name ?? 'N/A' }}</p>
             <p><strong>Período:</strong> {{ $currentPeriod->name ?? 'No asignado' }}</p>
+            <p><strong>Tutor:</strong> {{ $application->tutorStudent->profiles->name ?? 'No asignado' }}</p>
         </div>
 
         {{-- Sección: Estado de postulación o práctica --}}
         @if ($application)
             <div class="bg-white shadow rounded-xl p-6 mb-6">
                 <h2 class="text-xl font-semibold mb-2">Estado Actual</h2>
-                <p><strong>Institución:</strong> {{ $application->receivingEntities->name ?? 'N/A' }}</p>
-                <p><strong>Estado:</strong>
+                <p>
+                    <strong>Estado:</strong>
                     <span
                         class="inline-block px-2 py-1 text-sm rounded-full
                         {{ $application->status_individual === 'Finalizado' ? 'bg-green-100 text-green-800' : ($application->status_individual === 'En Progreso' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800') }}">
                         {{ $application->status_individual }}
                     </span>
                 </p>
+                <p><strong>Institución:</strong> {{ $application->receivingEntities->name ?? 'N/A' }}</p>
+                <p><strong>Dirección:</strong> {{ $application->receivingEntities->address ?? 'N/A' }}</p>
+                @if ($application->status_individual === 'Finalizado')
+                    <p>
+                        <strong>Calificación:</strong>
+                        <span class="inline-block px-2 py-1 rounded-full">
+                            {{ $application->tutorStudent->finalGrade->grade }} / 10
+                        </span>
+                    </p>
+                @endif
             </div>
             {{-- Sección: Documentos --}}
             <div class="bg-white shadow rounded-xl p-6 mb-6">

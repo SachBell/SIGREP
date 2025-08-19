@@ -37,3 +37,18 @@
     --tw-text-opacity: 1;
     color: rgba(255, 255, 255, 0.658) !important;
 }
+
+[data-tab].active.active-tab\:tab-active.tab:not([disabled]) {
+    --tw-border-opacity: 1;
+    border-color: #1d4ed8 !important;
+    color: #1d4ed8 !important;
+    --tw-text-opacity: 1;
+}
+
+@media (hover: hover) {
+    .tabs-bordered>.tab:hover {
+        border-color: #1d4fd8a8 !important;
+        --tw-text-opacity: 1;
+        color: #1d4fd8a8 !important;
+    }
+}
