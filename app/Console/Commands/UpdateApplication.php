@@ -50,8 +50,8 @@ class UpdateApplication extends Command
             return 1;
         }
 
-        preg_match('/\d+(\.\d+)*(-[a-zA-Z0-9]+)?/', $tagName, $matches);
-        $newVersion = $matches[0] ?? null;
+        preg_match('/v?(\d+(\.\d+)*(-[a-zA-Z0-9]+)?)/', $tagName, $matches);
+        $newVersion = $matches[1] ?? null;
 
         if (!$newVersion) {
             $this->error("No se pudo extraer la versión del tag: {$tagName}");
@@ -90,11 +90,13 @@ class UpdateApplication extends Command
 
         $configPath = config_path('app.php');
         $configContent = File::get($configPath);
+
         $updatedContent = preg_replace(
-            "/('version'\s*=>\s*')[^']+(')/",
-            "$1{$newVersion}$2",
+            "/('version'\s*=>\s*)'[^']*'/",
+            "$1'{$newVersion}'",
             $configContent
         );
+
         File::put($configPath, $updatedContent);
         $this->info("Versión actualizada en config/app.php ✅ ({$newVersion})");
 
