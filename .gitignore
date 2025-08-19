@@ -7,6 +7,8 @@
 /database/seeders/*
 /views/datos.txt
 /vendor
+./docker-compose.yml
+./dockerfile
 .env
 .env.backup
 .env.production
