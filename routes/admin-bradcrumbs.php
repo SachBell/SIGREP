@@ -36,6 +36,16 @@ Breadcrumbs::for('careers.index', function (BreadcrumbTrail $trail) {
     $trail->push(__('Gestor de Carreras'), route('careers.index'));
 });
 
+Breadcrumbs::for('tutor-student.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Administrador de Tutores'), route('tutor-student.index'));
+});
+
+Breadcrumbs::for('reports.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('Reportes'), route('reports.index'));
+});
+
 Breadcrumbs::for('settings.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push(__('Settings'), route('settings.index'));

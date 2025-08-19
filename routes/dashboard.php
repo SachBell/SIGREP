@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\ConvenantController;
 use App\Http\Controllers\Admin\ManageUsersController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StudentPostController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Tutor\StudentController;
@@ -21,5 +22,11 @@ Route::middleware(['role:admin|gestor-teacher|tutor'])->group(function () {
     Route::resource('tutor-student', StudentController::class);
 
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-    Route::put('settings', [SettingsController::class, 'emailsUpdate'])->name('settings.emailsUpdate');
+    Route::put('settings/emails', [SettingsController::class, 'emailsUpdate'])->name('settings.emailsUpdate');
+    Route::put('settings/general', [SettingsController::class, 'generalUpdate'])->name('settings.generalUpdate');
+});
+
+Route::middleware(['role:admin|gestor-teacher'])->group(function () {
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::post('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
 });
