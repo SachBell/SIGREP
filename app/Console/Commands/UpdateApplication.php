@@ -88,11 +88,11 @@ class UpdateApplication extends Command
         File::copyDirectory($source, base_path(), true);
         $this->info("Archivos actualizados ✅");
 
-        $configPath = config_path('app.php');
+        $configPath = config_path('version.php');
         $configContent = File::get($configPath);
 
         $updatedContent = preg_replace(
-            "/('version'\s*=>\s*)'[^']*'/",
+            "/('app'\s*=>\s*)'[^']*'/",
             "$1'{$newVersion}'",
             $configContent
         );
@@ -107,6 +107,14 @@ class UpdateApplication extends Command
         $this->info("Limpieza completada ✅");
 
         $this->info("¡Actualización finalizada!");
+
+        $this->info("Ejecutando migraciones y seeders...");
+        Artisan::call('migrate:refresh', ['--seed' => true]);
+        $this->info(Artisan::output());
+
+        $this->info("Limpiando cache y optimizaciones...");
+        Artisan::call('optimize:clear');
+        $this->info(Artisan::output());
         return 0;
     }
 }

@@ -73,7 +73,7 @@ class AppServiceProvider extends ServiceProvider
         ], function ($view) {
 
             $updateInfo = $this->checkForUpdates();
-            $currentVersion = config('app.version');
+            $currentVersion = config('version.app');
 
             $hasUpdate = $updateInfo['hasUpdate'];
             $latestVersion = $updateInfo['latestVersion'];
@@ -92,9 +92,9 @@ class AppServiceProvider extends ServiceProvider
 
     private function checkForUpdates()
     {
-
         return Cache::remember('latest_version_info', now()->addMinute(1), function () {
-            $currentVersion = config('app.version');
+
+            $currentVersion = config('version.app');
 
             try {
                 $response = Http::withToken(config('services.github.token'))
