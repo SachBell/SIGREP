@@ -85,7 +85,9 @@ class UpdateApplication extends Command
             throw new Exception("No se encontró la carpeta dentro del ZIP");
         }
 
-        File::copyDirectory($source, base_path(), true);
+        $source = realpath($source);
+
+        File::copyDirectory($source, base_path());
         $this->info("Archivos actualizados ✅");
 
         $configPath = config_path('version.php');
@@ -115,14 +117,5 @@ class UpdateApplication extends Command
         $this->info(Artisan::output());
 
         $this->info("¡Actualización finalizada!");
-
-        $this->info("Ejecutando migraciones y seeders...");
-        Artisan::call('migrate:refresh', ['--seed' => true]);
-        $this->info(Artisan::output());
-
-        $this->info("Limpiando cache y optimizaciones...");
-        Artisan::call('optimize:clear');
-        $this->info(Artisan::output());
-        return 0;
     }
 }
