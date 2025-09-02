@@ -19,7 +19,7 @@
                 <div class="inline-flex flex-col gap-2">
                     <a href="<?php echo e($changelogUrl); ?>" target="_blank" class="btn btn-sm">Ver
                         cambios</a>
-                    <a href="<?php echo e($changelogUrl); ?>"
+                    <a href="<?php echo e(route('app.update')); ?>"
                         class="btn btn-sm text-gray-100 bg-blue-600 hover:bg-blue-700 border-none">Actualizar</a>
                 </div>
             </div>
