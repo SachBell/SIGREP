@@ -1,5 +1,8 @@
 <div class="space-y-4">
-    @livewire('modals.users-modal')
+    <div>
+        @livewire('modals.users-modal')
+        @livewire('modals.file-modal')
+    </div>
     <div class="flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between" wire:ignore>
         <div class="dropdown relative inline-flex">
             <button id="dropdown-default" type="button" class="dropdown-toggle btn btn-outline btn-secondary font-normal"
@@ -21,17 +24,22 @@
                 @endforeach
             </ul>
         </div>
-        <div class="w-full max-w-lg relative flex justify-between md:justify-normal sm:w-auto sm:max-w-none gap-5">
+        <div
+            class="w-full max-w-lg relative flex flex-col sm:flex-row justify-between md:justify-normal sm:w-auto sm:max-w-none gap-2">
             <div class="relative">
                 <span
                     class="icon-[tabler--search] text-base-content absolute start-3 top-1/2 size-4 shrink-0 -translate-y-1/2"></span>
                 <input class="input ps-8 focus:border-blue-500" wire:model="search" type="text" role="combobox"
                     aria-expanded="false" placeholder="Buscar usuario" />
             </div>
-            <div class="relative">
-                <button onclick="Livewire.emit('openCreate')" class="btn btn-primary bg-blue-800 hover:bg-blue-900">
-                    <span class="icon-[tabler--apps] size-5"></span>
-                    {{ __('Nuevo Usuario') }}
+            <div class="relative inline-flex sm:flex-row gap-2">
+                <button onclick="Livewire.emit('openCreate')"
+                    class="btn btn-primary px-2 bg-blue-800 hover:bg-blue-900">
+                    <span class="icon-[tabler--user-plus] size-6"></span>
+                </button>
+                <button onclick="Livewire.emit('loadFile')"
+                    class="btn btn-primary px-2 bg-green-800 hover:bg-green-900 border-none">
+                    <span class="icon-[tabler--cloud-plus] size-6"></span>
                 </button>
             </div>
         </div>
