@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Modals;
 
+use App\Imports\ConvenantImport;
 use App\Imports\StudentsImport;
 use App\Imports\TeachersImport;
 use Illuminate\Database\QueryException;
@@ -33,7 +34,7 @@ class FileModal extends Component
         $this->validate([
             'file' => 'required|mimes:xlsx,csv|max:2048',
         ], [
-            'file.required' => 'Debes seleccionar un archivo.',
+            'file.required' => 'Debes seleccionar un archivo XLSX o CSV.',
             'file.mimes' => 'El archivo debe ser XLSX o CSV.',
             'file.max' => 'El archivo no puede exceder 2MB.'
         ]);
@@ -47,10 +48,36 @@ class FileModal extends Component
                 $inserted = $import->inserted;
                 $duplicates = $import->duplicates;
 
-                $this->dispatchBrowserEvent('notify', [
-                    'type' => 'success',
-                    'message' => "Estudiantes importados correctamente. | Total: $inserted | Duplicados: $duplicates"
-                ]);
+                if ($duplicates >= 1) {
+                    $this->dispatchBrowserEvent('notify', [
+                        'type' => 'warning',
+                        'message' => "Estudiantes importados correctamente y repetidos omitidos | Duplicados: $duplicates"
+                    ]);
+                } else {
+                    $this->dispatchBrowserEvent('notify', [
+                        'type' => 'success',
+                        'message' => "Estudiantes importados correctamente | Total: $inserted"
+                    ]);
+                }
+            } elseif ($this->type === 'convenant') {
+
+                $import = new ConvenantImport;
+                Excel::import($import, $this->file->getRealPath());
+
+                $inserted = $import->inserted;
+                $duplicates = $import->duplicates;
+
+                if ($duplicates >= 1) {
+                    $this->dispatchBrowserEvent('notify', [
+                        'type' => 'warning',
+                        'message' => "Convenios creados correctamente y repetidos omitidos | Duplicados: $duplicates"
+                    ]);
+                } else {
+                    $this->dispatchBrowserEvent('notify', [
+                        'type' => 'success',
+                        'message' => "Convenios creados correctamente | Total: $inserted"
+                    ]);
+                }
             } else {
 
                 $import = new TeachersImport;
@@ -59,10 +86,17 @@ class FileModal extends Component
                 $inserted = $import->inserted;
                 $duplicates = $import->duplicates;
 
-                $this->dispatchBrowserEvent('notify', [
-                    'type' => 'success',
-                    'message' => "Docentes importados correctamente. | Total: $inserted | Duplicados: $duplicates"
-                ]);
+                if ($duplicates >= 1) {
+                    $this->dispatchBrowserEvent('notify', [
+                        'type' => 'warning',
+                        'message' => "Docentes importados correctamente y repetidos omitidos | Duplicados: $duplicates"
+                    ]);
+                } else {
+                    $this->dispatchBrowserEvent('notify', [
+                        'type' => 'success',
+                        'message' => "Docentes importados correctamente | Total: $inserted"
+                    ]);
+                }
             }
 
             $this->closeModal();
@@ -97,7 +131,7 @@ class FileModal extends Component
         }
     }
 
-    public function openModal($type = 'Estudiantes')
+    public function openModal($type = 'student')
     {
         $this->type = $type;
         $this->isOpen = true;

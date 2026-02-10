@@ -1,61 +1,72 @@
 <div x-data="{ show: @entangle('isOpen') }" x-show="show" x-transition:enter="transition ease-out duration-200"
     x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100"
-    x-transition:leave-end="opacity-0 scale-90" class="fixed inset-0 z-50 flex justify-center items-center bg-black/50"
+    x-transition:leave-end="opacity-0 scale-90" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
     style="display: none;">
 
     <div class="container">
-        <div class="max-w-lg h-full mx-auto bg-white rounded-box p-6">
-            <h2 class="text-xl font-medium mb-5 text-gray-800">Insersión Masiva de Usuarios</h2>
+        <div class="h-full max-w-lg p-6 mx-auto bg-white rounded-box">
+            <h2 class="mb-5 text-xl font-medium text-gray-800">Insersión Masiva de Usuarios</h2>
 
-            <!-- Tabs FlyonUI -->
             <nav wire:ignore class="tab tabs-bordered" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
-                <button type="button" class="tab active-tab:tab-active active" id="tabs-basic-item-1"
-                    data-tab="#tabs-basic-1" aria-controls="tabs-basic-1" role="tab" aria-selected="true">
+                <button type="button"
+                    class="tab active-tab:tab-active {{ request()->routeIs('manage-users.index') ? 'active' : 'hidden' }}"
+                    id="tabs-basic-item-1" data-tab="#tabs-basic-1" aria-controls="tabs-basic-1"
+                    aria-selected="{{ request()->routeIs('manage-users.index') ? 'true' : 'false' }}">
                     <span class="icon-[tabler--users] size-5 mr-2"></span>
                     <span class="font-medium">Estudiantes</span>
                 </button>
-                <button type="button" class="tab active-tab:tab-active" id="tabs-basic-item-2" data-tab="#tabs-basic-2"
-                    aria-controls="tabs-basic-2" role="tab" aria-selected="false">
+                <button type="button"
+                    class="tab active-tab:tab-active {{ request()->routeIs('manage-users.index') ? '' : 'hidden' }}"
+                    id="tabs-basic-item-2" data-tab="#tabs-basic-2" aria-controls="tabs-basic-2"
+                    aria-selected="{{ request()->routeIs('manage-users.index') ? 'true' : 'false' }}">
                     <span class="icon-[tabler--school] size-5 mr-2"></span>
                     <span class="font-medium">Docentes</span>
+                </button>
+                <button type="button"
+                    class="tab active-tab:tab-active active {{ request()->routeIs('convenants.index') ? '' : 'hidden' }}"
+                    id="tabs-basic-item-3" data-tab="#tabs-basic-3" aria-controls="tabs-basic-3"
+                    aria-selected="{{ request()->routeIs('convenants.index') ? 'true' : 'false' }}">
+                    <span class="icon-[tabler--building] size-5 mr-2"></span>
+                    <span class="font-medium">Convenios</span>
                 </button>
             </nav>
 
             <div class="mt-4">
-                <!-- Tab estudiantes -->
-                <div id="tabs-basic-1" role="tabpanel" aria-labelledby="tabs-basic-item-1" wire:ignore.self>
+                <div id="tabs-basic-1" role="tabpanel" aria-labelledby="tabs-basic-item-1"
+                    class="{{ request()->routeIs('manage-users.index') ? '' : 'hidden' }}" wire:ignore.self>
                     <form wire:submit.prevent="save('student')" enctype="multipart/form-data">
                         @csrf
                         <div class="upload-container">
                             <div
-                                class="custom-upload bg-base-200/60 rounded-box flex flex-col justify-center border-2 border-dashed border-base-content/20">
-                                <div class="drop-area text-center cursor-pointer p-8 mt-5">
+                                class="flex flex-col justify-center border-2 border-dashed custom-upload bg-base-200/60 rounded-box border-base-content/20">
+                                <div class="p-8 mt-5 text-center cursor-pointer drop-area">
                                     <input type="file" wire:model="file" class="hidden file-input" />
-                                    <p class="text-base-content/50 mb-3 text-sm">Sube un archivo (máx 2MB).</p>
-                                    <span class="badge badge-soft badge-sm py-2 h-auto badge-primary text-nowrap">
+                                    <p class="mb-3 text-sm text-base-content/50">Sube un archivo (máx 2MB).</p>
+                                    <span class="h-auto py-2 badge badge-soft badge-sm badge-primary text-nowrap">
                                         <span class="icon-[tabler--file-upload] size-4 shrink-0"></span>
-                                        Arrastra o suelta aquí
+                                        Arrastra o suelta aquí el archivo XLSX o CSV
                                     </span>
-                                    <p class="text-base-content/50 my-2 text-xs">o</p>
-                                    <p class="link link-animated link-primary font-medium text-sm cursor-pointer">Buscar
+                                    <p class="my-2 text-xs text-base-content/50">o</p>
+                                    <p class="text-sm font-medium cursor-pointer link link-animated link-primary">
+                                        Buscar
                                         archivo</p>
-                                    <div class="preview-list mx-8 mb-6 space-y-2 empty:m-0" wire:ignore></div>
+                                    <div class="mx-8 mb-6 space-y-2 preview-list empty:m-0" wire:ignore></div>
                                 </div>
                             </div>
-                            <div class="upload-error-container mt-3">
+                            <div class="mt-3 upload-error-container">
                                 @error('file')
                                     <div class="alert alert-soft alert-error">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="w-full mt-4 inline-flex justify-end gap-4">
+                            <div class="inline-flex justify-end w-full gap-4 mt-4">
                                 <button type="button" wire:loading.attr="disabled" wire:click="closeModal"
                                     class="btn btn-sm">
                                     <span wire:loading.remove>Cancelar</span>
                                     <span wire:loading>Cancelar</span>
                                 </button>
                                 <button type="submit" wire:loading.attr="disabled"
-                                    class="btn btn-sm btn-primary bg-blue-700 hover:bg-blue-800">
+                                    class="bg-blue-700 btn btn-sm btn-primary hover:bg-blue-800">
                                     <span wire:loading.remove>Enviar</span>
                                     <span wire:loading>Procesando...</span>
                                 </button>
@@ -63,41 +74,81 @@
                         </div>
                     </form>
                 </div>
-
-                <!-- Tab docentes -->
-                <div id="tabs-basic-2" role="tabpanel" aria-labelledby="tabs-basic-item-2" class="hidden"
-                    wire:ignore.self>
+                <div id="tabs-basic-2" role="tabpanel" aria-labelledby="tabs-basic-item-2"
+                    class="{{ request()->routeIs('manage-users.index') ? 'hidden' : 'hidden' }}" wire:ignore.self>
                     <form wire:submit.prevent="save('teacher')" enctype="multipart/form-data">
                         @csrf
                         <div class="upload-container">
                             <div
-                                class="custom-upload bg-base-200/60 rounded-box flex flex-col justify-center border-2 border-dashed border-base-content/20">
-                                <div class="drop-area text-center cursor-pointer p-8 mt-5">
+                                class="flex flex-col justify-center border-2 border-dashed custom-upload bg-base-200/60 rounded-box border-base-content/20">
+                                <div class="p-8 mt-5 text-center cursor-pointer drop-area">
                                     <input type="file" wire:model="file" class="hidden file-input" />
-                                    <p class="text-base-content/50 mb-3 text-sm">Sube un archivo (máx 2MB).</p>
-                                    <span class="badge badge-soft badge-sm py-2 h-auto badge-primary text-nowrap">
+                                    <p class="mb-3 text-sm text-base-content/50">Sube un archivo (máx 2MB).</p>
+                                    <span class="h-auto py-2 badge badge-soft badge-sm badge-primary text-nowrap">
                                         <span class="icon-[tabler--file-upload] size-4 shrink-0"></span>
-                                        Arrastra o suelta aquí
+                                        Arrastra o suelta aquí el archivo XLSX o CSV
                                     </span>
-                                    <p class="text-base-content/50 my-2 text-xs">o</p>
-                                    <p class="link link-animated link-primary font-medium text-sm cursor-pointer">Buscar
+                                    <p class="my-2 text-xs text-base-content/50">o</p>
+                                    <p class="text-sm font-medium cursor-pointer link link-animated link-primary">
+                                        Buscar
                                         archivo</p>
-                                    <div class="preview-list mx-8 mb-6 space-y-2 empty:m-0" wire:ignore></div>
+                                    <div class="mx-8 mb-6 space-y-2 preview-list empty:m-0" wire:ignore></div>
                                 </div>
                             </div>
-                            <div class="upload-error-container mt-3">
+                            <div class="mt-3 upload-error-container">
                                 @error('file')
                                     <div class="alert alert-soft alert-error">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="w-full mt-4 inline-flex justify-end gap-4">
+                            <div class="inline-flex justify-end w-full gap-4 mt-4">
                                 <button type="button" wire:loading.attr="disabled" wire:click="closeModal"
                                     class="btn btn-sm">
                                     <span wire:loading.remove>Cancelar</span>
                                     <span wire:loading>Cancelar</span>
                                 </button>
                                 <button type="submit" wire:loading.attr="disabled"
-                                    class="btn btn-sm btn-primary bg-blue-700 hover:bg-blue-800">
+                                    class="bg-blue-700 btn btn-sm btn-primary hover:bg-blue-800">
+                                    <span wire:loading.remove>Enviar</span>
+                                    <span wire:loading>Procesando...</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="tabs-basic-3" role="tabpanel" aria-labelledby="tabs-basic-item-3"
+                    class="{{ request()->routeIs('convenants.index') ? '' : 'hidden' }}" wire:ignore.self>
+                    <form wire:submit.prevent="save('convenant')" enctype="multipart/form-data">
+                        @csrf
+                        <div class="upload-container">
+                            <div
+                                class="flex flex-col justify-center border-2 border-dashed custom-upload bg-base-200/60 rounded-box border-base-content/20">
+                                <div class="p-8 mt-5 text-center cursor-pointer drop-area">
+                                    <input type="file" wire:model="file" class="hidden file-input" />
+                                    <p class="mb-3 text-sm text-base-content/50">Sube un archivo (máx 2MB).</p>
+                                    <span class="h-auto py-2 badge badge-soft badge-sm badge-primary text-nowrap">
+                                        <span class="icon-[tabler--file-upload] size-4 shrink-0"></span>
+                                        Arrastra o suelta aquí el archivo XLSX o CSV
+                                    </span>
+                                    <p class="my-2 text-xs text-base-content/50">o</p>
+                                    <p class="text-sm font-medium cursor-pointer link link-animated link-primary">
+                                        Buscar
+                                        archivo</p>
+                                    <div class="mx-8 mb-6 space-y-2 preview-list empty:m-0" wire:ignore></div>
+                                </div>
+                            </div>
+                            <div class="mt-3 upload-error-container">
+                                @error('file')
+                                    <div class="alert alert-soft alert-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="inline-flex justify-end w-full gap-4 mt-4">
+                                <button type="button" wire:loading.attr="disabled" wire:click="closeModal"
+                                    class="btn btn-sm">
+                                    <span wire:loading.remove>Cancelar</span>
+                                    <span wire:loading>Cancelar</span>
+                                </button>
+                                <button type="submit" wire:loading.attr="disabled"
+                                    class="bg-blue-700 btn btn-sm btn-primary hover:bg-blue-800">
                                     <span wire:loading.remove>Enviar</span>
                                     <span wire:loading>Procesando...</span>
                                 </button>
@@ -110,15 +161,15 @@
 
         <!-- Template de preview -->
         <template id="preview-template">
-            <div class="rounded-box bg-base-100 shadow-lg p-3 flex flex-col gap-2 mt-5">
+            <div class="flex flex-col gap-2 p-3 mt-5 shadow-lg rounded-box bg-base-100">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 flex items-center justify-center border rounded-lg bg-base-200 text-sm">📄
+                        <div class="flex items-center justify-center w-8 h-8 text-sm border rounded-lg bg-base-200">📄
                         </div>
                         <div>
-                            <p class="text-sm font-medium truncate w-48 overflow-hidden" data-file-name></p>
+                            <p class="w-48 overflow-hidden text-sm font-medium truncate" data-file-name></p>
                             <p class="text-xs text-base-content/50" data-file-size></p>
-                            <p class="hidden text-error text-xs" data-file-error>Archivo demasiado grande.</p>
+                            <p class="hidden text-xs text-error" data-file-error>Archivo demasiado grande.</p>
                         </div>
                     </div>
                     <button type="button" class="btn btn-sm btn-circle btn-text" wire:loading.attr="disabled"
@@ -199,8 +250,15 @@
                 });
 
                 document.addEventListener('reset-tabs', () => {
-                    const btnStudents = document.querySelector('#tabs-basic-item-1');
-                    if (btnStudents) btnStudents.click();
+                    const path = window.location.pathname;
+
+                    if (path.includes('/manage-users')) {
+                        const btnStudents = document.querySelector('#tabs-basic-item-1');
+                        if (btnStudents) btnStudents.click();
+                    } else if (path.includes('/convenants')) {
+                        const btnConvenants = document.querySelector('#tabs-basic-item-3');
+                        if (btnConvenants) btnConvenants.click();
+                    }
                 });
             });
         </script>
