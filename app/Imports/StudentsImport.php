@@ -6,6 +6,10 @@ use App\Models\Career;
 use App\Models\Grade;
 use App\Models\Semester;
 use App\Models\User;
+<<<<<<< HEAD
+=======
+use App\Models\UserData;
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
 use App\Models\UserProfile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+<<<<<<< HEAD
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Events\BeforeImport;
 
@@ -75,6 +80,32 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
         'correo',
         'apellidos',
         'nombres',
+=======
+use Maatwebsite\Excel\Events\BeforeImport;
+
+class StudentsImport implements ToModel, WithHeadingRow, WithEvents
+{
+
+    public $inserted = 0;
+    public $duplicates = 0;
+
+    protected $existingEmails = [];
+    protected $existingIds = [];
+    protected $seenEmails = [];
+    protected $seenIds = [];
+
+    public function __construct()
+    {
+        $this->existingEmails = User::pluck('email')->map(fn($e) => strtolower(trim($e)))->toArray();
+        $this->existingIds = UserProfile::pluck('id_card')->map(fn($c) => trim($c))->toArray();
+    }
+
+    protected $requiredHeaders = [
+        'usuario',
+        'correo',
+        'nombres',
+        'apellidos',
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
         'cedula',
         'celular',
         'direccion_de_domicilio',
@@ -85,14 +116,18 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
         'jornada'
     ];
 
+<<<<<<< HEAD
     /**
      * Excel heading row index
      */
+=======
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
     public function headingRow(): int
     {
         return 1;
     }
 
+<<<<<<< HEAD
     /**
      * Register import lifecycle events
      */
@@ -139,6 +174,17 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
                 // Validate Excel headers strictly
                 $reader = $event->getReader();
                 $sheet = $reader->getActiveSheet();
+=======
+    public function registerEvents(): array
+    {
+        return [
+            BeforeImport::class => function (BeforeImport $event) {
+
+                $this->seenEmails = [];
+                $this->seenIds = [];
+
+                $sheet = $event->reader->getActiveSheet();
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
                 $highestColumn = $sheet->getHighestColumn();
                 $headerRow = $sheet->rangeToArray("A1:{$highestColumn}1", null, true, false)[0];
 
@@ -146,6 +192,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
                 $required = array_map(fn($h) => Str::slug($h, '_'), $this->requiredHeaders);
 
                 $missing = array_diff($required, $headings);
+<<<<<<< HEAD
                 $extra   = array_diff($headings, $required);
 
                 if ($missing || $extra) {
@@ -169,10 +216,26 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
                 $this->flushUsers();
                 DB::commit();
             }
+=======
+                $extra = array_diff($headings, $required);
+
+                if (!empty($missing) || !empty($extra)) {
+                    $message = '';
+                    if (!empty($missing)) {
+                        $message .= 'Faltan columnas obligatorias: ' . implode(', ', $missing) . '. ';
+                    }
+                    if (!empty($extra)) {
+                        $message .= 'Columnas no permitidas: ' . implode(', ', $extra) . '.';
+                    }
+                    throw new \Exception(trim($message));
+                }
+            },
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
         ];
     }
 
     /**
+<<<<<<< HEAD
      * Process a single Excel row.
      *
      * IMPORTANT:
@@ -220,14 +283,79 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
     }
 
     /** Public stats helpers */
+=======
+     * @param model $model
+     */
+    public function model(array $row)
+    {
+
+        $email = strtolower(trim($row['correo']));
+        $idCard = trim($row['cedula']);
+
+        if (
+            in_array($email, array_map('strtolower', $this->existingEmails)) ||
+            in_array($idCard, array_map('trim', $this->existingIds)) ||
+            in_array($email, $this->seenEmails) ||
+            in_array($idCard, $this->seenIds)
+        ) {
+            $this->duplicates++;
+            return null;
+        }
+
+        $this->seenEmails[] = $email;
+        $this->seenIds[] = $idCard;
+
+        return DB::transaction(function () use ($row, $email, $idCard) {
+            $user = User::create([
+                'name' => $row['usuario'],
+                'email' => $email,
+                'password' => Hash::make($row['usuario'] ?? 'Sucre' . now('Y')),
+            ]);
+
+            $user->assignRole('student');
+
+            $profile = UserProfile::create([
+                'users_id' => $user->id,
+                'name' => $row['nombres'],
+                'lastnames' => $row['apellidos'],
+                'phone_number' => $row['celular'],
+                'id_card' => $idCard,
+                'address' => $row['direccion_de_domicilio'],
+                'neighborhood' => $row['barrio'],
+            ]);
+
+            $career = Career::where('name', $row['carrera'])->first();
+            $semester = Semester::where('semester', $row['semestre'])->first();
+            $grade = Grade::where('grade', $row['paralelo'])->first();
+
+            UserData::create([
+                'profile_id' => $profile->id,
+                'career_id' => $career ? $career->id : null,
+                'semester_id' => $semester ? $semester->id : null,
+                'grade_id' => $grade ? $grade->id : null,
+                'daytrip' => $row['jornada'],
+            ]);
+
+
+            $this->inserted++;
+            return $user;
+        });
+    }
+
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
     public function getInsertedCount()
     {
         return $this->inserted;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
     public function getDuplicatesCount()
     {
         return $this->duplicates;
     }
+<<<<<<< HEAD
 
     /**
      * Flush buffered data to database in bulk.
@@ -315,4 +443,6 @@ class StudentsImport implements ToModel, WithHeadingRow, WithEvents
         $this->usersBuffer = [];
         $this->rowsBuffer  = [];
     }
+=======
+>>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
 }
