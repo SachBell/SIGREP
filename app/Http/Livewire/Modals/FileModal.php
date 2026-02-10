@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire\Modals;
 
-<<<<<<< HEAD
 use App\Imports\ConvenantImport;
-=======
->>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
 use App\Imports\StudentsImport;
 use App\Imports\TeachersImport;
 use Illuminate\Database\QueryException;
@@ -37,11 +34,7 @@ class FileModal extends Component
         $this->validate([
             'file' => 'required|mimes:xlsx,csv|max:2048',
         ], [
-<<<<<<< HEAD
             'file.required' => 'Debes seleccionar un archivo XLSX o CSV.',
-=======
-            'file.required' => 'Debes seleccionar un archivo.',
->>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
             'file.mimes' => 'El archivo debe ser XLSX o CSV.',
             'file.max' => 'El archivo no puede exceder 2MB.'
         ]);
@@ -55,7 +48,6 @@ class FileModal extends Component
                 $inserted = $import->inserted;
                 $duplicates = $import->duplicates;
 
-<<<<<<< HEAD
                 if ($duplicates >= 1) {
                     $this->dispatchBrowserEvent('notify', [
                         'type' => 'warning',
@@ -86,12 +78,6 @@ class FileModal extends Component
                         'message' => "Convenios creados correctamente | Total: $inserted"
                     ]);
                 }
-=======
-                $this->dispatchBrowserEvent('notify', [
-                    'type' => 'success',
-                    'message' => "Estudiantes importados correctamente. | Total: $inserted | Duplicados: $duplicates"
-                ]);
->>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
             } else {
 
                 $import = new TeachersImport;
@@ -100,7 +86,6 @@ class FileModal extends Component
                 $inserted = $import->inserted;
                 $duplicates = $import->duplicates;
 
-<<<<<<< HEAD
                 if ($duplicates >= 1) {
                     $this->dispatchBrowserEvent('notify', [
                         'type' => 'warning',
@@ -112,12 +97,6 @@ class FileModal extends Component
                         'message' => "Docentes importados correctamente | Total: $inserted"
                     ]);
                 }
-=======
-                $this->dispatchBrowserEvent('notify', [
-                    'type' => 'success',
-                    'message' => "Docentes importados correctamente. | Total: $inserted | Duplicados: $duplicates"
-                ]);
->>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
             }
 
             $this->closeModal();
@@ -152,11 +131,7 @@ class FileModal extends Component
         }
     }
 
-<<<<<<< HEAD
     public function openModal($type = 'student')
-=======
-    public function openModal($type = 'Estudiantes')
->>>>>>> 9e5d704e057e3d033f377ff567fc7a188a2e3b5f
     {
         $this->type = $type;
         $this->isOpen = true;
